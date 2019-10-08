@@ -6,19 +6,20 @@ import 'locale_redux.dart';
  */
 
 ///global redux store
-class OnesAppState {
-  ///语言
+class OnesGlobalState {
+  Locale platformLocale;
+
   Locale locale;
 
-  OnesAppState({this.locale});
+  OnesGlobalState({this.locale});
 }
 
 //create Reducer
 
-OnesAppState createOnesAppReducer(OnesAppState onesState, action) {
-  return OnesAppState(locale: LocaleReducer(onesState.locale, action));
+OnesGlobalState createOnesAppReducer(OnesGlobalState onesState, action) {
+  return OnesGlobalState(locale: LocaleReducer(onesState.locale, action));
 }
 
 //reducer Middleware
 
-final List<Middleware<OnesAppState>> onesMiddlewares = [];
+final List<Middleware<OnesGlobalState>> onesMiddlewares = [];
