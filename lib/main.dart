@@ -51,7 +51,6 @@ class OnesAppState extends State<OnesApp> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print( onesStore.state.platformLocale );
     setLocalizedValues(localizedValues);
   }
 

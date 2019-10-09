@@ -7,7 +7,6 @@ import 'package:ones_ai_flutter/resources/index.dart';
 
 class AppDao {
   static Future<dynamic> initApp(Store store) async {
-    print(store.state.platformLocale);
     ///切换语言
     String localInfo = await LocalStorage.get(Config.LOCALE);
     Locale newlocal = null;
@@ -15,7 +14,6 @@ class AppDao {
       newlocal = new Locale(localInfo.split("-")[0], localInfo.split("-")[1]);
     }
     CommonUtils.changeLocale(store, newlocal);
-    print(store.state.platformLocale);
 
     ThemeData newThemeData = ThemeData.light().copyWith(
       primaryColor: Colors.blueAccent,
@@ -32,7 +30,6 @@ class AppDao {
       );
     }
     CommonUtils.changeTheme(store, newThemeData);
-    print(store.state.platformLocale);
     return Future.value();
   }
 }
