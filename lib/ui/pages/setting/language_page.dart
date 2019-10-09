@@ -29,7 +29,6 @@ class _LanguageSelectPageState extends State<LanguageSelectPage> {
     _Languagelist.add(LanguageModel(Strings.languageTW, 'zh', 'TW'));
     _Languagelist.add(LanguageModel(Strings.languageHK, 'zh', 'HK'));
     _Languagelist.add(LanguageModel(Strings.languageEN, 'en', 'US'));
-
   }
 
   @override
@@ -40,12 +39,13 @@ class _LanguageSelectPageState extends State<LanguageSelectPage> {
 //    store.state.platformLocale = WidgetsBinding.instance.window.locale;
 //    print(store.state.platformLocale);
   }
+
   void _changeLauguage(
       LanguageModel languageModel, Store<OnesGlobalState> store) {
     setState(() {});
     if (languageModel.titleId == Strings.languageAuto) {
-//      CommonUtils.changeLocale(store, store.state.platformLocale);
-//      LocalStorage.put(Config.LOCALE, null);
+      CommonUtils.changeLocale(store, store.state.platformLocale);
+      LocalStorage.put(Config.LOCALE, null);
     } else {
       CommonUtils.changeLocale(
           store, Locale(languageModel.languageCode, languageModel.countryCode));
@@ -76,6 +76,9 @@ class _LanguageSelectPageState extends State<LanguageSelectPage> {
                       languageModel.countryCode &&
                   store.state.locale.languageCode ==
                       languageModel.languageCode);
+              if(languageModel.titleId==Strings.languageAuto){
+                isSelected=store.state.platformLocale==store.state.locale;
+              }
               return ListTile(
                 title: Text(
                   title,

@@ -42,7 +42,6 @@ class _WelcomePageState extends State<WelcomePage> {
     new Future.delayed(const Duration(seconds: 2, milliseconds: 500), () {
       AppDao.initApp(store).then((Void) {
         NavigatorUtils.pushReplacementNamed(context, HomePage.pageName);
-        store.state.platformLocale = WidgetsBinding.instance.window.locale;
         return true;
       });
     });

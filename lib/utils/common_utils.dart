@@ -6,6 +6,7 @@ import 'package:ones_ai_flutter/common/redux/global/ones_state.dart';
 import 'package:ones_ai_flutter/common/redux/global/locale_redux.dart';
 import 'package:ones_ai_flutter/common/redux/global/theme_redux.dart';
 
+
 class CommonUtils {
   static Locale curLocale;
 

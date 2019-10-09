@@ -23,7 +23,7 @@ class OnesGlobalState {
 OnesGlobalState createOnesAppReducer(OnesGlobalState onesState, action) {
   return OnesGlobalState(
       locale: LocaleReducer(onesState.locale, action),
-      themeData: ThemeDataReducer(onesState.themeData, action));
+      themeData: ThemeDataReducer(onesState.themeData, action),platformLocale:onesState.platformLocale );
 }
 
 //reducer Middleware
