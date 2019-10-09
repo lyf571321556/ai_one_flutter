@@ -44,8 +44,8 @@ class _LanguageSelectPageState extends State<LanguageSelectPage> {
       LanguageModel languageModel, Store<OnesGlobalState> store) {
     setState(() {});
     if (languageModel.titleId == Strings.languageAuto) {
-      CommonUtils.changeLocale(store, store.state.platformLocale);
-      LocalStorage.put(Config.LOCALE, null);
+      CommonUtils.changeLocale(store, null);
+      LocalStorage.put(Config.LOCALE, "");
     } else {
       CommonUtils.changeLocale(
           store, Locale(languageModel.languageCode, languageModel.countryCode));
@@ -76,6 +76,8 @@ class _LanguageSelectPageState extends State<LanguageSelectPage> {
                       languageModel.countryCode &&
                   store.state.locale.languageCode ==
                       languageModel.languageCode);
+              print("5-"+store.state.platformLocale.toString());
+              print("6-"+store.state.locale.toString());
               if(languageModel.titleId==Strings.languageAuto){
                 isSelected=store.state.platformLocale==store.state.locale;
               }

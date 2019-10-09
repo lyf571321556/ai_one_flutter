@@ -7,6 +7,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ones_ai_flutter/resources/index.dart';
 import 'package:ones_ai_flutter/utils/navigator_utils.dart';
 import 'package:ones_ai_flutter/ui/pages/home_page.dart';
+
 class WelcomePage extends StatefulWidget {
   WelcomePage({Key key, this.title}) : super(key: key);
 
@@ -38,13 +39,13 @@ class _WelcomePageState extends State<WelcomePage> {
     hadInit = true;
 
     ///防止多次初始化
-    Store<OnesGlobalState> store = StoreProvider.of(context);
-    new Future.delayed(const Duration(seconds: 2, milliseconds: 500), () {
-      AppDao.initApp(store).then((Void) {
-        NavigatorUtils.pushReplacementNamed(context, HomePage.pageName);
-        return true;
-      });
-    });
+////    Store<OnesGlobalState> store = StoreProvider.of(context);
+//    new Future.delayed(const Duration(seconds: 2, milliseconds: 500), () {
+//      AppDao.initApp(store).then((Void) {
+//        NavigatorUtils.pushReplacementNamed(context, HomePage.pageName);
+//        return true;
+//      });
+//    });
   }
 
   @override
@@ -58,15 +59,19 @@ class _WelcomePageState extends State<WelcomePage> {
     return StoreBuilder<OnesGlobalState>(builder: (context, store) {
       return Material(
         child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          constraints: BoxConstraints.expand(),
-          color: Colors.white,
-          child: Center(
-            child: Text(IntlUtil.getString(context, Strings.jumpCount,
-                params: [0, "111"])),
-          ),
-        ),
+            width: double.infinity,
+            height: double.infinity,
+            constraints: BoxConstraints.expand(),
+            color: Colors.white,
+            child: InkWell(
+              child: Center(
+                child: Text(IntlUtil.getString(context, Strings.jumpCount,
+                    params: [0, "111"])),
+              ),
+              onTap: () {
+                NavigatorUtils.pushReplacementNamed(context, HomePage.pageName);
+              },
+            )),
       );
     });
   }

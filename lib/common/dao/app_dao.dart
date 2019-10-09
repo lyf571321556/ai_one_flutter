@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:ones_ai_flutter/common/config/app_config.dart';
+import 'package:ones_ai_flutter/common/redux/global/ones_state.dart';
 import 'package:redux/redux.dart';
 import 'package:ones_ai_flutter/common/storage/local_storage.dart';
 import 'package:ones_ai_flutter/utils/common_utils.dart';
 import 'package:ones_ai_flutter/resources/index.dart';
 
 class AppDao {
-  static Future<dynamic> initApp(Store store) async {
+  static Future<Store<OnesGlobalState>> initApp(Store<OnesGlobalState> store) async {
+    print("1-"+store.state.locale.toString());
+    print("2"+store.state.platformLocale.toString());
     ///切换语言
     String localInfo = await LocalStorage.get(Config.LOCALE);
     Locale newlocal = null;
@@ -30,6 +33,8 @@ class AppDao {
       );
     }
     CommonUtils.changeTheme(store, newThemeData);
-    return Future.value();
+    print("3"+store.state.locale.toString());
+    print("4"+store.state.platformLocale.toString());
+    return Future.value(store);
   }
 }

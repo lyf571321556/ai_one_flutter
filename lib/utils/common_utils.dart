@@ -11,7 +11,7 @@ class CommonUtils {
   static Locale curLocale;
 
   static changeLocale(Store<OnesGlobalState> store, Locale newlocale) {
-    Locale locale = store.state.platformLocale;
+    Locale locale =null;// store.state.platformLocale;
     if (newlocale != null) {
       locale = newlocale;
     }
