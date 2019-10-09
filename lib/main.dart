@@ -97,22 +97,27 @@ class OnesAppState extends State<OnesApp> {
                   ],
                   localeListResolutionCallback: (List<Locale> locales,
                       Iterable<Locale> supportedLocales) {
+                    print(store.state.locale);
                     if (locales.length <= 0 || store.state.locale != null) {
                       return;
                     }
+                    print("=====");
                     if (localizedValues.containsKey(locales[0].languageCode)) {
-                      if (locales[0].languageCode !=
-                              store.state.locale.languageCode ||
+                      if (store.state.platformLocale == null ||
+                          locales[0].languageCode !=
+                              store.state.platformLocale.languageCode ||
                           locales[0].countryCode !=
-                              store.state.locale.countryCode) {
+                              store.state.platformLocale.countryCode) {
                         store.state.platformLocale = locales[0];
-                        store.dispatch(ChangeLocaleAction(locales[0]));
+//                        store.dispatch(ChangeLocaleAction(locales[0]));
+                        store.dispatch(ChangePlatformLocaleAction(locales[0]));
                         print("0" + locales[0].toString());
                       }
                     } else {
                       print("00-" + supportedLocales.first.toString());
-                      store
-                          .dispatch(ChangeLocaleAction(supportedLocales.first));
+//                      store.dispatch(ChangeLocaleAction(supportedLocales.first));
+                      store.dispatch(
+                          ChangePlatformLocaleAction(supportedLocales.first));
                     }
                   },
                   theme: store.state.themeData,

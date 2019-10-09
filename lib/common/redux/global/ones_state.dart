@@ -15,7 +15,7 @@ class OnesGlobalState {
 
   ThemeData themeData;
 
-  OnesGlobalState({this.locale, this.themeData,this.platformLocale});
+  OnesGlobalState({this.locale, this.themeData, this.platformLocale});
 }
 
 //create Reducer
@@ -23,7 +23,8 @@ class OnesGlobalState {
 OnesGlobalState createOnesAppReducer(OnesGlobalState onesState, action) {
   return OnesGlobalState(
       locale: LocaleReducer(onesState.locale, action),
-      themeData: ThemeDataReducer(onesState.themeData, action),platformLocale:onesState.platformLocale );
+      themeData: ThemeDataReducer(onesState.themeData, action),
+      platformLocale: PlatformLocaleReducer(onesState.platformLocale, action));
 }
 
 //reducer Middleware

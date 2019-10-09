@@ -72,14 +72,14 @@ class _LanguageSelectPageState extends State<LanguageSelectPage> {
                   ? IntlUtil.getString(context, languageModel.titleId)
                   : IntlUtil.getString(context, languageModel.titleId,
                       languageCode: 'zh', countryCode: 'CH');
-              bool isSelected = (store.state.locale.countryCode ==
-                      languageModel.countryCode &&
+              bool isSelected = (store.state.locale != null &&
+                  store.state.locale.countryCode == languageModel.countryCode &&
                   store.state.locale.languageCode ==
                       languageModel.languageCode);
-              print("5-"+store.state.platformLocale.toString());
-              print("6-"+store.state.locale.toString());
-              if(languageModel.titleId==Strings.languageAuto){
-                isSelected=store.state.platformLocale==store.state.locale;
+              print("5-" + store.state.platformLocale.toString());
+              print("6-" + store.state.locale.toString());
+              if (languageModel.titleId == Strings.languageAuto) {
+                isSelected = store.state.locale == null;
               }
               return ListTile(
                 title: Text(

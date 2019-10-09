@@ -15,3 +15,19 @@ class ChangeLocaleAction {
 
   ChangeLocaleAction(this.locale);
 }
+
+
+final PlatformLocaleReducer = combineReducers<Locale>([
+  TypedReducer<Locale, ChangePlatformLocaleAction>(_changePlatformLocale),
+]);
+
+Locale _changePlatformLocale(Locale locale, ChangePlatformLocaleAction action) {
+  locale = action.locale;
+  return locale;
+}
+
+class ChangePlatformLocaleAction {
+  final Locale locale;
+
+  ChangePlatformLocaleAction(this.locale);
+}
