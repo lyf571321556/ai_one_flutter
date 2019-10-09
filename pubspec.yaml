@@ -32,7 +32,8 @@ dependencies:
     git:
       url: git://github.com/flutterchina/auto_size.git
   shared_preferences: ^0.5.3+2
-
+  fluttertoast: ^3.1.0
+  flustars: ^0.2.5+1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -49,7 +50,8 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/images/ic_launcher_news.png
+    - assets/images/welcome.png
+    - assets/images/default_avatar.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
