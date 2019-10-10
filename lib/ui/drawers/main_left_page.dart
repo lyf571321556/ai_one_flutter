@@ -107,30 +107,30 @@ class _MainLeftMenuPageState extends State<MainLeftMenuPage> {
                   alignment: Alignment.topRight,
                   child: new IconButton(
                       iconSize: 18.0,
-                      icon: new Icon(Icons.edit, color: Colors.white),
+                      icon: new Icon(Icons.edit, color: Colors.white.withAlpha(0)),
                       onPressed: () {}),
                 )
               ],
             ),
           ),
-          new Container(
-            height: 50.0,
-            child: new Material(
-              color: Colors.grey[200],
-              child: new InkWell(
-                onTap: () {
-
-                },
-                child: new Center(
-                  child: new Text(
-                    "divider",
-                    style: new TextStyle(
-                        color: Theme.of(context).primaryColor, fontSize: 16.0),
-                  ),
-                ),
-              ),
-            ),
-          ),
+//          new Container(
+//            height: 50.0,
+//            child: new Material(
+//              color: Colors.grey[200],
+//              child: new InkWell(
+//                onTap: () {
+//
+//                },
+//                child: new Center(
+//                  child: new Text(
+//                    "divider",
+//                    style: new TextStyle(
+//                        color: Theme.of(context).primaryColor, fontSize: 16.0),
+//                  ),
+//                ),
+//              ),
+//            ),
+//          ),
           new Expanded(
             child: new ListView.builder(
                 padding: const EdgeInsets.all(0.0),

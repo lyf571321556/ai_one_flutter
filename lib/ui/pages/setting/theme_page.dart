@@ -44,7 +44,7 @@ class _ThemeSelectPageState extends State<ThemeSelectPage> {
             alignment: Alignment.topCenter,
             child: GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3, childAspectRatio: 1.0),
+                  crossAxisCount: 3, childAspectRatio: 1.0,crossAxisSpacing: 0),
               itemCount: list.length,
               itemBuilder: (context, index) {
                 return _buildItem(context, index, store);
@@ -90,7 +90,7 @@ class _ThemeSelectPageState extends State<ThemeSelectPage> {
                 style: TextStyle(
                     color: Colors.white, letterSpacing: 1, wordSpacing: 1),
               ),
-              constraints: BoxConstraints(maxHeight: 100, maxWidth: 100),
+              constraints: BoxConstraints(maxHeight: 80, maxWidth: 80),
               decoration: BoxDecoration(
                   color: color,
                   shape: BoxShape.rectangle,
