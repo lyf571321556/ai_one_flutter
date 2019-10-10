@@ -51,6 +51,7 @@ class OnesAppState extends State<OnesApp> {
       middleware: onesMiddlewares,
       initialState: new OnesGlobalState(
           locale: null,
+          user: null,
           themeData: ThemeData.light().copyWith(
             primaryColor: Colors.blueAccent,
             accentColor: Colors.blueAccent,
