@@ -3,6 +3,9 @@ class Strings {
   static const String jumpCount = 'jump_count';
   static const String exitApp = 'exit_app';
   static const String titleLanguage = 'title_language';
+  static const String changeLanguage = 'change_language';
+  static const String titleTheme = 'title_theme';
+  static const String changeTheme = 'change_theme';
   static const String titleSetting = 'title_setting';
 
   static const String languageAuto = 'language_auto';
@@ -34,7 +37,10 @@ Map<String, Map<String, Map<String, String>>> localizedValues = {
       Strings.jumpCount: '跳过 %\$0\$s',
       Strings.exitApp: '再点一次退出应用!',
       Strings.titleSetting: '设置',
-      Strings.titleLanguage: '切换语言',
+      Strings.titleLanguage: '语言',
+      Strings.changeLanguage: "切换语言",
+      Strings.titleTheme: '主题',
+      Strings.changeTheme: "切换主题",
       Strings.languageAuto: '跟随系统',
       Strings.languageZH: '简体中文',
       Strings.languageTW: '繁體中文（台灣）',
@@ -46,7 +52,10 @@ Map<String, Map<String, Map<String, String>>> localizedValues = {
       Strings.jumpCount: '跳過 %\$0\$s',
       Strings.exitApp: '再点一次退出应用!',
       Strings.titleSetting: '设置',
-      Strings.titleLanguage: '切換語言',
+      Strings.titleLanguage: '語言',
+      Strings.changeLanguage: "切換語言",
+      Strings.titleTheme: '主題',
+      Strings.changeTheme: "切换主題",
       Strings.languageAuto: '跟隨系統',
       Strings.languageZH: '简体中文',
       Strings.languageTW: '繁體中文（台灣）',
@@ -58,7 +67,10 @@ Map<String, Map<String, Map<String, String>>> localizedValues = {
       Strings.jumpCount: '跳過 %\$0\$s',
       Strings.exitApp: '再点一次退出应用!',
       Strings.titleSetting: '设置',
-      Strings.titleLanguage: '切換語言',
+      Strings.titleLanguage: '語言',
+      Strings.changeLanguage: "切換語言",
+      Strings.titleTheme: '主題',
+      Strings.changeTheme: "切换主題",
       Strings.languageAuto: '跟隨系統',
       Strings.languageZH: '简体中文',
       Strings.languageTW: '繁體中文（台灣）',
@@ -73,6 +85,9 @@ Map<String, Map<String, Map<String, String>>> localizedValues = {
       Strings.exitApp: '再点一次退出应用!',
       Strings.titleSetting: '设置',
       Strings.titleLanguage: 'Language',
+      Strings.changeLanguage: "Switch Language",
+      Strings.titleTheme: 'Theme',
+      Strings.changeTheme: "Switch Theme",
       Strings.languageAuto: 'Auto',
     }
   }

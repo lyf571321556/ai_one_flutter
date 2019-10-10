@@ -7,9 +7,8 @@ import 'package:ones_ai_flutter/utils/common_utils.dart';
 import 'package:ones_ai_flutter/resources/index.dart';
 
 class AppDao {
-  static Future<Store<OnesGlobalState>> initApp(Store<OnesGlobalState> store) async {
-    print("1-"+store.state.locale.toString());
-    print("2"+store.state.platformLocale.toString());
+  static Future<Store<OnesGlobalState>> initApp(
+      Store<OnesGlobalState> store) async {
     ///切换语言
     String localInfo = await LocalStorage.get(Config.LOCALE);
     Locale newlocal = null;
@@ -33,8 +32,6 @@ class AppDao {
       );
     }
     CommonUtils.changeTheme(store, newThemeData);
-    print("3"+store.state.locale.toString());
-    print("4"+store.state.platformLocale.toString());
     return Future.value(store);
   }
 }

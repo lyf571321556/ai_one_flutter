@@ -2,6 +2,7 @@ import 'package:fluintl/fluintl.dart';
 import 'package:flutter/material.dart';
 import 'package:ones_ai_flutter/resources/index.dart';
 import 'package:ones_ai_flutter/ui/pages/setting/language_page.dart';
+import 'package:ones_ai_flutter/ui/pages/setting/theme_page.dart';
 import 'package:ones_ai_flutter/utils/utils_index.dart';
 
 class MainLeftMenuPage extends StatefulWidget {
@@ -38,7 +39,7 @@ class _MainLeftMenuPageState extends State<MainLeftMenuPage> {
         ),
         )); */
         _pageInfo.add(PageInfo(Strings.titleLanguage, Icons.language, LanguageSelectPage()));
-
+        _pageInfo.add(PageInfo(Strings.titleTheme, Icons.color_lens, ThemeSelectPage()));
   }
 
   @override
@@ -138,6 +139,7 @@ class _MainLeftMenuPageState extends State<MainLeftMenuPage> {
                   PageInfo pageInfo = _pageInfo[index];
                   return new ListTile(
                     leading: new Icon(pageInfo.iconData),
+                    trailing: Icon(Icons.keyboard_arrow_right),
                     title: Text(IntlUtil.getString(context, pageInfo.titleId)),
                     onTap: () {
                       NavigatorUtils.pushPage(context, pageInfo.page);

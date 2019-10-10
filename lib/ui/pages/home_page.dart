@@ -12,10 +12,13 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return DefaultTabController(
-      length: _allPages.length,
+    return Container(
+      decoration:BoxDecoration() ,
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        resizeToAvoidBottomPadding: true,
         appBar: MyAppBar(
+          elevation: 1,
           leading: new Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
@@ -26,21 +29,21 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-//        title: Container(
-//          constraints: BoxConstraints.expand(),
-//          margin:
-//              EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.07),
-//          padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.07),
-//        ),
-          title: TabLayout(),
+          title: Container(
+            constraints: BoxConstraints.expand(),
+            margin:
+            EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.07),
+            padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.07),
+          ),
+//          title: TabLayout(),
 
           centerTitle: true,
           actions: <Widget>[
             new IconButton(icon: new Icon(Icons.search), onPressed: () {})
           ],
         ),
-//      body: HomePageContent(),
-        body: new TabBarViewLayout(),
+      body: HomePageContent(),
+//        body: new TabBarViewLayout(),
         drawer: new Drawer(
           child: MainLeftMenuPage(),
         ),

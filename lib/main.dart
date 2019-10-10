@@ -84,6 +84,7 @@ class OnesAppState extends State<OnesApp> {
               store: snapshot.data,
               child: StoreBuilder<OnesGlobalState>(builder: (context, store) {
                 return MaterialApp(
+                  debugShowCheckedModeBanner:false,
                   title: 'Ones App',
                   onGenerateTitle: (BuildContext context) {
                     return IntlUtil.getString(context, Strings.titleHome);

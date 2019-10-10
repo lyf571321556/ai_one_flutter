@@ -62,7 +62,7 @@ class _LanguageSelectPageState extends State<LanguageSelectPage> {
         return Scaffold(
           appBar: new AppBar(
               title: new Text(
-            IntlUtil.getString(context, Strings.titleLanguage),
+            IntlUtil.getString(context, Strings.changeLanguage),
             style: new TextStyle(fontSize: 16.0),
           )),
           body: ListView.builder(
@@ -76,8 +76,6 @@ class _LanguageSelectPageState extends State<LanguageSelectPage> {
                   store.state.locale.countryCode == languageModel.countryCode &&
                   store.state.locale.languageCode ==
                       languageModel.languageCode);
-              print("5-" + store.state.platformLocale.toString());
-              print("6-" + store.state.locale.toString());
               if (languageModel.titleId == Strings.languageAuto) {
                 isSelected = store.state.locale == null;
               }
