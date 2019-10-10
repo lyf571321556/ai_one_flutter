@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluintl/fluintl.dart';
@@ -13,7 +14,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ones_ai_flutter/ui/pages/welcome_page.dart';
 import 'package:ones_ai_flutter/ui/pages/home_page.dart';
 import 'package:ones_ai_flutter/utils/navigator_utils.dart';
-
+import 'package:flutter/services.dart';
 import 'common/redux/global/locale_redux.dart';
 
 void main() {
@@ -23,6 +24,12 @@ void main() {
       return Container(color: Colors.transparent);
     };
     runAutoSizeApp(OnesApp());
+    if (Platform.isAndroid) {
+      SystemUiOverlayStyle systemUiOverlayStyle =
+          SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+      SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+    }
+
 //    runApp(OnesApp());
     PaintingBinding.instance.imageCache.maximumSize = 100;
   }, onError: (object, stack) {
@@ -84,7 +91,7 @@ class OnesAppState extends State<OnesApp> {
               store: snapshot.data,
               child: StoreBuilder<OnesGlobalState>(builder: (context, store) {
                 return MaterialApp(
-                  debugShowCheckedModeBanner:false,
+                  debugShowCheckedModeBanner: false,
                   title: 'Ones App',
                   onGenerateTitle: (BuildContext context) {
                     return IntlUtil.getString(context, Strings.titleHome);

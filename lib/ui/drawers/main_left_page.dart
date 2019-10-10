@@ -38,8 +38,10 @@ class _MainLeftMenuPageState extends State<MainLeftMenuPage> {
         labelId: Strings.titleHome,
         ),
         )); */
-        _pageInfo.add(PageInfo(Strings.titleLanguage, Icons.language, LanguageSelectPage()));
-        _pageInfo.add(PageInfo(Strings.titleTheme, Icons.color_lens, ThemeSelectPage()));
+    _pageInfo.add(
+        PageInfo(Strings.titleLanguage, Icons.language, LanguageSelectPage()));
+    _pageInfo
+        .add(PageInfo(Strings.titleTheme, Icons.color_lens, ThemeSelectPage()));
   }
 
   @override
@@ -61,8 +63,7 @@ class _MainLeftMenuPageState extends State<MainLeftMenuPage> {
     }
     */
 
-    return new Scaffold(
-      body: new Column(
+    return  new Column(
         children: <Widget>[
           new Container(
             height: 166.0,
@@ -107,7 +108,8 @@ class _MainLeftMenuPageState extends State<MainLeftMenuPage> {
                   alignment: Alignment.topRight,
                   child: new IconButton(
                       iconSize: 18.0,
-                      icon: new Icon(Icons.edit, color: Colors.white.withAlpha(0)),
+                      icon: new Icon(Icons.edit,
+                          color: Colors.white.withAlpha(0)),
                       onPressed: () {}),
                 )
               ],
@@ -149,7 +151,6 @@ class _MainLeftMenuPageState extends State<MainLeftMenuPage> {
             flex: 1,
           )
         ],
-      ),
     );
   }
 }
