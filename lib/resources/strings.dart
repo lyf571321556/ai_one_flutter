@@ -7,6 +7,7 @@ class Strings {
   static const String titleTheme = 'title_theme';
   static const String changeTheme = 'change_theme';
   static const String titleSetting = 'title_setting';
+  static const String titleLogin= 'title_login';
 
   static const String languageAuto = 'language_auto';
   static const String languageZH = 'language_zh';
@@ -46,6 +47,7 @@ Map<String, Map<String, Map<String, String>>> localizedValues = {
       Strings.languageTW: '繁體中文（台灣）',
       Strings.languageHK: '繁體中文（香港）',
       Strings.languageEN: 'English',
+      Strings.titleLogin: '登录',
     },
     "TW": {
       Strings.titleHome: '主頁',
@@ -61,6 +63,7 @@ Map<String, Map<String, Map<String, String>>> localizedValues = {
       Strings.languageTW: '繁體中文（台灣）',
       Strings.languageHK: '繁體中文（香港）',
       Strings.languageEN: 'English',
+      Strings.titleLogin: '登 錄',
     },
     "HK": {
       Strings.titleHome: '主頁',
@@ -76,6 +79,7 @@ Map<String, Map<String, Map<String, String>>> localizedValues = {
       Strings.languageTW: '繁體中文（台灣）',
       Strings.languageHK: '繁體中文（香港）',
       Strings.languageEN: 'English',
+      Strings.titleLogin: '登 錄',
     }
   },
   'en': {
@@ -89,6 +93,7 @@ Map<String, Map<String, Map<String, String>>> localizedValues = {
       Strings.titleTheme: 'Theme',
       Strings.changeTheme: "Switch Theme",
       Strings.languageAuto: 'Auto',
+      Strings.titleLogin: 'Login',
     }
   }
 };

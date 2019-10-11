@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-      decoration:BoxDecoration() ,
+      decoration: BoxDecoration(),
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         resizeToAvoidBottomPadding: true,
@@ -32,7 +32,7 @@ class HomePage extends StatelessWidget {
           title: Container(
             constraints: BoxConstraints.expand(),
             margin:
-            EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.07),
+                EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.07),
             padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.07),
           ),
 //          title: TabLayout(),
@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
 //            new IconButton(icon: new Icon(Icons.search), onPressed: () {})
           ],
         ),
-      body: HomePageContent(),
+        body: HomePageContent(),
 //        body: new TabBarViewLayout(),
         drawer: new Drawer(
           child: MainLeftMenuPage(),
@@ -68,6 +68,10 @@ class _HomePageContentState extends State<HomePageContent> {
     // TODO: implement build
     return WillPopScope(
       onWillPop: () async {
+        if (Scaffold.of(context).isDrawerOpen) {
+          Scaffold.of(context).openEndDrawer();
+          return false;
+        }
         if (_lastPressedAt == null ||
             DateTime.now().difference(_lastPressedAt) > Duration(seconds: 1)) {
           _lastPressedAt = DateTime.now();
