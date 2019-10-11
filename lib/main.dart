@@ -11,12 +11,15 @@ import 'package:ones_ai_flutter/common/redux/global/ones_state.dart';
 import 'package:ones_ai_flutter/widget/locale/localization_widget.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:ones_ai_flutter/ui/pages/welcome_page.dart';
-import 'package:ones_ai_flutter/ui/pages/home_page.dart';
+
 import 'package:ones_ai_flutter/utils/navigator_utils.dart';
 import 'package:flutter/services.dart';
 import 'common/Routes/page_route.dart';
 import 'common/redux/global/locale_redux.dart';
+
+import 'package:ones_ai_flutter/ui/pages/welcome_page.dart';
+import 'package:ones_ai_flutter/ui/pages/home_page.dart';
+import 'package:ones_ai_flutter/ui/pages/login_page.dart';
 
 void main() {
   runZoned(() {
@@ -52,8 +55,6 @@ class OnesAppState extends State<OnesApp> {
   final Store onesStore = new Store<OnesGlobalState>(createOnesAppReducer,
       middleware: onesMiddlewares,
       initialState: new OnesGlobalState(
-          locale: null,
-          user: null,
           themeData: ThemeData.light().copyWith(
             primaryColor: Colors.blueAccent,
             accentColor: Colors.blueAccent,
@@ -140,7 +141,7 @@ class OnesAppState extends State<OnesApp> {
 //                      );
 //                    }
 //                  },
-                  home: WelcomePage(title: 'Flutter Demo Home Page'),
+                  home: _getHomePage(store.state.user!=null),
                 );
               }));
         } else {
@@ -149,5 +150,9 @@ class OnesAppState extends State<OnesApp> {
       },
       future: AppDao.initApp(onesStore),
     );
+  }
+
+  Widget _getHomePage(bool isLogin) {
+    return isLogin ? HomePage() : WelcomePage(title: 'Flutter Demo Home Page',);
   }
 }

@@ -71,8 +71,11 @@ class _WelcomePageState extends State<WelcomePage> {
                     params: [0, "111"])),
               ),
               onTap: () {
+                String routePath = store.state.user != null
+                    ? PageRouteManager.homePagePath
+                    : PageRouteManager.loginPagePath;
                 PageRouteManager.pageRouter.navigateTo(context,
-                    "${PageRouteManager.homePagePath}?param=${Uri.encodeComponent('hello')}",
+                    "${routePath}?param=${Uri.encodeComponent('hello')}",
                     replace: true, transition: TransitionType.native);
               },
             )),

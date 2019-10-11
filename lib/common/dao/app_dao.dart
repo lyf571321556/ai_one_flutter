@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ones_ai_flutter/common/config/app_config.dart';
+import 'package:ones_ai_flutter/common/dao/user_dao.dart';
 import 'package:ones_ai_flutter/common/redux/global/ones_state.dart';
+import 'package:ones_ai_flutter/models/account/index.dart';
 import 'package:redux/redux.dart';
 import 'package:ones_ai_flutter/common/storage/local_storage.dart';
 import 'package:ones_ai_flutter/utils/common_utils.dart';
@@ -32,6 +34,9 @@ class AppDao {
       );
     }
     CommonUtils.changeTheme(store, newThemeData);
+
+    User user = await UserDao.getUserInfo();
+    CommonUtils.changeUser(store, user);
     return Future.value(store);
   }
 }
