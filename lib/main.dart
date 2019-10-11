@@ -7,7 +7,7 @@ import 'package:ones_ai_flutter/common/dao/app_dao.dart';
 import 'package:ones_ai_flutter/resources/index.dart';
 import 'package:auto_size/auto_size.dart';
 import 'package:ones_ai_flutter/common/redux/global/ones_state.dart';
-import 'package:ones_ai_flutter/widget/locale/LocalizationWidget.dart';
+import 'package:ones_ai_flutter/widget/locale/localization_widget.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ones_ai_flutter/ui/pages/welcome_page.dart';
