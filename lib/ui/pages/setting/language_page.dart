@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ones_ai_flutter/common/config/app_config.dart';
 import 'package:ones_ai_flutter/common/redux/global/ones_state.dart';
 import 'package:ones_ai_flutter/common/storage/local_storage.dart';
-import 'package:ones_ai_flutter/models/setting//model_language.dart';
+import 'package:ones_ai_flutter/models/setting/model_language.dart';
 import 'package:ones_ai_flutter/resources/index.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ones_ai_flutter/utils/utils_index.dart';
