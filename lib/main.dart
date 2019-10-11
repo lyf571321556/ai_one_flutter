@@ -15,6 +15,7 @@ import 'package:ones_ai_flutter/ui/pages/welcome_page.dart';
 import 'package:ones_ai_flutter/ui/pages/home_page.dart';
 import 'package:ones_ai_flutter/utils/navigator_utils.dart';
 import 'package:flutter/services.dart';
+import 'common/Routes/page_route.dart';
 import 'common/redux/global/locale_redux.dart';
 
 void main() {
@@ -23,6 +24,7 @@ void main() {
       Zone.current.handleUncaughtError(details.exception, details.stack);
       return Container(color: Colors.transparent);
     };
+    PageRouteManager.initRoutes();
     runAutoSizeApp(OnesApp());
     if (Platform.isAndroid) {
       SystemUiOverlayStyle systemUiOverlayStyle =
@@ -92,6 +94,7 @@ class OnesAppState extends State<OnesApp> {
               store: snapshot.data,
               child: StoreBuilder<OnesGlobalState>(builder: (context, store) {
                 return MaterialApp(
+                  onGenerateRoute: PageRouteManager.pageRouter.generator,
                   debugShowCheckedModeBanner: false,
                   title: 'Ones App',
                   onGenerateTitle: (BuildContext context) {
@@ -130,13 +133,13 @@ class OnesAppState extends State<OnesApp> {
                     }
                   },
                   theme: store.state.themeData,
-                  routes: {
-                    HomePage.pageName: (context) {
-                      return new LocalizationsWidget(
-                        child: NavigatorUtils.pageContainer(new HomePage()),
-                      );
-                    }
-                  },
+//                  routes: {
+//                    HomePage.pageName: (context) {
+//                      return new LocalizationsWidget(
+//                        child: NavigatorUtils.pageContainer(new HomePage()),
+//                      );
+//                    }
+//                  },
                   home: WelcomePage(title: 'Flutter Demo Home Page'),
                 );
               }));

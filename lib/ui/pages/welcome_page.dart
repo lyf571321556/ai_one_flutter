@@ -1,5 +1,7 @@
 import 'package:fluintl/fluintl.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:ones_ai_flutter/common/Routes/page_route.dart';
 import 'package:ones_ai_flutter/common/dao/app_dao.dart';
 import 'package:ones_ai_flutter/common/redux/global/ones_state.dart';
 import 'package:redux/redux.dart';
@@ -69,7 +71,9 @@ class _WelcomePageState extends State<WelcomePage> {
                     params: [0, "111"])),
               ),
               onTap: () {
-                NavigatorUtils.pushReplacementNamed(context, HomePage.pageName);
+                PageRouteManager.pageRouter.navigateTo(context,
+                    "${PageRouteManager.homePagePath}?param=${Uri.encodeComponent('hello')}",
+                    replace: true, transition: TransitionType.native);
               },
             )),
       );

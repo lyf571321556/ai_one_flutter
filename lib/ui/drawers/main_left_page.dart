@@ -1,5 +1,7 @@
 import 'package:fluintl/fluintl.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:ones_ai_flutter/common/Routes/page_route.dart';
 import 'package:ones_ai_flutter/resources/index.dart';
 import 'package:ones_ai_flutter/ui/pages/setting/language_page.dart';
 import 'package:ones_ai_flutter/ui/pages/setting/theme_page.dart';
@@ -13,11 +15,11 @@ class MainLeftMenuPage extends StatefulWidget {
 }
 
 class PageInfo {
-  PageInfo(this.titleId, this.iconData, this.page, [this.withScaffold = true]);
+  PageInfo(this.titleId, this.iconData, this.pagePath, [this.withScaffold = true]);
 
   String titleId;
   IconData iconData;
-  Widget page;
+  String pagePath;
   bool withScaffold;
 }
 
@@ -39,9 +41,9 @@ class _MainLeftMenuPageState extends State<MainLeftMenuPage> {
         ),
         )); */
     _pageInfo.add(
-        PageInfo(Strings.titleLanguage, Icons.language, LanguageSelectPage()));
+        PageInfo(Strings.titleLanguage, Icons.language, PageRouteManager.languagePagePath));
     _pageInfo
-        .add(PageInfo(Strings.titleTheme, Icons.color_lens, ThemeSelectPage()));
+        .add(PageInfo(Strings.titleTheme, Icons.color_lens, PageRouteManager.themePagePath));
   }
 
   @override
@@ -144,7 +146,10 @@ class _MainLeftMenuPageState extends State<MainLeftMenuPage> {
                     trailing: Icon(Icons.keyboard_arrow_right),
                     title: Text(IntlUtil.getString(context, pageInfo.titleId)),
                     onTap: () {
-                      NavigatorUtils.pushPage(context, pageInfo.page);
+//                      NavigatorUtils.pushPage(context, pageInfo.page);
+                      PageRouteManager.pageRouter.navigateTo(context,
+                          "${pageInfo.pagePath}?param=${Uri.encodeComponent('hello')}",
+                          replace: true, transition: TransitionType.inFromRight);
                     },
                   );
                 }),
