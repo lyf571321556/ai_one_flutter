@@ -9,7 +9,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="ones_ai_flutter"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ones_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

@@ -62,6 +62,7 @@ flutter:
   assets:
     - assets/images/welcome.png
     - assets/images/default_avatar.png
+    - assets/images/ones_icon.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
