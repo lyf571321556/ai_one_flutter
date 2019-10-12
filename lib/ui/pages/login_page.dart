@@ -16,6 +16,7 @@ class _LoginPageState extends State<LoginPage> {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(IntlUtil.getString(context, Strings.titleLogin)),
       ),
       body: Container(

@@ -1,7 +1,7 @@
 import 'package:fluintl/fluintl.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:ones_ai_flutter/common/Routes/page_route.dart';
+import 'package:ones_ai_flutter/common/routes/page_route.dart';
 import 'package:ones_ai_flutter/resources/index.dart';
 import 'package:ones_ai_flutter/ui/pages/setting/language_page.dart';
 import 'package:ones_ai_flutter/ui/pages/setting/theme_page.dart';

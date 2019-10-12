@@ -33,10 +33,10 @@ dependencies:
   fluttertoast: ^3.1.0
   flustars: ^0.2.5+1
   cached_network_image: ^1.1.0
-#  fluro:
-#    git:
-#      url: git://github.com/theyakka/fluro.git
-  fluro: #"^1.5.1"
+  fluro:
+    git:
+      url: git://github.com/theyakka/fluro.git
+#  fluro: #"^1.5.1"
   auto_size:
     git:
       url: git://github.com/flutterchina/auto_size.git

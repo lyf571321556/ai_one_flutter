@@ -14,7 +14,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 
 import 'package:ones_ai_flutter/utils/navigator_utils.dart';
 import 'package:flutter/services.dart';
-import 'common/Routes/page_route.dart';
+import 'common/routes/page_route.dart';
 import 'common/redux/global/locale_redux.dart';
 
 import 'package:ones_ai_flutter/ui/pages/welcome_page.dart';
@@ -27,7 +27,10 @@ void main() {
       Zone.current.handleUncaughtError(details.exception, details.stack);
       return Container(color: Colors.transparent);
     };
+//    WidgetsFlutterBinding.ensureInitialized();
     PageRouteManager.initRoutes();
+//    SystemChrome.setEnabledSystemUIOverlays([]);
+//    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top, SystemUiOverlay.bottom]);
     runAutoSizeApp(OnesApp());
     if (Platform.isAndroid) {
       SystemUiOverlayStyle systemUiOverlayStyle =
