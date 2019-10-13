@@ -27,7 +27,7 @@ class GradientButton extends StatelessWidget {
     List<Color> _colors = colors ??
         [
           themeData.primaryColor,
-          themeData.primaryColorDark ?? themeData.primaryColor
+          themeData.primaryColor ?? themeData.primaryColorDark
         ];
     return DecoratedBox(
       decoration: BoxDecoration(
@@ -36,8 +36,10 @@ class GradientButton extends StatelessWidget {
       child: Material(
         type: MaterialType.transparency,
         child: InkWell(
-          splashColor: _colors.last,
-          highlightColor: _colors.last,
+          splashColor: themeData.primaryColorDark,
+          //_colors.last,
+          highlightColor: themeData.primaryColorDark,
+          //_colors.last,
           borderRadius: borderRadius,
           onTap: onPressed,
           child: ConstrainedBox(

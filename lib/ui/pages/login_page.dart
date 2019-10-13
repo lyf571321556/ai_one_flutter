@@ -18,7 +18,8 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _accountController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  static bool showPlaintext = true;
+  static bool _showPlaintext = true, _autoValied = false;
+  static String _userName, _password;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     _buildAccountTextField(),
-                    SizedBox(height: 10.0),
+                    SizedBox(height: _autoValied ? 8 : 10.0),
                     _buildPasswordTextField(),
                     _buildForgetPasswordWidget(),
                     _buildLoginWidget()
@@ -70,6 +71,9 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildAccountTextField() {
     return TextFormField(
+      onSaved: (String value) {
+        _userName = value;
+      },
       keyboardType: TextInputType.text,
       maxLines: 1,
       style: TextStyle(
@@ -77,17 +81,19 @@ class _LoginPageState extends State<LoginPage> {
         fontSize: 18,
       ),
       autofocus: false,
-      autovalidate: false,
+      autovalidate: true,
       controller: _accountController,
       decoration: InputDecoration(
-          helperText: '',
           border: UnderlineInputBorder(
               borderSide: BorderSide(width: double.infinity)),
           hintStyle: TextStyle(
             fontSize: 14,
           ),
           hintText: IntlUtil.getString(context, Strings.titleAccountHint),
-          prefixIcon: Icon(FontIcons.ACCOUNT),
+          prefixIcon: Icon(
+            FontIcons.ACCOUNT,
+            size: 25,
+          ),
           suffixIcon: IconButton(
               icon: Icon(FontIcons.CANCLE),
               onPressed: () {
@@ -100,7 +106,7 @@ class _LoginPageState extends State<LoginPage> {
             r"[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?");
 
         return accountReg.hasMatch(value)
-            ? ""
+            ? null
             : IntlUtil.getString(context, Strings.titleAccountError);
       },
     );
@@ -108,6 +114,9 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildPasswordTextField() {
     return TextFormField(
+      onSaved: (String value) {
+        _password = value;
+      },
       keyboardType: TextInputType.text,
       maxLines: 1,
       style: TextStyle(
@@ -115,32 +124,33 @@ class _LoginPageState extends State<LoginPage> {
         fontSize: 18,
       ),
       autofocus: false,
-      autovalidate: false,
+      autovalidate: true,
       controller: _passwordController,
-      obscureText: showPlaintext,
+      obscureText: _showPlaintext,
       decoration: InputDecoration(
-          helperText: '',
-          filled: false,
           border: UnderlineInputBorder(
               borderSide: BorderSide(width: double.infinity)),
           hintStyle: TextStyle(
             fontSize: 14,
           ),
           hintText: IntlUtil.getString(context, Strings.titlePasswordHint),
-          prefixIcon: Icon(FontIcons.PASSWORD),
+          prefixIcon: Icon(
+            FontIcons.PASSWORD,
+            size: 25,
+          ),
           suffixIcon: IconButton(
               icon: Icon(
-                  showPlaintext ? FontIcons.CLOSED_EYE : FontIcons.OPEND_EYE),
+                  _showPlaintext ? FontIcons.CLOSED_EYE : FontIcons.OPEND_EYE),
               onPressed: () {
                 setState(() {
-                  showPlaintext = !showPlaintext;
+                  _showPlaintext = !_showPlaintext;
                 });
               })),
       validator: (value) {
         var passwordReg = RegExp(r"^(?=.*\d)(?=.*[a-zA-Z])[\x21-\x7E]{8,32}$");
 
         return passwordReg.hasMatch(value)
-            ? ""
+            ? null
             : IntlUtil.getString(context, Strings.titlePasswordError);
       },
     );
@@ -148,6 +158,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildForgetPasswordWidget() {
     return Container(
+      margin: EdgeInsets.only(top: _autoValied ? 5 : 5),
       alignment: Alignment.centerRight,
       child: InkWell(
         onTap: () {
@@ -176,11 +187,23 @@ class _LoginPageState extends State<LoginPage> {
             style: TextStyle(fontSize: 16)),
         borderRadius: BorderRadius.circular(8),
         onPressed: () {
+          if (!_formKey.currentState.validate()) {
+            setState(() {
+              _autoValied = true;
+            });
+          } else {
+            setState(() {
+//              _autoValied = false;
+            });
+            _formKey.currentState.save();
+          }
+          print(_userName);
+          print(_password);
           Fluttertoast.showToast(msg: "login start!");
         },
         childPadding: EdgeInsets.symmetric(vertical: 11),
       ),
-      margin: EdgeInsets.only(top: 12),
+      margin: EdgeInsets.only(top: 18, bottom: 5),
     );
   }
 }
