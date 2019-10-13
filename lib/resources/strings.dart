@@ -7,7 +7,15 @@ class Strings {
   static const String titleTheme = 'title_theme';
   static const String changeTheme = 'change_theme';
   static const String titleSetting = 'title_setting';
-  static const String titleLogin= 'title_login';
+  static const String titleLogin = 'title_login';
+  static const String titleAccount = 'title_account';
+  static const String titleAccountHint = 'title_account_hint';
+  static const String titleAccountError = 'title_account_error';
+  static const String titlePassword = 'title_password';
+  static const String titlePasswordHint = 'title_password_hint';
+  static const String titlePasswordError = 'title_password_error';
+
+  static const String titleForgetPassword = 'title_forget_password';
 
   static const String languageAuto = 'language_auto';
   static const String languageZH = 'language_zh';
@@ -48,6 +56,13 @@ Map<String, Map<String, Map<String, String>>> localizedValues = {
       Strings.languageHK: '繁體中文（香港）',
       Strings.languageEN: 'English',
       Strings.titleLogin: '登录',
+      Strings.titleAccount: '账号',
+      Strings.titleAccountHint: "请输入账号",
+      Strings.titleAccountError: "请输入正确的账号",
+      Strings.titlePassword: '密码',
+      Strings.titlePasswordHint: "请输入密码",
+      Strings.titlePasswordError: "密码为8~32位,且必须包含大小写字母和数字",
+      Strings.titleForgetPassword: "忘记密码?",
     },
     "TW": {
       Strings.titleHome: '主頁',
@@ -64,6 +79,13 @@ Map<String, Map<String, Map<String, String>>> localizedValues = {
       Strings.languageHK: '繁體中文（香港）',
       Strings.languageEN: 'English',
       Strings.titleLogin: '登 錄',
+      Strings.titleAccount: '賬號',
+      Strings.titleAccountHint: "請輸入賬號",
+      Strings.titleAccountError: "請輸入正確的賬號",
+      Strings.titlePassword: '密碼',
+      Strings.titlePasswordHint: "请输入密碼",
+      Strings.titlePasswordError: "密碼8~32位,且必須包含大小寫字母和數字",
+      Strings.titleForgetPassword: "忘記密碼?",
     },
     "HK": {
       Strings.titleHome: '主頁',
@@ -80,6 +102,13 @@ Map<String, Map<String, Map<String, String>>> localizedValues = {
       Strings.languageHK: '繁體中文（香港）',
       Strings.languageEN: 'English',
       Strings.titleLogin: '登 錄',
+      Strings.titleAccount: '賬號',
+      Strings.titleAccountHint: "請輸入賬號",
+      Strings.titleAccountError: "請輸入正確的賬號",
+      Strings.titlePassword: '密碼',
+      Strings.titlePasswordHint: "请输入密碼",
+      Strings.titlePasswordError: "密碼8~32位,且必須包含大小寫字母和數字",
+      Strings.titleForgetPassword: "忘記密碼?",
     }
   },
   'en': {
@@ -94,6 +123,14 @@ Map<String, Map<String, Map<String, String>>> localizedValues = {
       Strings.changeTheme: "Switch Theme",
       Strings.languageAuto: 'Auto',
       Strings.titleLogin: 'Login',
+      Strings.titleAccount: 'Account',
+      Strings.titleAccountHint: 'Input account',
+      Strings.titleAccountError: "Wrong account",
+      Strings.titlePassword: 'Password',
+      Strings.titleAccount: 'Account',
+      Strings.titlePasswordHint: 'Input password',
+      Strings.titlePasswordError: "",
+      Strings.titleForgetPassword: "Forget password?",
     }
   }
 };
