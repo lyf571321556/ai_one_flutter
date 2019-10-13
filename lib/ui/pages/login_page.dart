@@ -18,7 +18,11 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _accountController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  static bool _showPlaintext = true, _autoValied = false;
+  static bool _showPlaintext = true,
+      _autoValied = false,
+      _userNameValied = false,
+      _passwordValied = false;
+
   static String _userName, _password;
 
   @override
@@ -55,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     _buildAccountTextField(),
-                    SizedBox(height: _autoValied ? 8 : 10.0),
+                    SizedBox(height: _userNameValied ? 8 : 5),
                     _buildPasswordTextField(),
                     _buildForgetPasswordWidget(),
                     _buildLoginWidget()
@@ -81,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
         fontSize: 18,
       ),
       autofocus: false,
-      autovalidate: true,
+      autovalidate: _autoValied,
       controller: _accountController,
       decoration: InputDecoration(
           border: UnderlineInputBorder(
@@ -104,8 +108,8 @@ class _LoginPageState extends State<LoginPage> {
       validator: (value) {
         var accountReg = RegExp(
             r"[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?");
-
-        return accountReg.hasMatch(value)
+        _userNameValied = accountReg.hasMatch(value);
+        return _userNameValied
             ? null
             : IntlUtil.getString(context, Strings.titleAccountError);
       },
@@ -124,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
         fontSize: 18,
       ),
       autofocus: false,
-      autovalidate: true,
+      autovalidate: _autoValied,
       controller: _passwordController,
       obscureText: _showPlaintext,
       decoration: InputDecoration(
@@ -148,8 +152,8 @@ class _LoginPageState extends State<LoginPage> {
               })),
       validator: (value) {
         var passwordReg = RegExp(r"^(?=.*\d)(?=.*[a-zA-Z])[\x21-\x7E]{8,32}$");
-
-        return passwordReg.hasMatch(value)
+        _passwordValied = passwordReg.hasMatch(value);
+        return _passwordValied
             ? null
             : IntlUtil.getString(context, Strings.titlePasswordError);
       },
@@ -158,7 +162,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildForgetPasswordWidget() {
     return Container(
-      margin: EdgeInsets.only(top: _autoValied ? 5 : 5),
+      margin: EdgeInsets.only(top: 10),
       alignment: Alignment.centerRight,
       child: InkWell(
         onTap: () {
@@ -187,14 +191,11 @@ class _LoginPageState extends State<LoginPage> {
             style: TextStyle(fontSize: 16)),
         borderRadius: BorderRadius.circular(8),
         onPressed: () {
+          _autoValied = true;
           if (!_formKey.currentState.validate()) {
-            setState(() {
-              _autoValied = true;
-            });
+            setState(() {});
           } else {
-            setState(() {
-//              _autoValied = false;
-            });
+            setState(() {});
             _formKey.currentState.save();
           }
           print(_userName);
