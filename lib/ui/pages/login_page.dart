@@ -59,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     _buildAccountTextField(),
-                    SizedBox(height: _userNameValied ? 8 : 5),
+                    SizedBox(height: _userNameValied ? 10 : 5),
                     _buildPasswordTextField(),
                     _buildForgetPasswordWidget(),
                     _buildLoginWidget()
@@ -117,52 +117,56 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildPasswordTextField() {
-    return TextFormField(
-      onSaved: (String value) {
-        _password = value;
-      },
-      keyboardType: TextInputType.text,
-      maxLines: 1,
-      style: TextStyle(
-        color: Colors.black,
-        fontSize: 18,
+    return Container(
+      margin: EdgeInsets.only(bottom: _passwordValied ? 12 : 4),
+      child: TextFormField(
+        onSaved: (String value) {
+          _password = value;
+        },
+        keyboardType: TextInputType.text,
+        maxLines: 1,
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 18,
+        ),
+        autofocus: false,
+        autovalidate: _autoValied,
+        controller: _passwordController,
+        obscureText: _showPlaintext,
+        decoration: InputDecoration(
+            border: UnderlineInputBorder(
+                borderSide: BorderSide(width: double.infinity)),
+            hintStyle: TextStyle(
+              fontSize: 14,
+            ),
+            hintText: IntlUtil.getString(context, Strings.titlePasswordHint),
+            prefixIcon: Icon(
+              FontIcons.PASSWORD,
+              size: 25,
+            ),
+            suffixIcon: IconButton(
+                icon: Icon(_showPlaintext
+                    ? FontIcons.CLOSED_EYE
+                    : FontIcons.OPEND_EYE),
+                onPressed: () {
+                  setState(() {
+                    _showPlaintext = !_showPlaintext;
+                  });
+                })),
+        validator: (value) {
+          var passwordReg =
+              RegExp(r"^(?=.*\d)(?=.*[a-zA-Z])[\x21-\x7E]{8,32}$");
+          _passwordValied = passwordReg.hasMatch(value);
+          return _passwordValied
+              ? null
+              : IntlUtil.getString(context, Strings.titlePasswordError);
+        },
       ),
-      autofocus: false,
-      autovalidate: _autoValied,
-      controller: _passwordController,
-      obscureText: _showPlaintext,
-      decoration: InputDecoration(
-          border: UnderlineInputBorder(
-              borderSide: BorderSide(width: double.infinity)),
-          hintStyle: TextStyle(
-            fontSize: 14,
-          ),
-          hintText: IntlUtil.getString(context, Strings.titlePasswordHint),
-          prefixIcon: Icon(
-            FontIcons.PASSWORD,
-            size: 25,
-          ),
-          suffixIcon: IconButton(
-              icon: Icon(
-                  _showPlaintext ? FontIcons.CLOSED_EYE : FontIcons.OPEND_EYE),
-              onPressed: () {
-                setState(() {
-                  _showPlaintext = !_showPlaintext;
-                });
-              })),
-      validator: (value) {
-        var passwordReg = RegExp(r"^(?=.*\d)(?=.*[a-zA-Z])[\x21-\x7E]{8,32}$");
-        _passwordValied = passwordReg.hasMatch(value);
-        return _passwordValied
-            ? null
-            : IntlUtil.getString(context, Strings.titlePasswordError);
-      },
     );
   }
 
   Widget _buildForgetPasswordWidget() {
     return Container(
-      margin: EdgeInsets.only(top: 10),
       alignment: Alignment.centerRight,
       child: InkWell(
         onTap: () {
@@ -197,10 +201,10 @@ class _LoginPageState extends State<LoginPage> {
           } else {
             setState(() {});
             _formKey.currentState.save();
+            print(_userName);
+            print(_password);
+            Fluttertoast.showToast(msg: "login start!");
           }
-          print(_userName);
-          print(_password);
-          Fluttertoast.showToast(msg: "login start!");
         },
         childPadding: EdgeInsets.symmetric(vertical: 11),
       ),
