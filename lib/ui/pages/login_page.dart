@@ -1,5 +1,7 @@
 import 'package:fluintl/fluintl.dart';
 import 'package:flutter/material.dart';
+import 'package:ones_ai_flutter/common/api/user_api.dart';
+import 'package:ones_ai_flutter/common/net/http_manager.dart';
 import 'package:ones_ai_flutter/resources/font_icons.dart';
 import 'package:ones_ai_flutter/resources/index.dart';
 import 'package:ones_ai_flutter/utils/utils_index.dart';
@@ -201,9 +203,10 @@ class _LoginPageState extends State<LoginPage> {
           } else {
             setState(() {});
             _formKey.currentState.save();
-            print(_userName);
-            print(_password);
             Fluttertoast.showToast(msg: "login start!");
+            UserApi.login(_userName, _password, null).then((user) {
+              print(user.email);
+            });
           }
         },
         childPadding: EdgeInsets.symmetric(vertical: 11),

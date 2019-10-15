@@ -32,7 +32,6 @@ dependencies:
   shared_preferences: ^0.5.3+2
   fluttertoast: ^3.1.0
   flustars: ^0.2.5+1
-  cached_network_image: ^1.1.0
   fluro:
     git:
       url: git://github.com/theyakka/fluro.git
@@ -40,13 +39,21 @@ dependencies:
   auto_size:
     git:
       url: git://github.com/flutterchina/auto_size.git
-
+  connectivity: ^0.4.4
+  dio: ^3.0.3
+  dio_http_cache: ^0.2.0
+  json_serializable: ^3.0.0
+  pretty_dio_logger: ^1.0.7
+  #https://pub.dev/packages/pull_to_refresh#-readme-tab-
+  pull_to_refresh: ^1.5.7
+  #https://pub.dev/packages/cached_network_image#-installing-tab-
+  cached_network_image: ^1.1.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  json_model: #latest version
+#  json_model: #latest version
   build_runner: ^1.0.0
-  json_serializable: ^2.0.0
+#  json_serializable: ^3.0.0
 
 
 # For information on the generic Dart part of this file, see the
