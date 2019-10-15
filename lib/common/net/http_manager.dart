@@ -111,31 +111,7 @@ class HttpManager {
     }
 
     Response response;
-    try {
-      if (httpMethod == HttpMethod.POST) {
-        response = await _httpClient
-            .get(
-              url,
-              cancelToken: token,
-            )
-            .catchError((DioError err) {});
-      } else {
-        response = await _httpClient
-            .post(
-          url,
-          data: formData ?? new FormData.fromMap(bodyParams),
-          onSendProgress: onSendprogressCallBack,
-          onReceiveProgress: onReceiveProgressCallBack,
-          cancelToken: token,
-        )
-            .catchError((DioError err) {
-          if (CancelToken.isCancel(err)) {
-          } else {
-
-          }
-        });
-      }
-    } on DioError catch (e) {
+    handleError(DioError e) {
       response = Response();
       if (e.response != null) {
         response = e.response;
@@ -167,6 +143,36 @@ class HttpManager {
       print(e.error);
       print(e.message);
       print("-------");
+    }
+
+    try {
+      if (httpMethod == HttpMethod.POST) {
+        response = await _httpClient
+            .get(
+              url,
+              cancelToken: token,
+            )
+            .catchError((DioError err) {});
+      } else {
+        response = await _httpClient
+            .post(
+          url,
+          data: formData ?? new FormData.fromMap(bodyParams),
+          onSendProgress: onSendprogressCallBack,
+          onReceiveProgress: onReceiveProgressCallBack,
+          cancelToken: token,
+        )
+            .catchError((DioError err) {
+          handleError(err);
+//          if (CancelToken.isCancel(err)) {
+//
+//          } else {
+//
+//          }
+        });
+      }
+    } on DioError catch (e) {
+      handleError(e);
     }
     return Future.value(response);
   }
