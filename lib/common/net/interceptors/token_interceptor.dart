@@ -14,6 +14,7 @@ class TokenInterceptor extends InterceptorsWrapper {
       }
     }
     options.headers["Authorization"] = _token;
+    options.contentType = "application/json";
     return options;
   }
 

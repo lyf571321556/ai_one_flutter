@@ -48,7 +48,7 @@ class HttpManager {
         sendTimeout: WRITE_TIMEOUT);
     _httpClient = new Dio(baseOption);
     _httpClient.interceptors
-        .add(PrettyDioLogger(requestHeader: true, responseHeader: true));
+        .add(PrettyDioLogger(responseHeader: true, requestBody: true));
     _httpClient.interceptors.add(_tokenInterceptors);
   }
 
@@ -62,26 +62,28 @@ class HttpManager {
         httpMethod: HttpMethod.GET, pathParams: pathParams, token: token);
   }
 
-  Future<Response<dynamic>> post(String url,
+  Future<Response<T>> post<T>(String url,
       {Map<String, dynamic> pathParams,
       Map<String, dynamic> bodyParams,
+      FormData formData,
       CancelToken token}) async {
     assert(bodyParams != null);
-    return _request(url,
+    return _request<T>(url,
         httpMethod: HttpMethod.POST,
         pathParams: pathParams,
         bodyParams: bodyParams,
+        formData: formData,
         token: token);
   }
 
-  Future<Response<dynamic>> upload(String url,
+  Future<Response<T>> upload<T>(String url,
       {Map<String, dynamic> pathParams,
       FormData formData,
       ProgressCallback onSendprogressCallBack,
       ProgressCallback onReceiveProgressCallBack,
       CancelToken token}) async {
     assert(formData != null);
-    return _request(url,
+    return _request<T>(url,
         httpMethod: HttpMethod.POST,
         pathParams: pathParams,
         formData: formData,
@@ -90,8 +92,9 @@ class HttpManager {
         token: token);
   }
 
-  Future<Response<dynamic>> _request(
+  Future<Response<T>> _request<T>(
     String url, {
+    Options option,
     HttpMethod httpMethod,
     Map<String, dynamic> pathParams,
     Map<String, dynamic> bodyParams,
@@ -101,7 +104,7 @@ class HttpManager {
     ProgressCallback onReceiveProgressCallBack,
     CancelToken token,
   }) async {
-    assert(url == null && url.length > 0);
+    assert(url != null && url.length > 0);
     if (pathParams != null && pathParams.isNotEmpty) {
       pathParams.forEach((key, value) {
         if (url.indexOf(key) != -1) {
@@ -110,7 +113,7 @@ class HttpManager {
       });
     }
 
-    Response response;
+    Response<T> response;
     handleError(DioError e) {
       response = Response();
       if (e.response != null) {
@@ -139,39 +142,47 @@ class HttpManager {
       }
       print("-------");
       print(e.response);
-      print(e.request.headers);
+      print(e.response.headers);
       print(e.error);
       print(e.message);
+      print(e.response.statusCode);
+      print(e.response.statusMessage);
       print("-------");
+      return response;
     }
 
     try {
       if (httpMethod == HttpMethod.POST) {
         response = await _httpClient
-            .get(
-              url,
-              cancelToken: token,
-            )
-            .catchError((DioError err) {});
-      } else {
-        response = await _httpClient
-            .post(
+            .post<T>(
           url,
-          data: formData ?? new FormData.fromMap(bodyParams),
+          data: formData ?? bodyParams,
           onSendProgress: onSendprogressCallBack,
           onReceiveProgress: onReceiveProgressCallBack,
           cancelToken: token,
         )
-            .catchError((DioError err) {
-          handleError(err);
+            .catchError((Object err) {
+          print("post------------");
+          return handleError(err);
 //          if (CancelToken.isCancel(err)) {
 //
 //          } else {
 //
 //          }
         });
+      } else {
+        response = await _httpClient
+            .get<T>(
+          url,
+          cancelToken: token,
+        )
+            .catchError((Object err) {
+          print("pget------------");
+          return handleError(err);
+        });
       }
     } on DioError catch (e) {
+      print("exception-----------");
       handleError(e);
     }
     return Future.value(response);

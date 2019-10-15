@@ -9,15 +9,19 @@ class UserApi {
 
   static Future<User> login(
       String userName, String password, CancelToken token) async {
-    Map requestParams = {
+    Map<String, dynamic> requestParams = {
       "password": password,
       "email": userName,
     };
     User user = await HttpManager.getInstance()
-        .post(LOGIN_URL, bodyParams: requestParams)
-        .then((Response) {
-      return Future.value(User.fromJson(Response.data));
+        .post<Map>(
+      LOGIN_URL,
+      bodyParams: requestParams,
+    )
+        .then<User>((response) {
+      return Future.value(User.fromJson(response.data["user"]));
     });
 
+    return Future.value(user);
   }
 }
