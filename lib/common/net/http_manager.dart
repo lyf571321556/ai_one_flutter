@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -6,6 +7,12 @@ import 'package:ones_ai_flutter/common/net/http_code.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import 'interceptors/token_interceptor.dart';
+
+abstract class ResultCallBack<E, T> {
+  onError(E error);
+
+  OnSuccess(T data);
+}
 
 class HttpManagerBuilder {
   HttpManagerBuilder() {}
@@ -58,22 +65,51 @@ class HttpManager {
 
   Future<Response<dynamic>> get(String url,
       {Map<String, dynamic> pathParams, CancelToken token}) async {
-    return _request(url,
+    return _request(url, null,
         httpMethod: HttpMethod.GET, pathParams: pathParams, token: token);
   }
 
-  Future<Response<T>> post<T>(String url,
+  bool handleError(Response response) {
+    if (response.statusCode == HttpCode.SUCCEED) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<T> post<T>(String url, FutureOr<T> task(Response value),
+      ResultCallBack resultCallBack,
       {Map<String, dynamic> pathParams,
       Map<String, dynamic> bodyParams,
       FormData formData,
       CancelToken token}) async {
     assert(bodyParams != null);
-    return _request<T>(url,
-        httpMethod: HttpMethod.POST,
-        pathParams: pathParams,
-        bodyParams: bodyParams,
-        formData: formData,
-        token: token);
+    assert(task != null);
+    return await _request(url, resultCallBack,
+            httpMethod: HttpMethod.POST,
+            pathParams: pathParams,
+            bodyParams: bodyParams,
+            formData: formData,
+            token: token)
+        .then((response) {
+      if (response == null) {
+        return Future.value(null);
+      }
+      return Future.value(task(response)).then((t) {
+        if (resultCallBack != null && t != null) {
+          resultCallBack.OnSuccess(t);
+        }
+        return Future.value(t);
+      }).catchError((error) {
+        response.statusCode = HttpCode.PARSE_DATA_ERROR_CODE;
+        response.statusMessage = error.toString();
+        resultCallBack.onError(response);
+      });
+    });
+//        .then(task)
+//        .catchError((error) {
+//          print("处理数据错误：" + error.toString());
+//        });
   }
 
   Future<Response<T>> upload<T>(String url,
@@ -83,7 +119,7 @@ class HttpManager {
       ProgressCallback onReceiveProgressCallBack,
       CancelToken token}) async {
     assert(formData != null);
-    return _request<T>(url,
+    return _request(url, null,
         httpMethod: HttpMethod.POST,
         pathParams: pathParams,
         formData: formData,
@@ -92,14 +128,14 @@ class HttpManager {
         token: token);
   }
 
-  Future<Response<T>> _request<T>(
-    String url, {
+  Future<Response> _request(
+    String url,
+    ResultCallBack resultCallBack, {
     Options option,
     HttpMethod httpMethod,
     Map<String, dynamic> pathParams,
     Map<String, dynamic> bodyParams,
     FormData formData,
-    Function errorCallBack,
     ProgressCallback onSendprogressCallBack,
     ProgressCallback onReceiveProgressCallBack,
     CancelToken token,
@@ -113,48 +149,40 @@ class HttpManager {
       });
     }
 
-    Response<T> response;
-    handleError(DioError e) {
-      response = Response();
+    catchError(DioError e) {
+      Response response_ = new Response();
       if (e.response != null) {
-        response = e.response;
+        response_ = e.response;
       } else {
-        response = new Response(statusCode: HttpCode.UNKNOW_ERROR_CODE);
+        response_ = new Response(statusCode: HttpCode.UNKNOW_ERROR_CODE);
       }
       switch (e.type) {
         case DioErrorType.RECEIVE_TIMEOUT:
-          response.statusCode = HttpCode.INVALID_NETWORK_CODE;
+          response_.statusCode = HttpCode.INVALID_NETWORK_CODE;
           break;
         case DioErrorType.CONNECT_TIMEOUT:
-          response.statusCode = HttpCode.INVALID_NETWORK_CODE;
+          response_.statusCode = HttpCode.INVALID_NETWORK_CODE;
           break;
         case DioErrorType.SEND_TIMEOUT:
-          response.statusCode = HttpCode.INVALID_NETWORK_CODE;
+          response_.statusCode = HttpCode.INVALID_NETWORK_CODE;
           break;
         case DioErrorType.RESPONSE:
           break;
         case DioErrorType.CANCEL:
-          response.statusCode = HttpCode.CANCEL_ERROR_CODE;
+          response_.statusCode = HttpCode.CANCEL_ERROR_CODE;
           break;
         case DioErrorType.DEFAULT:
-          response.statusCode = HttpCode.UNKNOW_ERROR_CODE;
+          response_.statusCode = HttpCode.UNKNOW_ERROR_CODE;
           break;
       }
-      print("-------");
-      print(e.response);
-      print(e.response.headers);
-      print(e.error);
-      print(e.message);
-      print(e.response.statusCode);
-      print(e.response.statusMessage);
-      print("-------");
-      return response;
+      return response_;
     }
 
+    Response response;
     try {
       if (httpMethod == HttpMethod.POST) {
         response = await _httpClient
-            .post<T>(
+            .post(
           url,
           data: formData ?? bodyParams,
           onSendProgress: onSendprogressCallBack,
@@ -162,28 +190,27 @@ class HttpManager {
           cancelToken: token,
         )
             .catchError((Object err) {
-          print("post------------");
-          return handleError(err);
-//          if (CancelToken.isCancel(err)) {
-//
-//          } else {
-//
-//          }
+          if (resultCallBack != null) {
+            resultCallBack.onError(catchError(err));
+          }
+          //response = catchError(err);
         });
       } else {
         response = await _httpClient
-            .get<T>(
+            .get(
           url,
           cancelToken: token,
         )
             .catchError((Object err) {
-          print("pget------------");
-          return handleError(err);
+          if (resultCallBack != null) {
+            resultCallBack.onError(catchError(err));
+          }
+          //response = catchError(err);
         });
       }
     } on DioError catch (e) {
-      print("exception-----------");
-      handleError(e);
+      resultCallBack.onError(catchError(e));
+      //response = catchError(e);
     }
     return Future.value(response);
   }

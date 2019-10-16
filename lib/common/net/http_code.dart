@@ -1,4 +1,5 @@
 class HttpCode {
+  static final int PARSE_DATA_ERROR_CODE = -4;
   static final int CANCEL_ERROR_CODE = -3;
   static final int UNKNOW_ERROR_CODE = -2;
   static final int INVALID_NETWORK_CODE = -1;
