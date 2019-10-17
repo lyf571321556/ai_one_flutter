@@ -213,7 +213,9 @@ class _LoginPageState extends State<LoginPage> {
             _formKey.currentState.save();
             Fluttertoast.showToast(msg: "login start!");
             UserApi.login(_userName, _password, null).then((user) {
-              print(user.email);
+              if(user!=null){
+                print(user.email);
+              }
             });
           }
         },

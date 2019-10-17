@@ -8,19 +8,15 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import 'interceptors/token_interceptor.dart';
 
-abstract class ResultCallBack<E, T> {
-  onError(E error);
+ class ResultCallBack<E, T> {
+  onError(E error){}
 
-  OnSuccess(T data);
+  OnSuccess(T data){}
 }
 
-class HttpManagerBuilder {
-  HttpManagerBuilder() {}
-
-  HttpManager build() {}
-}
 
 enum HttpMethod { POST, GET }
+
 
 class HttpManager {
   static final int CONNECT_TIMEOUT = 5000;
@@ -77,7 +73,7 @@ class HttpManager {
     }
   }
 
-  Future<T> post<T>(String url, FutureOr<T> task(Response value),
+  Future<T> post<T>(String url,T Function parseData(Response response) ,//FutureOr<T> task(Response value)
       ResultCallBack resultCallBack,
       {Map<String, dynamic> pathParams,
       Map<String, dynamic> bodyParams,
@@ -148,8 +144,9 @@ class HttpManager {
         }
       });
     }
-
+    print("1");
     catchError(DioError e) {
+      print("2");
       Response response_ = new Response();
       if (e.response != null) {
         response_ = e.response;
@@ -180,7 +177,9 @@ class HttpManager {
 
     Response response;
     try {
+      print("3");
       if (httpMethod == HttpMethod.POST) {
+        print("4");
         response = await _httpClient
             .post(
           url,
@@ -190,28 +189,34 @@ class HttpManager {
           cancelToken: token,
         )
             .catchError((Object err) {
+          print("5");
           if (resultCallBack != null) {
             resultCallBack.onError(catchError(err));
           }
           //response = catchError(err);
         });
       } else {
+        print("6");
         response = await _httpClient
             .get(
           url,
           cancelToken: token,
         )
             .catchError((Object err) {
+          print("7");
           if (resultCallBack != null) {
             resultCallBack.onError(catchError(err));
           }
           //response = catchError(err);
         });
       }
+      print("8");
     } on DioError catch (e) {
+      print("9");
       resultCallBack.onError(catchError(e));
       //response = catchError(e);
     }
+    print("10");
     return Future.value(response);
   }
 }

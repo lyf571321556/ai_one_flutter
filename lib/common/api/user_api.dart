@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:ones_ai_flutter/common/net/http_manager.dart';
 import 'package:ones_ai_flutter/models/index.dart';
 
-class UserResultCallBack extends ResultCallBack<Response, User> {
+class UserResultCallBack implements ResultCallBack<Response, User> {
   @override
   onError(Response error) {
     // TODO: implement onError
