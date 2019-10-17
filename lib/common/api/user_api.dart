@@ -8,7 +8,8 @@ class UserResultCallBack implements ResultCallBack<Response, User> {
   @override
   onError(Response error) {
     // TODO: implement onError
-    print("error:"+error.toString());
+    print("error:" + error.statusMessage);
+    print("errorCode:" + error.statusCode.toString());
   }
 
   @override
@@ -27,17 +28,13 @@ class UserApi {
       "password": password,
       "email": userName,
     };
-    User user = await HttpManager.getInstance().post(
-      LOGIN_URL,
-      (response) {
-        if(response==null){
-          return Future.value(null);
-        }
-        return Future.value(User.fromJson(response.data["user"]));
-      },
-      UserResultCallBack(),
-      bodyParams: requestParams,
-    );
+    User user = await HttpManager.getInstance().post<User>(LOGIN_URL,
+        resultCallBack: UserResultCallBack(), handleDataCallBack: (response) {
+      if (response == null) {
+        return null;
+      }
+      return User.fromJson(response.data["user"]);
+    }, bodyParams: requestParams);
 
     return Future.value(user);
   }
