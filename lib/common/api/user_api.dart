@@ -17,6 +17,17 @@ class UserResultCallBack implements ResultCallBack<Response, User> {
     // TODO: implement OnSuccess
     print(data.email);
   }
+
+  @override
+  User onParseData(Response response) {
+    // TODO: implement onParseData
+    if (response == null) {
+      return null;
+    }
+    response=null;
+    print(response.statusCode);
+    return User.fromJson(response.data["user"]);
+  }
 }
 
 class UserApi {
@@ -28,13 +39,9 @@ class UserApi {
       "password": password,
       "email": userName,
     };
+
     User user = await HttpManager.getInstance().post<User>(LOGIN_URL,
-        resultCallBack: UserResultCallBack(), handleDataCallBack: (response) {
-      if (response == null) {
-        return null;
-      }
-      return User.fromJson(response.data["user"]);
-    }, bodyParams: requestParams);
+        resultCallBack: UserResultCallBack(), bodyParams: requestParams);
 
     return Future.value(user);
   }

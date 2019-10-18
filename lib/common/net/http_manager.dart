@@ -13,11 +13,11 @@ class ResultCallBack<E, T> {
   onError(E error) {}
 
   OnSuccess(T data) {}
+
+  T onParseData(Response response) {}
 }
 
 enum HttpMethod { POST, GET }
-
-typedef HandleDataCallBack = dynamic Function(Response response);
 
 class HttpManager {
   static final int CONNECT_TIMEOUT = 5000;
@@ -76,7 +76,6 @@ class HttpManager {
 
   Future<R> post<R>(String url, //FutureOr<T> task(Response value)
       {ResultCallBack resultCallBack,
-      HandleDataCallBack handleDataCallBack,
       Map<String, dynamic> pathParams,
       Map<String, dynamic> bodyParams,
       FormData formData,
@@ -93,8 +92,8 @@ class HttpManager {
         return Future.value(null);
       }
       R data = null;
-      if (handleDataCallBack != null) {
-        data = handleDataCallBack(response);
+      if (resultCallBack != null) {
+        data = resultCallBack.onParseData(response);
       }
       return Future.value(data);
     }).then((r) {
