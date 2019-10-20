@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:ones_ai_flutter/common/net/http_manager.dart';
-import 'package:ones_ai_flutter/models/index.dart';
+import 'package:ones_ai_flutter/models/account/index.dart';
 
 class UserResultCallBack implements ResultCallBack<Response, User> {
   @override
@@ -16,6 +16,7 @@ class UserResultCallBack implements ResultCallBack<Response, User> {
   OnSuccess(User data) {
     // TODO: implement OnSuccess
     print(data.email);
+
   }
 
   @override
@@ -24,8 +25,6 @@ class UserResultCallBack implements ResultCallBack<Response, User> {
     if (response == null) {
       return null;
     }
-    response=null;
-    print(response.statusCode);
     return User.fromJson(response.data["user"]);
   }
 }

@@ -1,12 +1,18 @@
 import 'package:fluintl/fluintl.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ones_ai_flutter/common/api/user_api.dart';
+import 'package:ones_ai_flutter/common/dao/user_dao.dart';
 import 'package:ones_ai_flutter/common/net/http_manager.dart';
+import 'package:ones_ai_flutter/common/redux/global/ones_state.dart';
+import 'package:ones_ai_flutter/common/routes/page_route.dart';
 import 'package:ones_ai_flutter/resources/font_icons.dart';
 import 'package:ones_ai_flutter/resources/index.dart';
 import 'package:ones_ai_flutter/utils/utils_index.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ones_ai_flutter/widget/button/gradient_button.dart';
+import 'package:redux/redux.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -199,6 +205,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildLoginWidget() {
+    Store<OnesGlobalState> store = StoreProvider.of(context);
     return Container(
       child: GradientButton(
         child: Text(IntlUtil.getString(context, Strings.titleLogin),
@@ -212,9 +219,12 @@ class _LoginPageState extends State<LoginPage> {
             setState(() {});
             _formKey.currentState.save();
             Fluttertoast.showToast(msg: "login start!");
-            UserApi.login(_userName, _password, null).then((user) {
-              if(user!=null){
+            UserApi.login(_userName, _password, null).then((user) async
+            {
+              if (user != null) {
                 print(user.email);
+                await UserDao.saveLoginUserInfo(user,store);
+                PageRouteManager.openNewPage(context, PageRouteManager.homePagePath);
               }
             });
           }

@@ -51,4 +51,27 @@ class PageRouteManager {
     print("接收参数${params['param'].first}");
     return ThemeSelectPage();
   });
+
+  static openNewPage(BuildContext context, String pagePath,
+      {Map<String, dynamic> params, bool replace, TransitionType transition}) {
+    assert(pagePath != null);
+    assert(pageRouter != null);
+    String query = "";
+    if (params != null) {
+      params.forEach((key, value) {
+        query = key + "=" + Uri.encodeComponent(value);
+      });
+    } else {
+      query = "param=${Uri.encodeComponent('hello')}";
+    }
+    pageRouter.navigateTo(context, "${pagePath}?${query}",
+        replace: false,
+        transition: transition ?? TransitionType.cupertino,
+        transitionDuration: Duration(milliseconds: 400));
+  }
+
+  static closePage(BuildContext context){
+    assert(pageRouter != null);
+    pageRouter.pop(context);
+  }
 }

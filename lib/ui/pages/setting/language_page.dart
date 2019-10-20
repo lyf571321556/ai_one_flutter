@@ -2,6 +2,7 @@ import 'package:fluintl/fluintl.dart';
 import 'package:flutter/material.dart';
 import 'package:ones_ai_flutter/common/config/app_config.dart';
 import 'package:ones_ai_flutter/common/redux/global/ones_state.dart';
+import 'package:ones_ai_flutter/common/routes/page_route.dart';
 import 'package:ones_ai_flutter/common/storage/local_storage.dart';
 import 'package:ones_ai_flutter/models/setting/model_language.dart';
 import 'package:ones_ai_flutter/resources/index.dart';
@@ -52,6 +53,7 @@ class _LanguageSelectPageState extends State<LanguageSelectPage> {
       LocalStorage.put(Config.LOCALE,
           languageModel.languageCode + "-" + languageModel.countryCode);
     }
+    PageRouteManager.closePage(context);
   }
 
   @override

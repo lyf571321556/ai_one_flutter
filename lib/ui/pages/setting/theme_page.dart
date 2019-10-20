@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ones_ai_flutter/common/config/app_config.dart';
 import 'package:ones_ai_flutter/common/redux/global/ones_state.dart';
+import 'package:ones_ai_flutter/common/routes/page_route.dart';
 import 'package:ones_ai_flutter/common/storage/local_storage.dart';
 import 'package:ones_ai_flutter/resources/index.dart';
 import 'package:ones_ai_flutter/utils/utils_index.dart';
@@ -24,7 +25,6 @@ class _ThemeSelectPageState extends State<ThemeSelectPage> {
     // TODO: implement initState
     super.initState();
     list = themeColorMap.keys.toList();
-    print(list.length);
   }
 
   @override
@@ -44,7 +44,9 @@ class _ThemeSelectPageState extends State<ThemeSelectPage> {
             alignment: Alignment.topCenter,
             child: GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3, childAspectRatio: 1.0,crossAxisSpacing: 0),
+                  crossAxisCount: 3,
+                  childAspectRatio: 1.0,
+                  crossAxisSpacing: 0),
               itemCount: list.length,
               itemBuilder: (context, index) {
                 return _buildItem(context, index, store);
@@ -58,13 +60,14 @@ class _ThemeSelectPageState extends State<ThemeSelectPage> {
 
   void _changeTheme(String key, Store<OnesGlobalState> store) {
     ThemeData newThemeData = ThemeData.light().copyWith(
-      primaryColor: themeColorMap[key],
-      accentColor: themeColorMap[key],
-      indicatorColor: themeColorMap[key],
-    );
+        primaryColor: themeColorMap[key],
+        accentColor: themeColorMap[key],
+        indicatorColor: themeColorMap[key],
+        platform: TargetPlatform.iOS);
     CommonUtils.changeTheme(store, newThemeData);
     LocalStorage.put(Config.THEME_COLOR, key);
     setState(() {});
+    PageRouteManager.closePage(context);
   }
 
   Widget _buildItem(

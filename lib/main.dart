@@ -41,8 +41,10 @@ void main() {
 //    runApp(OnesApp());
     PaintingBinding.instance.imageCache.maximumSize = 100;
   }, onError: (object, stack) {
+    print("=====global error start=====");
     print(object);
     print(stack);
+    print("=====global error start=====");
   });
 }
 
@@ -59,10 +61,10 @@ class OnesAppState extends State<OnesApp> {
       middleware: onesMiddlewares,
       initialState: new OnesGlobalState(
           themeData: ThemeData.light().copyWith(
-            primaryColor: Colors.blueAccent,
-            accentColor: Colors.blueAccent,
-            indicatorColor: Colors.white,
-          ),
+              primaryColor: Colors.blueAccent,
+              accentColor: Colors.blueAccent,
+              indicatorColor: Colors.white,
+              platform: TargetPlatform.iOS),
           platformLocale: WidgetsBinding.instance.window.locale));
 
   @override
@@ -113,11 +115,9 @@ class OnesAppState extends State<OnesApp> {
                   ],
                   localeListResolutionCallback: (List<Locale> locales,
                       Iterable<Locale> supportedLocales) {
-                    print(store.state.locale);
                     if (locales.length <= 0 || store.state.locale != null) {
                       return;
                     }
-                    print("=====");
                     if (localizedValues.containsKey(locales[0].languageCode)) {
                       if (store.state.platformLocale == null ||
                           locales[0].languageCode !=
@@ -127,10 +127,8 @@ class OnesAppState extends State<OnesApp> {
                         store.state.platformLocale = locales[0];
 //                        store.dispatch(ChangeLocaleAction(locales[0]));
                         store.dispatch(ChangePlatformLocaleAction(locales[0]));
-                        print("0" + locales[0].toString());
                       }
                     } else {
-                      print("00-" + supportedLocales.first.toString());
 //                      store.dispatch(ChangeLocaleAction(supportedLocales.first));
                       store.dispatch(
                           ChangePlatformLocaleAction(supportedLocales.first));
@@ -144,7 +142,7 @@ class OnesAppState extends State<OnesApp> {
 //                      );
 //                    }
 //                  },
-                  home: _getHomePage(store.state.user!=null),
+                  home: _getHomePage(store.state.user != null),
                 );
               }));
         } else {
@@ -156,6 +154,10 @@ class OnesAppState extends State<OnesApp> {
   }
 
   Widget _getHomePage(bool isLogin) {
-    return isLogin ? HomePage() : WelcomePage(title: 'Flutter Demo Home Page',);
+    return isLogin
+        ? HomePage()
+        : WelcomePage(
+            title: 'Flutter Demo Home Page',
+          );
   }
 }

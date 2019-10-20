@@ -20,18 +20,18 @@ class AppDao {
     CommonUtils.changeLocale(store, newlocal);
 
     ThemeData newThemeData = ThemeData.light().copyWith(
-      primaryColor: Colors.blueAccent,
-      accentColor: Colors.blueAccent,
-      indicatorColor: Colors.white,
-    );
+        primaryColor: Colors.blueAccent,
+        accentColor: Colors.blueAccent,
+        indicatorColor: Colors.white,
+        platform: TargetPlatform.iOS);
 
     String colorKey = await LocalStorage.get(Config.THEME_COLOR);
     if (colorKey != null && colorKey.length != 0) {
       newThemeData = ThemeData.light().copyWith(
-        primaryColor: themeColorMap[colorKey],
-        accentColor: themeColorMap[colorKey],
-        indicatorColor: Colors.white,
-      );
+          primaryColor: themeColorMap[colorKey],
+          accentColor: themeColorMap[colorKey],
+          indicatorColor: Colors.white,
+          platform: TargetPlatform.iOS);
     }
     CommonUtils.changeTheme(store, newThemeData);
 

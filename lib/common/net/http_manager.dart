@@ -152,9 +152,7 @@ class HttpManager {
         }
       });
     }
-    print("1");
     Response catchError(DioError e) {
-      print("2");
       Response response_ = new Response();
       if (e.response != null) {
         response_ = e.response;
@@ -209,7 +207,6 @@ class HttpManager {
           //response = catchError(err);
         });
       } else {
-        print("6");
         response = await _httpClient
             .get(
           url,

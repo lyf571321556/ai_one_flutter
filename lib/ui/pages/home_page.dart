@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluintl/fluintl.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:ones_ai_flutter/common/redux/global/ones_state.dart';
 import 'package:ones_ai_flutter/resources/index.dart';
 import 'package:ones_ai_flutter/common/component_index.dart';
 import 'package:ones_ai_flutter/ui/drawers/main_left_page.dart';
@@ -19,15 +22,31 @@ class HomePage extends StatelessWidget {
         resizeToAvoidBottomPadding: true,
         appBar: MyAppBar(
           elevation: 1,
-          leading: new Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                image: AssetImage(
-                  ResourceUtils.getImgPath('default_avatar'),
+          leading: CachedNetworkImage(
+            imageUrl:
+            StoreProvider.of<OnesGlobalState>(context).state.user.avatar,
+            imageBuilder: (context, imageProvider) => Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: imageProvider,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
+            placeholder: (context, url) {
+              return Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: AssetImage(ResourceUtils.getImgPath('default_avatar'),
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              );
+            },
+            fit: BoxFit.cover,
           ),
           title: Container(
             constraints: BoxConstraints.expand(),
