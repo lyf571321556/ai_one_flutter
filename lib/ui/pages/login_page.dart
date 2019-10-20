@@ -219,12 +219,12 @@ class _LoginPageState extends State<LoginPage> {
             setState(() {});
             _formKey.currentState.save();
             Fluttertoast.showToast(msg: "login start!");
-            UserApi.login(_userName, _password, null).then((user) async
-            {
+            UserApi.login(_userName, _password, null).then((user) async {
               if (user != null) {
                 print(user.email);
-                await UserDao.saveLoginUserInfo(user,store);
-                PageRouteManager.openNewPage(context, PageRouteManager.homePagePath);
+                await UserDao.saveLoginUserInfo(user, store);
+                PageRouteManager.openNewPage(
+                    context, PageRouteManager.homePagePath);
               }
             });
           }

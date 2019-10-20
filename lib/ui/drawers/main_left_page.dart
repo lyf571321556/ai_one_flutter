@@ -29,6 +29,7 @@ class PageInfo {
 }
 
 class _MainLeftMenuPageState extends State<MainLeftMenuPage> {
+  int currentPageIndex = 0;
   List<PageInfo> _pageInfo = new List();
   PageInfo loginOut =
       PageInfo(Strings.titleHome, Icons.power_settings_new, null);
@@ -154,7 +155,10 @@ class _MainLeftMenuPageState extends State<MainLeftMenuPage> {
               itemBuilder: (BuildContext context, int index) {
                 PageInfo pageInfo = _pageInfo[index];
                 return new ListTile(
-                  leading: new Icon(pageInfo.iconData),
+                  leading: new Icon(pageInfo.iconData,
+                      color: index == currentPageIndex
+                          ? Theme.of(context).primaryColor
+                          : null),
                   trailing: Icon(Icons.keyboard_arrow_right),
                   title: Text(IntlUtil.getString(context, pageInfo.titleId)),
                   onTap: () {

@@ -30,27 +30,27 @@ class PageRouteManager {
 
   static final Handler _loginPageHandler = new Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-    print("接收参数${params['param'].first}");
-    return LoginPage();
-  });
+        print("接收参数${params['param'].first}");
+        return LoginPage();
+      });
 
   static final Handler _homePageHandler = new Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-    print("接收参数${params['param'].first}");
-    return HomePage();
-  });
+        print("接收参数${params['param'].first}");
+        return HomePage();
+      });
 
   static final Handler _languagePageHandler = new Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-    print("接收参数${params['param'].first}");
-    return LanguageSelectPage();
-  });
+        print("接收参数${params['param'].first}");
+        return LanguageSelectPage();
+      });
 
   static final Handler _themePageHandler = new Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-    print("接收参数${params['param'].first}");
-    return ThemeSelectPage();
-  });
+        print("接收参数${params['param'].first}");
+        return ThemeSelectPage();
+      });
 
   static openNewPage(BuildContext context, String pagePath,
       {Map<String, dynamic> params, bool replace, TransitionType transition}) {
@@ -70,7 +70,7 @@ class PageRouteManager {
         transitionDuration: Duration(milliseconds: 400));
   }
 
-  static closePage(BuildContext context){
+  static closePage(BuildContext context) {
     assert(pageRouter != null);
     pageRouter.pop(context);
   }
