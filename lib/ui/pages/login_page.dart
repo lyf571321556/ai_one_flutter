@@ -22,7 +22,10 @@ class LoginPage extends StatefulWidget {
   }
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage>
+    with SingleTickerProviderStateMixin {
+  AnimationController _animationController;
+  Animation<double> _widthAnimation;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _accountController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -37,6 +40,12 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    _animationController = AnimationController(
+        vsync: this, duration: Duration(milliseconds: 2000));
+    _widthAnimation = Tween<double>(begin: 800, end: 70.0).animate(
+        CurvedAnimation(
+            parent: _animationController,
+            curve: Interval(.0, 1.0, curve: Curves.ease)));
     _accountController.text = "huangjinfan+5001@ones.ai";
     _passwordController.text = "11111111";
   }
@@ -78,7 +87,8 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(height: _userNameValied ? 10 : 5),
                     _buildPasswordTextField(),
                     _buildForgetPasswordWidget(),
-                    _buildLoginWidget()
+                    _buildLoginWidget_()
+//                    _buildLoginWidget()
                   ],
                 ),
               ),
@@ -202,6 +212,65 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  Widget _buildLoginWidget_() {
+    Store<OnesGlobalState> store = StoreProvider.of(context);
+    return AnimatedBuilder(
+        animation: _animationController,
+        builder: (context, child) {
+          return Container(
+            child: _widthAnimation.value <= 70
+                ? Container(
+                    width: _widthAnimation.value,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 12),
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                            gradient: LinearGradient(colors: [
+                              Theme.of(context).primaryColor,
+                              Theme.of(context).primaryColor
+                            ]),
+                            borderRadius: BorderRadius.circular(8)),
+                        child: CircularProgressIndicator(
+                          valueColor: new AlwaysStoppedAnimation<Color>(
+                              Theme.of(context).primaryColor),
+                          strokeWidth: 2,
+                          backgroundColor: Colors.deepOrange,
+                        ),
+                      ),
+                    ),
+                  )
+                : GradientButton(
+                    child: Text(IntlUtil.getString(context, Strings.titleLogin),
+                        style: TextStyle(fontSize: 16)),
+                    borderRadius: BorderRadius.circular(8),
+                    onPressed: () async {
+                      await _animationController.forward().orCancel;
+                      await _animationController.reverse().orCancel;
+//            _autoValied = true;
+//            if (!_formKey.currentState.validate()) {
+//              setState(() {});
+//            } else {
+//              setState(() {});
+//              _formKey.currentState.save();
+//              Fluttertoast.showToast(msg: "login start!");
+//              UserApi.login(_userName, _password, null).then((user) async {
+//                if (user != null) {
+//                  print(user.email);
+//                  await UserDao.saveLoginUserInfo(user, store);
+//                  PageRouteManager.openNewPage(
+//                      context, PageRouteManager.homePagePath);
+//                }
+//              });
+//            }
+                    },
+                    childPadding: EdgeInsets.symmetric(vertical: 12),
+                  ),
+            width: _widthAnimation.value,
+            margin: EdgeInsets.only(top: 18, bottom: 5),
+          );
+        });
   }
 
   Widget _buildLoginWidget() {
