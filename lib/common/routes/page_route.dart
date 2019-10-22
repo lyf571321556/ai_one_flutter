@@ -65,7 +65,7 @@ class PageRouteManager {
       query = "param=${Uri.encodeComponent('hello')}";
     }
     pageRouter.navigateTo(context, "${pagePath}?${query}",
-        replace: false,
+        replace:replace?? false,
         transition: transition ?? TransitionType.cupertino,
         transitionDuration: Duration(milliseconds: 400));
   }

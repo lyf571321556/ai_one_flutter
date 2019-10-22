@@ -74,7 +74,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 String routePath = store.state.user != null
                     ? PageRouteManager.homePagePath
                     : PageRouteManager.loginPagePath;
-                PageRouteManager.openNewPage(context, routePath);
+                PageRouteManager.openNewPage(context, routePath,replace: true);
               },
             )),
       );
