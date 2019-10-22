@@ -13,6 +13,7 @@ import 'package:ones_ai_flutter/utils/utils_index.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ones_ai_flutter/widget/button/gradient_button.dart';
 import 'package:redux/redux.dart';
+import 'package:build_daemon/constants.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -41,15 +42,24 @@ class _LoginPageState extends State<LoginPage>
     // TODO: implement initState
     super.initState();
     _animationController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 2000));
-    _widthAnimation = Tween<double>(begin: 800, end: 70.0).animate(
+        vsync: this, duration: Duration(milliseconds: 1500));
+    _widthAnimation = Tween<double>(begin: 1000, end: 42.0).animate(
         CurvedAnimation(
             parent: _animationController,
-            curve: Interval(.0, 1.0, curve: Curves.ease)));
+            curve: Interval(.0, 0.25, curve: Curves.ease))
+          ..addListener(() {
+            if (_widthAnimation.isCompleted) {}
+          }));
     _accountController.text = "huangjinfan+5001@ones.ai";
     _passwordController.text = "11111111";
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _animationController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -220,55 +230,44 @@ class _LoginPageState extends State<LoginPage>
         animation: _animationController,
         builder: (context, child) {
           return Container(
-            child: _widthAnimation.value <= 70
-                ? Container(
-                    width: _widthAnimation.value,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 12),
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                            gradient: LinearGradient(colors: [
-                              Theme.of(context).primaryColor,
-                              Theme.of(context).primaryColor
-                            ]),
-                            borderRadius: BorderRadius.circular(8)),
-                        child: CircularProgressIndicator(
-                          valueColor: new AlwaysStoppedAnimation<Color>(
-                              Theme.of(context).primaryColor),
-                          strokeWidth: 2,
-                          backgroundColor: Colors.deepOrange,
-                        ),
-                      ),
-                    ),
-                  )
-                : GradientButton(
+            margin: EdgeInsets.only(top: 20),
+            height: 42,
+            width: _widthAnimation.value,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(22),
+                color: Theme.of(context).primaryColor),
+            alignment: Alignment.center,
+            child: _widthAnimation.value > 75
+                ? GradientButton(
                     child: Text(IntlUtil.getString(context, Strings.titleLogin),
                         style: TextStyle(fontSize: 16)),
                     borderRadius: BorderRadius.circular(8),
                     onPressed: () async {
                       await _animationController.forward().orCancel;
                       await _animationController.reverse().orCancel;
-//            _autoValied = true;
-//            if (!_formKey.currentState.validate()) {
-//              setState(() {});
-//            } else {
-//              setState(() {});
-//              _formKey.currentState.save();
-//              Fluttertoast.showToast(msg: "login start!");
-//              UserApi.login(_userName, _password, null).then((user) async {
-//                if (user != null) {
-//                  print(user.email);
-//                  await UserDao.saveLoginUserInfo(user, store);
-//                  PageRouteManager.openNewPage(
-//                      context, PageRouteManager.homePagePath);
-//                }
-//              });
-//            }
+//          _autoValied = true;
+//          if (!_formKey.currentState.validate()) {
+//            setState(() {});
+//          } else {
+//            setState(() {});
+//            _formKey.currentState.save();
+//            Fluttertoast.showToast(msg: "login start!");
+//            UserApi.login(_userName, _password, null).then((user) async {
+//              if (user != null) {
+//                print(user.email);
+//                await UserDao.saveLoginUserInfo(user, store);
+//                PageRouteManager.openNewPage(
+//                    context, PageRouteManager.homePagePath);
+//              }
+//            });
+//          }
                     },
-                    childPadding: EdgeInsets.symmetric(vertical: 12),
+                    childPadding: EdgeInsets.symmetric(vertical: 8),
+                  )
+                : CircularProgressIndicator(
+                    valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+                    strokeWidth: 2,
                   ),
-            width: _widthAnimation.value,
-            margin: EdgeInsets.only(top: 18, bottom: 5),
           );
         });
   }
