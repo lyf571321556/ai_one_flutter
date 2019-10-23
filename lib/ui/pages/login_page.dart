@@ -253,11 +253,9 @@ class _LoginPageState extends State<LoginPage>
                         _formKey.currentState.save();
                         UserApi.login(_userName, _password, null)
                             .then((result) async {
-                          HttpResult httpResult = result as HttpResult;
-                          if (httpResult.isSuccess) {
-                            print(httpResult.data.email);
-                            await UserDao.saveLoginUserInfo(
-                                httpResult.data, store);
+                          if (result.isSuccess) {
+                            print(result.data.email);
+                            await UserDao.saveLoginUserInfo(result.data, store);
                             PageRouteManager.openNewPage(
                                 context, PageRouteManager.homePagePath);
                           } else {
