@@ -60,6 +60,7 @@ class _LoginPageState extends State<LoginPage>
     _animationController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -97,8 +98,7 @@ class _LoginPageState extends State<LoginPage>
                     SizedBox(height: _userNameValied ? 10 : 5),
                     _buildPasswordTextField(),
                     _buildForgetPasswordWidget(),
-                    _buildLoginWidget_()
-//                    _buildLoginWidget()
+                    _buildLoginWidget()
                   ],
                 ),
               ),
@@ -224,7 +224,7 @@ class _LoginPageState extends State<LoginPage>
     );
   }
 
-  Widget _buildLoginWidget_() {
+  Widget _buildLoginWidget() {
     Store<OnesGlobalState> store = StoreProvider.of(context);
     return AnimatedBuilder(
         animation: _animationController,
@@ -270,36 +270,5 @@ class _LoginPageState extends State<LoginPage>
                   ),
           );
         });
-  }
-
-  Widget _buildLoginWidget() {
-    Store<OnesGlobalState> store = StoreProvider.of(context);
-    return Container(
-      child: GradientButton(
-        child: Text(IntlUtil.getString(context, Strings.titleLogin),
-            style: TextStyle(fontSize: 16)),
-        borderRadius: BorderRadius.circular(8),
-        onPressed: () {
-          _autoValied = true;
-          if (!_formKey.currentState.validate()) {
-            setState(() {});
-          } else {
-            setState(() {});
-            _formKey.currentState.save();
-            Fluttertoast.showToast(msg: "login start!");
-            UserApi.login(_userName, _password, null).then((user) async {
-              if (user != null) {
-                print(user.email);
-                await UserDao.saveLoginUserInfo(user, store);
-                PageRouteManager.openNewPage(
-                    context, PageRouteManager.homePagePath);
-              }
-            });
-          }
-        },
-        childPadding: EdgeInsets.symmetric(vertical: 11),
-      ),
-      margin: EdgeInsets.only(top: 18, bottom: 5),
-    );
   }
 }
