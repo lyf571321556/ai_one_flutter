@@ -5,6 +5,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ones_ai_flutter/common/api/user_api.dart';
 import 'package:ones_ai_flutter/common/dao/user_dao.dart';
 import 'package:ones_ai_flutter/common/net/http_manager.dart';
+import 'package:ones_ai_flutter/common/net/http_result.dart';
 import 'package:ones_ai_flutter/common/redux/global/ones_state.dart';
 import 'package:ones_ai_flutter/common/routes/page_route.dart';
 import 'package:ones_ai_flutter/resources/font_icons.dart';
@@ -244,23 +245,28 @@ class _LoginPageState extends State<LoginPage>
                     borderRadius: BorderRadius.circular(8),
                     onPressed: () async {
                       await _animationController.forward().orCancel;
-                      await _animationController.reverse().orCancel;
-//          _autoValied = true;
-//          if (!_formKey.currentState.validate()) {
-//            setState(() {});
-//          } else {
-//            setState(() {});
-//            _formKey.currentState.save();
-//            Fluttertoast.showToast(msg: "login start!");
-//            UserApi.login(_userName, _password, null).then((user) async {
-//              if (user != null) {
-//                print(user.email);
-//                await UserDao.saveLoginUserInfo(user, store);
-//                PageRouteManager.openNewPage(
-//                    context, PageRouteManager.homePagePath);
-//              }
-//            });
-//          }
+                      _autoValied = true;
+                      if (!_formKey.currentState.validate()) {
+                        setState(() {});
+                      } else {
+                        setState(() {});
+                        _formKey.currentState.save();
+                        UserApi.login(_userName, _password, null)
+                            .then((result) async {
+                          HttpResult httpResult = result as HttpResult;
+                          if (httpResult.isSuccess) {
+                            print(httpResult.data.email);
+                            await UserDao.saveLoginUserInfo(
+                                httpResult.data, store);
+                            PageRouteManager.openNewPage(
+                                context, PageRouteManager.homePagePath);
+                          } else {
+                            await _animationController.reverse().orCancel;
+                            Fluttertoast.showToast(
+                                msg: "login failed,please retry!");
+                          }
+                        });
+                      }
                     },
                     childPadding: EdgeInsets.symmetric(vertical: 8),
                   )
