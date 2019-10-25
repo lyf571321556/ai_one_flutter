@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   static String _userName, _password;
 
   Animation<EdgeInsets> _containerCircleAnimation;
-  Animation _buttomZoomOut;
+  Animation _homePageZoomOut;
 
   @override
   void initState() {
@@ -64,7 +64,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
             replace: true);
       }
     });
-    _buttomZoomOut = new Tween(
+    _homePageZoomOut = new Tween(
       begin: _loginButtonMinWidth,
       end: 1000.0,
     ).animate(
@@ -298,13 +298,13 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
           builder: (context, child) {
             return Container(
               height: _loginState == LoginState.LOGIN_SUCCESS
-                  ? _buttomZoomOut.value
+                  ? _homePageZoomOut.value
                   : _loginButtonMinWidth,
               width: _loginState == LoginState.LOGIN_SUCCESS
-                  ? _buttomZoomOut.value
+                  ? _homePageZoomOut.value
                   : _loginButtonWidthAnimation.value,
               decoration: BoxDecoration(
-                  shape: _buttomZoomOut.value < 500
+                  shape: _homePageZoomOut.value < 500
                       ? BoxShape.circle
                       : BoxShape.rectangle,
                   color: Theme.of(context).primaryColor),
