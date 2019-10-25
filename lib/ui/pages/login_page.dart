@@ -320,6 +320,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                 style: TextStyle(fontSize: 16)),
                             borderRadius: BorderRadius.circular(8),
                             onPressed: () async {
+                              FocusScope.of(context).requestFocus(FocusNode());
                               _autoValied = true;
                               if (!_formKey.currentState.validate()) {
                               } else {
