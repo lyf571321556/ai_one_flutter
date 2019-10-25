@@ -12,4 +12,7 @@ class Config {
   static const REFRESH_LANGUAGE = "refreshLanguageApp";
   static const THEME_COLOR = "theme-color";
   static const LOCALE = "app_locale";
+
+
+  static const LOGIN_HERO_TAG="loginOpenHero";
 }

@@ -3,6 +3,7 @@ import 'package:fluintl/fluintl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:ones_ai_flutter/common/config/app_config.dart';
 import 'package:ones_ai_flutter/common/redux/global/ones_state.dart';
 import 'package:ones_ai_flutter/resources/index.dart';
 import 'package:ones_ai_flutter/common/component_index.dart';
@@ -15,59 +16,65 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
-      decoration: BoxDecoration(),
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        resizeToAvoidBottomPadding: true,
-        appBar: MyAppBar(
-          elevation: 1,
-          leading: CachedNetworkImage(
-            imageUrl:
-            StoreProvider.of<OnesGlobalState>(context).state.user.avatar,
-            imageBuilder: (context, imageProvider) => Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: imageProvider,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            placeholder: (context, url) {
-              return Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: AssetImage(ResourceUtils.getImgPath('default_avatar'),
+    return Hero(
+        tag: Config.LOGIN_HERO_TAG,
+        child: Container(
+          decoration: BoxDecoration(),
+          child: Scaffold(
+            resizeToAvoidBottomInset: true,
+            resizeToAvoidBottomPadding: true,
+            appBar: MyAppBar(
+              elevation: 1,
+              leading: CachedNetworkImage(
+                imageUrl: StoreProvider.of<OnesGlobalState>(context)
+                    .state
+                    .user
+                    .avatar,
+                imageBuilder: (context, imageProvider) => Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
                     ),
-                    fit: BoxFit.cover,
                   ),
                 ),
-              );
-            },
-            fit: BoxFit.cover,
-          ),
-          title: Container(
-            constraints: BoxConstraints.expand(),
-            margin:
-                EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.07),
-            padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.07),
-          ),
+                placeholder: (context, url) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: AssetImage(
+                          ResourceUtils.getImgPath('default_avatar'),
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  );
+                },
+                fit: BoxFit.cover,
+              ),
+              title: Container(
+                constraints: BoxConstraints.expand(),
+                margin: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.07),
+                padding:
+                    EdgeInsets.all(MediaQuery.of(context).size.height * 0.07),
+              ),
 //          title: TabLayout(),
 
-          centerTitle: true,
-          actions: <Widget>[
+              centerTitle: true,
+              actions: <Widget>[
 //            new IconButton(icon: new Icon(Icons.search), onPressed: () {})
-          ],
-        ),
-        body: HomePageContent(),
+              ],
+            ),
+            body: HomePageContent(),
 //        body: new TabBarViewLayout(),
-        drawer: new Drawer(
-          child: MainLeftMenuPage(),
-        ),
-      ),
-    );
+            drawer: new Drawer(
+              child: MainLeftMenuPage(),
+            ),
+          ),
+        ));
   }
 }
 
