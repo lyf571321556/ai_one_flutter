@@ -3,6 +3,7 @@ import 'package:fluintl/fluintl.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ones_ai_flutter/common/dao/user_dao.dart';
 import 'package:ones_ai_flutter/common/redux/global/ones_state.dart';
 import 'package:ones_ai_flutter/common/routes/page_route.dart';
 import 'package:ones_ai_flutter/resources/index.dart';
@@ -50,6 +51,7 @@ class _MainLeftMenuPageState extends State<MainLeftMenuPage> {
         PageRouteManager.languagePagePath));
     _pageInfo.add(PageInfo(
         Strings.titleTheme, Icons.color_lens, PageRouteManager.themePagePath));
+    _pageInfo.add(PageInfo(Strings.titleLoginOut, Icons.exit_to_app, null));
   }
 
   @override
@@ -161,8 +163,15 @@ class _MainLeftMenuPageState extends State<MainLeftMenuPage> {
                           : null),
                   trailing: Icon(Icons.keyboard_arrow_right),
                   title: Text(IntlUtil.getString(context, pageInfo.titleId)),
-                  onTap: () {
-                    PageRouteManager.openNewPage(context, pageInfo.pagePath);
+                  onTap: () async {
+                    if (pageInfo.pagePath == null) {
+                      await UserDao.saveLoginUserInfo(null, store);
+                      PageRouteManager.openNewPage(
+                          context, PageRouteManager.loginPagePath,
+                          replace: true);
+                    } else {
+                      PageRouteManager.openNewPage(context, pageInfo.pagePath);
+                    }
                   },
                 );
               }),

@@ -14,6 +14,7 @@ class Strings {
   static const String titlePassword = 'title_password';
   static const String titlePasswordHint = 'title_password_hint';
   static const String titlePasswordError = 'title_password_error';
+  static const String titleLoginOut = 'title_login_out';
 
   static const String titleForgetPassword = 'title_forget_password';
 
@@ -45,6 +46,7 @@ Map<String, Map<String, Map<String, String>>> localizedValues = {
       Strings.titleHome: '主页',
       Strings.jumpCount: '跳过 %\$0\$s',
       Strings.exitApp: '再点一次退出应用!',
+      Strings.titleLoginOut: '退出应用',
       Strings.titleSetting: '设置',
       Strings.titleLanguage: '语言',
       Strings.changeLanguage: "切换语言",
@@ -68,6 +70,7 @@ Map<String, Map<String, Map<String, String>>> localizedValues = {
       Strings.titleHome: '主頁',
       Strings.jumpCount: '跳過 %\$0\$s',
       Strings.exitApp: '再点一次退出应用!',
+      Strings.titleLoginOut: '退出应用',
       Strings.titleSetting: '设置',
       Strings.titleLanguage: '語言',
       Strings.changeLanguage: "切換語言",
@@ -91,6 +94,7 @@ Map<String, Map<String, Map<String, String>>> localizedValues = {
       Strings.titleHome: '主頁',
       Strings.jumpCount: '跳過 %\$0\$s',
       Strings.exitApp: '再点一次退出应用!',
+      Strings.titleLoginOut: '退出应用',
       Strings.titleSetting: '设置',
       Strings.titleLanguage: '語言',
       Strings.changeLanguage: "切換語言",

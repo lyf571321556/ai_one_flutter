@@ -19,11 +19,9 @@ class UserDao {
     }
   }
 
-  static saveLoginUserInfo(User user,Store store) async {
-    if (user == null) {
-      return false;
-    }
-    bool result = await LocalStorage.put(Config.USER_INFO, json.encode(user.toJson()));
+  static saveLoginUserInfo(User user, Store store) async {
+    bool result = await LocalStorage.put(
+        Config.USER_INFO, user==null?null:json.encode(user.toJson()));
     CommonUtils.changeUser(store, user);
     return result;
   }
