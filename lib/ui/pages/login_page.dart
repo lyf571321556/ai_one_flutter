@@ -332,11 +332,11 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                     .then((result) async {
                                   if (result.isSuccess) {
                                     print(result.data.email);
+                                    await UserDao.saveLoginUserInfo(
+                                        result.data, store);
                                     setState(() {
                                       _loginState = LoginState.LOGIN_SUCCESS;
                                     });
-                                    await UserDao.saveLoginUserInfo(
-                                        result.data, store);
                                     await _playLoginSuccessAnimation();
                                   } else {
                                     setState(() {
