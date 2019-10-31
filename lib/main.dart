@@ -34,7 +34,7 @@ void main() {
     runAutoSizeApp(OnesApp());
     if (Platform.isAndroid) {
       SystemUiOverlayStyle systemUiOverlayStyle =
-          SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+      SystemUiOverlayStyle(statusBarColor: Colors.transparent);
       SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
     }
 
@@ -57,6 +57,7 @@ class OnesApp extends StatefulWidget {
 }
 
 class OnesAppState extends State<OnesApp> {
+  var _dataBuilderFuture;
   final Store onesStore = new Store<OnesGlobalState>(createOnesAppReducer,
       middleware: onesMiddlewares,
       initialState: new OnesGlobalState(
@@ -72,6 +73,7 @@ class OnesAppState extends State<OnesApp> {
     // TODO: implement initState
     super.initState();
     setLocalizedValues(localizedValues);
+    _dataBuilderFuture=AppDao.initApp(onesStore);
   }
 
   @override
@@ -95,51 +97,56 @@ class OnesAppState extends State<OnesApp> {
   Widget build(BuildContext context) {
     print("---------------");
     return FutureBuilder(
-      builder: (context, snapshot) {
-        print(snapshot);
-        if (snapshot.connectionState==ConnectionState.done&&snapshot.hasData) {
-          print(snapshot.data);
-          print((snapshot.data as Store<OnesGlobalState>).state);
-          print((snapshot.data as Store<OnesGlobalState>).state.user==null);
-          return StoreProvider<OnesGlobalState>(
-              store: snapshot.data,
-              child: StoreBuilder<OnesGlobalState>(builder: (context, store) {
-                return MaterialApp(
-                  onGenerateRoute: PageRouteManager.pageRouter.generator,
-                  debugShowCheckedModeBanner: false,
-                  title: 'Ones App',
-                  onGenerateTitle: (BuildContext context) {
-                    return IntlUtil.getString(context, Strings.titleHome);
-                  },
-                  locale: store.state.locale ?? store.state.platformLocale,
-                  supportedLocales: CustomLocalizations.supportedLocales,
-                  localizationsDelegates: [
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                    CustomLocalizations.delegate
-                  ],
-                  localeListResolutionCallback: (List<Locale> locales,
-                      Iterable<Locale> supportedLocales) {
-                    if (locales.length <= 0 || store.state.locale != null) {
-                      return;
-                    }
-                    if (localizedValues.containsKey(locales[0].languageCode)) {
-                      if (store.state.platformLocale == null ||
-                          locales[0].languageCode !=
-                              store.state.platformLocale.languageCode ||
-                          locales[0].countryCode !=
-                              store.state.platformLocale.countryCode) {
-                        store.state.platformLocale = locales[0];
+      builder:_buildFuture,
+      future: _dataBuilderFuture,
+    );
+  }
+
+  Widget _buildFuture(BuildContext context, AsyncSnapshot snapshot) {
+    print(snapshot);
+    if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
+      print(snapshot.data);
+      print((snapshot.data as Store<OnesGlobalState>).state);
+      print((snapshot.data as Store<OnesGlobalState>).state.user == null);
+      return StoreProvider<OnesGlobalState>(
+          store: snapshot.data,
+          child: StoreBuilder<OnesGlobalState>(builder: (context, store) {
+            return MaterialApp(
+              onGenerateRoute: PageRouteManager.pageRouter.generator,
+              debugShowCheckedModeBanner: false,
+              title: 'Ones App',
+              onGenerateTitle: (BuildContext context) {
+                return IntlUtil.getString(context, Strings.titleHome);
+              },
+              locale: store.state.locale ?? store.state.platformLocale,
+              supportedLocales: CustomLocalizations.supportedLocales,
+              localizationsDelegates: [
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                CustomLocalizations.delegate
+              ],
+              localeListResolutionCallback: (List<Locale> locales,
+                  Iterable<Locale> supportedLocales) {
+                if (locales.length <= 0 || store.state.locale != null) {
+                  return;
+                }
+                if (localizedValues.containsKey(locales[0].languageCode)) {
+                  if (store.state.platformLocale == null ||
+                      locales[0].languageCode !=
+                          store.state.platformLocale.languageCode ||
+                      locales[0].countryCode !=
+                          store.state.platformLocale.countryCode) {
+                    store.state.platformLocale = locales[0];
 //                        store.dispatch(ChangeLocaleAction(locales[0]));
-                        store.dispatch(ChangePlatformLocaleAction(locales[0]));
-                      }
-                    } else {
+                    store.dispatch(ChangePlatformLocaleAction(locales[0]));
+                  }
+                } else {
 //                      store.dispatch(ChangeLocaleAction(supportedLocales.first));
-                      store.dispatch(
-                          ChangePlatformLocaleAction(supportedLocales.first));
-                    }
-                  },
-                  theme: store.state.themeData,
+                  store.dispatch(
+                      ChangePlatformLocaleAction(supportedLocales.first));
+                }
+              },
+              theme: store.state.themeData,
 //                  routes: {
 //                    HomePage.pageName: (context) {
 //                      return new LocalizationsWidget(
@@ -147,23 +154,20 @@ class OnesAppState extends State<OnesApp> {
 //                      );
 //                    }
 //                  },
-                  home: _getHomePage(store.state.user != null),
-                );
-              }));
-        } else {
-          print("nullllllllllllllllll");
-          return Container();
-        }
-      },
-      future: AppDao.initApp(onesStore),
-    );
+              home: _getHomePage(store.state.user != null),
+            );
+          }));
+    } else {
+      print("nullllllllllllllllll");
+      return Container();
+    }
   }
 
   Widget _getHomePage(bool isLogin) {
     return isLogin
         ? HomePage()
         : WelcomePage(
-            title: 'Flutter Demo Home Page',
-          );
+      title: 'Flutter Demo Home Page',
+    );
   }
 }

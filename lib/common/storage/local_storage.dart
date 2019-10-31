@@ -10,10 +10,10 @@ class LocalDataHelper {
     prefs.setString(key, value);
   }
 
-  static get(String key) async {
+  static get(String key) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.get(key);
-//    return localStorage.getItem(key);
+    return localStorage.getItem(key);
   }
 
   static remove(String key) async {

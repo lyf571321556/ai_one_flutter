@@ -9,7 +9,7 @@ import 'package:redux/redux.dart';
 ///获取本地登录用户信息
 class UserDao {
   static getUserInfo() async {
-    var userText = await LocalDataHelper.get(Config.USER_INFO);
+    var userText =  LocalDataHelper.get(Config.USER_INFO);
     if (userText != null) {
       Map<String, dynamic> userMap = json.decode(userText);
       User user = User.fromJson(userMap);

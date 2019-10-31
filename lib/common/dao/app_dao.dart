@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:ones_ai_flutter/common/config/app_config.dart';
 import 'package:ones_ai_flutter/common/dao/user_dao.dart';
@@ -11,8 +13,16 @@ import 'package:ones_ai_flutter/resources/index.dart';
 class AppDao {
   static Future<Store<OnesGlobalState>> initApp(
       Store<OnesGlobalState> store) async {
+    String userInfo =await LocalDataHelper.get(Config.USER_INFO);
+    User user = null; //await UserDao.getUserInfo();
+    if (userInfo != null) {
+      Map<String, dynamic> userMap = json.decode(userInfo);
+      user = User.fromJson(userMap);
+    }
+    CommonUtils.changeUser(store, user);
+
     ///切换语言
-    String localInfo = await LocalDataHelper.get(Config.LOCALE);
+    String localInfo =await LocalDataHelper.get(Config.LOCALE);
     Locale newlocal = null;
     if (localInfo != null && localInfo.length != 0) {
       newlocal = new Locale(localInfo.split("-")[0], localInfo.split("-")[1]);
@@ -25,7 +35,7 @@ class AppDao {
         indicatorColor: Colors.white,
         platform: TargetPlatform.iOS);
 
-    String colorKey = await LocalDataHelper.get(Config.THEME_COLOR);
+    String colorKey =await LocalDataHelper.get(Config.THEME_COLOR);
     if (colorKey != null && colorKey.length != 0) {
       newThemeData = ThemeData.light().copyWith(
           primaryColor: themeColorMap[colorKey],
@@ -34,9 +44,6 @@ class AppDao {
           platform: TargetPlatform.iOS);
     }
     CommonUtils.changeTheme(store, newThemeData);
-
-    User user = await UserDao.getUserInfo();
-    CommonUtils.changeUser(store, user);
     return Future.value(store);
   }
 }
