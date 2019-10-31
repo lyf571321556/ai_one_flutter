@@ -120,6 +120,7 @@ Map<String, Map<String, Map<String, String>>> localizedValues = {
       Strings.titleHome: 'Home',
       Strings.jumpCount: 'Jump %\$0\$s',
       Strings.exitApp: '再点一次退出应用!',
+      Strings.titleLoginOut: 'Logout',
       Strings.titleSetting: '设置',
       Strings.titleLanguage: 'Language',
       Strings.changeLanguage: "Switch Language",

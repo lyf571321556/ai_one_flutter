@@ -9,7 +9,7 @@ import 'package:redux/redux.dart';
 ///获取本地登录用户信息
 class UserDao {
   static getUserInfo() async {
-    var userText = await LocalStorage.get(Config.USER_INFO);
+    var userText = await LocalDataHelper.get(Config.USER_INFO);
     if (userText != null) {
       Map<String, dynamic> userMap = json.decode(userText);
       User user = User.fromJson(userMap);
@@ -20,7 +20,7 @@ class UserDao {
   }
 
   static saveLoginUserInfo(User user, Store store) async {
-    bool result = await LocalStorage.put(
+    bool result = await LocalDataHelper.put(
         Config.USER_INFO, user==null?null:json.encode(user.toJson()));
     CommonUtils.changeUser(store, user);
     return result;

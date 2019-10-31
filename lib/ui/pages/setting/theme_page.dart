@@ -65,7 +65,7 @@ class _ThemeSelectPageState extends State<ThemeSelectPage> {
         indicatorColor: themeColorMap[key],
         platform: TargetPlatform.iOS);
     CommonUtils.changeTheme(store, newThemeData);
-    LocalStorage.put(Config.THEME_COLOR, key);
+    LocalDataHelper.put(Config.THEME_COLOR, key);
     setState(() {});
     PageRouteManager.closePage(context);
   }

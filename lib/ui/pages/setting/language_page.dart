@@ -46,11 +46,11 @@ class _LanguageSelectPageState extends State<LanguageSelectPage> {
     setState(() {});
     if (languageModel.titleId == Strings.languageAuto) {
       CommonUtils.changeLocale(store, null);
-      LocalStorage.put(Config.LOCALE, "");
+      LocalDataHelper.put(Config.LOCALE, "");
     } else {
       CommonUtils.changeLocale(
           store, Locale(languageModel.languageCode, languageModel.countryCode));
-      LocalStorage.put(Config.LOCALE,
+      LocalDataHelper.put(Config.LOCALE,
           languageModel.languageCode + "-" + languageModel.countryCode);
     }
     PageRouteManager.closePage(context);

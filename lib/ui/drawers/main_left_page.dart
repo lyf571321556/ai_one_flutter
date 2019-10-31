@@ -76,7 +76,7 @@ class _MainLeftMenuPageState extends State<MainLeftMenuPage> {
     return new Column(
       children: <Widget>[
         new Container(
-          height: 166.0,
+          height: 180.0,
           color: Theme.of(context).primaryColor,
           padding: EdgeInsets.only(
               top: MediaQuery.of(context).padding.top, left: 10.0),
@@ -86,8 +86,7 @@ class _MainLeftMenuPageState extends State<MainLeftMenuPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   new Container(
-                    width: 64.0,
-                    height: 64.0,
+                    width: 60.0,
                     margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
@@ -105,16 +104,15 @@ class _MainLeftMenuPageState extends State<MainLeftMenuPage> {
                       fit: BoxFit.cover,
                     ),
                   ),
+                  SizedBox(height: 6),
                   new Text(
-                    _userName,
+                    "部门/职位",
                     style: new TextStyle(
                         color: Colors.white,
                         fontSize: 16.0,
                         fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
-                    height: 5,
-                  ),
+                  SizedBox(height: 3),
                   new Text(
                     StoreProvider.of<OnesGlobalState>(context).state.user.name,
                     style: new TextStyle(color: Colors.white, fontSize: 12.0),

@@ -93,9 +93,14 @@ class OnesAppState extends State<OnesApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    print("---------------");
     return FutureBuilder(
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
+        print(snapshot);
+        if (snapshot.connectionState==ConnectionState.done&&snapshot.hasData) {
+          print(snapshot.data);
+          print((snapshot.data as Store<OnesGlobalState>).state);
+          print((snapshot.data as Store<OnesGlobalState>).state.user==null);
           return StoreProvider<OnesGlobalState>(
               store: snapshot.data,
               child: StoreBuilder<OnesGlobalState>(builder: (context, store) {
@@ -146,6 +151,7 @@ class OnesAppState extends State<OnesApp> {
                 );
               }));
         } else {
+          print("nullllllllllllllllll");
           return Container();
         }
       },

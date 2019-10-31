@@ -36,14 +36,14 @@ class TokenInterceptor extends InterceptorsWrapper {
   ///清除授权
   clearAuthorization() {
     this._token = null;
-    LocalStorage.remove(Config.TOKEN_KEY);
+    LocalDataHelper.remove(Config.TOKEN_KEY);
   }
 
   ///获取授权token
   getAuthorization() async {
-    String token = await LocalStorage.get(Config.TOKEN_KEY);
+    String token = await LocalDataHelper.get(Config.TOKEN_KEY);
     if (token == null) {
-      String basic = await LocalStorage.get(Config.USER_BASIC_CODE);
+      String basic = await LocalDataHelper.get(Config.USER_BASIC_CODE);
       if (basic == null) {
         //提示输入账号密码
       } else {
