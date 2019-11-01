@@ -41,10 +41,10 @@ void main() {
 //    runApp(OnesApp());
     PaintingBinding.instance.imageCache.maximumSize = 100;
   }, onError: (object, stack) {
-    print("=====global error start=====");
+    print("===============global error start===============");
     print(object);
     print(stack);
-    print("=====global error start=====");
+    print("===============global error end===============");
   });
 }
 
@@ -57,7 +57,7 @@ class OnesApp extends StatefulWidget {
 }
 
 class OnesAppState extends State<OnesApp> {
-  var _dataBuilderFuture;
+  var _buildDataFuture;
   final Store onesStore = new Store<OnesGlobalState>(createOnesAppReducer,
       middleware: onesMiddlewares,
       initialState: new OnesGlobalState(
@@ -71,9 +71,9 @@ class OnesAppState extends State<OnesApp> {
   @override
   void initState() {
     // TODO: implement initState
+    _buildDataFuture=AppDao.initApp(onesStore);
     super.initState();
     setLocalizedValues(localizedValues);
-    _dataBuilderFuture=AppDao.initApp(onesStore);
   }
 
   @override
@@ -95,19 +95,16 @@ class OnesAppState extends State<OnesApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    print("---------------");
     return FutureBuilder(
-      builder:_buildFuture,
-      future: _dataBuilderFuture,
+      builder:_buildWidgetBuilder,
+      future: _buildDataFuture,
     );
   }
 
-  Widget _buildFuture(BuildContext context, AsyncSnapshot snapshot) {
-    print(snapshot);
+  Widget _buildWidgetBuilder(BuildContext context, AsyncSnapshot snapshot) {
+    print("---------------");
     if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
-      print(snapshot.data);
-      print((snapshot.data as Store<OnesGlobalState>).state);
-      print((snapshot.data as Store<OnesGlobalState>).state.user == null);
+      print("if---------------");
       return StoreProvider<OnesGlobalState>(
           store: snapshot.data,
           child: StoreBuilder<OnesGlobalState>(builder: (context, store) {
@@ -158,7 +155,7 @@ class OnesAppState extends State<OnesApp> {
             );
           }));
     } else {
-      print("nullllllllllllllllll");
+      print("else---------------");
       return Container(
         decoration: BoxDecoration(
           color: Colors.red

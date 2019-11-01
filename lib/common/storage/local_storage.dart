@@ -4,6 +4,7 @@ import 'package:localstorage/localstorage.dart';
 class LocalDataHelper {
   static final LocalStorage localStorage = new LocalStorage("ones-app-data");
 
+
   static Future<bool> ready() async {
     return await localStorage.ready;
   }
