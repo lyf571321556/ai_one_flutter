@@ -159,7 +159,11 @@ class OnesAppState extends State<OnesApp> {
           }));
     } else {
       print("nullllllllllllllllll");
-      return Container();
+      return Container(
+        decoration: BoxDecoration(
+          color: Colors.red
+        ),
+      );
     }
   }
 
