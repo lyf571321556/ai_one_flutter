@@ -102,9 +102,9 @@ class OnesAppState extends State<OnesApp> {
   }
 
   Widget _buildWidgetBuilder(BuildContext context, AsyncSnapshot snapshot) {
-    print("---------------");
+    print("-------1--------");
     if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
-      print("if---------------");
+      print("-------2--------");
       return StoreProvider<OnesGlobalState>(
           store: snapshot.data,
           child: StoreBuilder<OnesGlobalState>(builder: (context, store) {
@@ -155,7 +155,7 @@ class OnesAppState extends State<OnesApp> {
             );
           }));
     } else {
-      print("else---------------");
+      print("-------3--------");
       return Container(
         decoration: BoxDecoration(
           color: Colors.red
