@@ -4,11 +4,11 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
-import 'package:ones_ai_flutter/common/net/http_code.dart';
-import 'package:ones_ai_flutter/common/net/http_result.dart';
+import 'package:ones_ai_flutter/common/net/dio/http_code.dart';
+import 'package:ones_ai_flutter/common/net/dio/http_result.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-import 'interceptors/token_interceptor.dart';
+import '../interceptors/token_interceptor.dart';
 
 enum HttpMethod { POST, GET }
 
@@ -25,7 +25,7 @@ class HttpManager {
   static HttpManager _instance;
 
   HttpManager._internal() {
-    initDio();
+    _initDio();
   }
 
   static HttpManager _sharedInstance() {
@@ -37,7 +37,7 @@ class HttpManager {
 
   static HttpManager getInstance() => new HttpManager();
 
-  void initDio() {
+  void _initDio() {
     BaseOptions baseOption = new BaseOptions(
         baseUrl: baseUrl,
         connectTimeout: CONNECT_TIMEOUT,
@@ -137,7 +137,7 @@ class HttpManager {
     CancelToken token,
   }) async {
     assert(url != null && url.length > 0);
-    HttpResult httpResult=new HttpResult();
+    HttpResult httpResult = new HttpResult();
     if (pathParams != null && pathParams.isNotEmpty) {
       pathParams.forEach((key, value) {
         if (url.indexOf(key) != -1) {

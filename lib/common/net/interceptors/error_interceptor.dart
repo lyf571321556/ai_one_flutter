@@ -1,7 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 
-import '../http_code.dart';
+import '../dio/http_code.dart';
 
 class ErrorInterceptors extends InterceptorsWrapper {
   final Dio _dio;

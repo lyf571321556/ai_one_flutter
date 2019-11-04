@@ -6,7 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ones_ai_flutter/common/config/app_config.dart';
 import 'package:ones_ai_flutter/common/redux/global/ones_state.dart';
 import 'package:ones_ai_flutter/resources/index.dart';
-import 'package:ones_ai_flutter/common/component_index.dart';
+import 'package:flustars/flustars.dart';
 import 'package:ones_ai_flutter/ui/drawers/main_left_page.dart';
 import 'package:ones_ai_flutter/utils/utils_index.dart';
 

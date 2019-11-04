@@ -1,19 +1,23 @@
 import 'package:dio/dio.dart';
 import 'package:ones_ai_flutter/common/config/app_config.dart';
+import 'package:ones_ai_flutter/common/dao/user_dao.dart';
 import 'package:ones_ai_flutter/common/storage/local_storage.dart';
+import 'package:ones_ai_flutter/models/account/user.dart';
 
 class TokenInterceptor extends InterceptorsWrapper {
-  String _token;
+  String _userId, _token;
 
   @override
   onRequest(RequestOptions options) async {
-    if (_token == null) {
-      var authorizationCode = await getAuthorization();
-      if (authorizationCode != null) {
-        _token = authorizationCode;
+    if (_token == null || _userId == null) {
+      User user = await UserDao.getUserInfo()();
+      if (user != null) {
+        _token = user.token;
+        _userId = user.uuid;
       }
     }
-    options.headers["Authorization"] = _token;
+    options.headers["Ones-User-Id"] = _userId;
+    options.headers["Ones-Auth-Token"] = _token;
     options.contentType = "application/json";
     return options;
   }
@@ -23,7 +27,7 @@ class TokenInterceptor extends InterceptorsWrapper {
 //  onResponse(Response response) async {
 //    try {
 //      var responseJson = response.data;
-//      if (response.statusCode == 201 && responseJson["token"] != null) {
+//      if (response.statusCode == 200 && responseJson["token"] != null) {
 //        _token = 'token ' + responseJson["token"];
 //        await LocalStorage.save(Config.TOKEN_KEY, _token);
 //      }
@@ -35,24 +39,7 @@ class TokenInterceptor extends InterceptorsWrapper {
 
   ///清除授权
   clearAuthorization() {
+    this._userId = null;
     this._token = null;
-    LocalDataHelper.remove(Config.TOKEN_KEY);
-  }
-
-  ///获取授权token
-  getAuthorization() async {
-    String token = await LocalDataHelper.get(Config.TOKEN_KEY);
-    if (token == null) {
-      String basic = await LocalDataHelper.get(Config.USER_BASIC_CODE);
-      if (basic == null) {
-        //提示输入账号密码
-      } else {
-        //通过 basic 去获取token，获取到设置，返回token
-        return "Basic $basic";
-      }
-    } else {
-      this._token = token;
-      return token;
-    }
   }
 }

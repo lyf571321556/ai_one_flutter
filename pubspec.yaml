@@ -50,6 +50,8 @@ dependencies:
   pull_to_refresh: ^1.5.7
   #https://pub.dev/packages/cached_network_image#-installing-tab-
   cached_network_image: ^1.1.1
+  #https://github.com/zino-app/graphql-flutter
+  graphql_flutter: ^2.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
