@@ -55,6 +55,7 @@ class LoginUserMiddleware implements MiddlewareClass<OnesGlobalState> {
         GraphqlManager.getInstance()
             .initAuthorization(store.state.user.uuid, store.state.user.token);
       }
+      print("*********** UserChangeActioin  Middleware end*********** ");
     }
     next(action);
   }
