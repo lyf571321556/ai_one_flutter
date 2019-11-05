@@ -9,13 +9,6 @@ class TokenInterceptor extends InterceptorsWrapper {
 
   @override
   onRequest(RequestOptions options) async {
-    if (_token == null || _userId == null) {
-      User user = await UserDao.getUserInfo()();
-      if (user != null) {
-        _token = user.token;
-        _userId = user.uuid;
-      }
-    }
     options.headers["Ones-User-Id"] = _userId;
     options.headers["Ones-Auth-Token"] = _token;
     options.contentType = "application/json";
@@ -38,8 +31,18 @@ class TokenInterceptor extends InterceptorsWrapper {
 //  }
 
   ///清除授权
-  clearAuthorization() {
+  void clearAuthorization() {
     this._userId = null;
     this._token = null;
+  }
+
+  TokenInterceptor withUserId(String userId) {
+    this._userId = userId;
+    return this;
+  }
+
+  TokenInterceptor withToken(String token) {
+    this._token = token;
+    return this;
   }
 }

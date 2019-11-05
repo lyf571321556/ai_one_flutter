@@ -25,7 +25,7 @@ class HttpManager {
   static HttpManager _instance;
 
   HttpManager._internal() {
-    _initDio();
+    _initClient();
   }
 
   static HttpManager _sharedInstance() {
@@ -37,7 +37,7 @@ class HttpManager {
 
   static HttpManager getInstance() => new HttpManager();
 
-  void _initDio() {
+  void _initClient() {
     BaseOptions baseOption = new BaseOptions(
         baseUrl: baseUrl,
         connectTimeout: CONNECT_TIMEOUT,
@@ -51,6 +51,10 @@ class HttpManager {
 
   clearAuthorization() {
     _tokenInterceptors.clearAuthorization();
+  }
+
+  initAuthorization(String userId, String token) {
+    _tokenInterceptors.withUserId(userId).withToken(token);
   }
 
   Future<HttpResult<dynamic>> get(String url,
