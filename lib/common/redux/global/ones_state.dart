@@ -50,13 +50,13 @@ class LoginUserMiddleware implements MiddlewareClass<OnesGlobalState> {
     if (action is UserChangeActioin) {
       print("*********** UserChangeActioin  Middleware start*********** ");
       if (store.state.user != null) {
-        HttpManager.getInstance()
-            .initAuthorization(store.state.user.uuid, store.state.user.token);
         GraphqlManager.getInstance()
             .initAuthorization(store.state.user.uuid, store.state.user.token);
+        HttpManager.getInstance()
+            .initAuthorization(store.state.user.uuid, store.state.user.token);
       } else {
-//        HttpManager.getInstance().clearAuthorization();
-//        GraphqlManager.getInstance().clearAuthorization();
+        GraphqlManager.getInstance().clearAuthorization();
+        HttpManager.getInstance().clearAuthorization();
       }
       print("*********** UserChangeActioin  Middleware end*********** ");
     }

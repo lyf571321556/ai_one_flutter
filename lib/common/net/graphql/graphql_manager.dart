@@ -43,15 +43,19 @@ class GraphqlManager {
   }
 
   initAuthorization(String userId, String token) {
+    print("graphql initAuthorization start");
     _userId = userId;
     _token = token;
     _initClient();
+    print("graphql initAuthorization end");
   }
 
   clearAuthorization() {
+    print("graphql clearAuthorization start");
     _userId = null;
     _token = null;
     _initClient();
+    print("graphql clearAuthorization end");
   }
 
   GraphQLClient getClient() {
