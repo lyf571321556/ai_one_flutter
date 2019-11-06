@@ -1,13 +1,10 @@
 import 'dart:async';
-import 'dart:collection';
-import 'dart:convert';
-import 'dart:io';
-import 'package:http/http.dart' as http;
+
 import 'package:dio/dio.dart';
+import 'package:ones_ai_flutter/common/config/app_config.dart';
 import 'package:ones_ai_flutter/common/net/dio/http_code.dart';
 import 'package:ones_ai_flutter/common/net/dio/http_result.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-
 import '../interceptors/token_interceptor.dart';
 
 enum HttpMethod { POST, GET }
@@ -44,8 +41,10 @@ class HttpManager {
         receiveTimeout: READ_TIMEOUT,
         sendTimeout: WRITE_TIMEOUT);
     _httpClient = new Dio(baseOption);
-    _httpClient.interceptors
-        .add(PrettyDioLogger(responseHeader: true, requestBody: true));
+    if (!Config.RELEASE) {
+      _httpClient.interceptors
+          .add(PrettyDioLogger(responseHeader: true, requestBody: true));
+    }
     _httpClient.interceptors.add(_tokenInterceptors);
   }
 
@@ -73,10 +72,10 @@ class HttpManager {
 
   Future<HttpResult> post(String url,
       //FutureOr<T> task(Response value)
-      {Map<String, dynamic> pathParams,
-      Map<String, dynamic> bodyParams,
-      FormData formData,
-      CancelToken token}) async {
+          {Map<String, dynamic> pathParams,
+        Map<String, dynamic> bodyParams,
+        FormData formData,
+        CancelToken token}) async {
     assert(bodyParams != null);
     return await _request(url,
         httpMethod: HttpMethod.POST,
@@ -106,7 +105,7 @@ class HttpManager {
 ////      response.statusMessage = error.toString();
 ////      resultCallBack.onError(response);
 //    });
-    ;
+        ;
 //        .then(task)
 //        .catchError((error) {
 //          print("处理数据错误：" + error.toString());
@@ -115,10 +114,10 @@ class HttpManager {
 
   Future<HttpResult> upload(String url,
       {Map<String, dynamic> pathParams,
-      FormData formData,
-      ProgressCallback onSendprogressCallBack,
-      ProgressCallback onReceiveProgressCallBack,
-      CancelToken token}) async {
+        FormData formData,
+        ProgressCallback onSendprogressCallBack,
+        ProgressCallback onReceiveProgressCallBack,
+        CancelToken token}) async {
     assert(formData != null);
     return _request(url,
         httpMethod: HttpMethod.POST,
@@ -129,8 +128,7 @@ class HttpManager {
         token: token);
   }
 
-  Future<HttpResult> _request(
-    String url, {
+  Future<HttpResult> _request(String url, {
     Options option,
     HttpMethod httpMethod,
     Map<String, dynamic> pathParams,
@@ -173,14 +171,14 @@ class HttpManager {
           break;
         case DioErrorType.DEFAULT:
           if (e.error != null) {
-            if (e.error is SocketException) {
-              httpResult.statusCode = HttpCode.INVALID_NETWORK_CODE;
-              httpResult.statusMessage =
-                  (e.error as SocketException).toString();
-            } else {
-              httpResult.statusCode = HttpCode.UNKNOW_ERROR_CODE;
-              httpResult.statusMessage = e.error.toString();
-            }
+//            if (e.error is SocketException) {
+//              httpResult.statusCode = HttpCode.INVALID_NETWORK_CODE;
+//              httpResult.statusMessage =
+//                  (e.error as SocketException).toString();
+//            } else {
+            httpResult.statusCode = HttpCode.UNKNOW_ERROR_CODE;
+            httpResult.statusMessage = e.error.toString();
+//            }
           }
           break;
       }
@@ -191,11 +189,12 @@ class HttpManager {
     try {
       if (httpMethod == HttpMethod.POST) {
         response = await _httpClient.post(
-          url,
-          data: formData ?? bodyParams,
-          onSendProgress: onSendprogressCallBack,
-          onReceiveProgress: onReceiveProgressCallBack,
-          cancelToken: token,
+            url,
+            data: formData ?? bodyParams,
+            onSendProgress: onSendprogressCallBack,
+            onReceiveProgress: onReceiveProgressCallBack,
+            cancelToken: token,
+            options: Options(method: HttpMethod.POST.toString())
         );
 //            .catchError((Object err) {
 //          if (resultCallBack != null) {
@@ -205,22 +204,24 @@ class HttpManager {
 //        });
       } else {
         response = await _httpClient.get(
-          url,
-          cancelToken: token,
-        );
+            url,
+            cancelToken: token,
+            options: Options(method: HttpMethod.GET.toString()),
+            );
 //            .catchError((Object err) {
 //          if (resultCallBack != null) {
 //            resultCallBack.onError(catchError(err));
 //          }
 //          //response = catchError(err);
 //        });
+            }
+            httpResult.statusCode = response.statusCode;
+            httpResult.statusMessage = response.statusMessage;
+        httpResult.data = response.data;
+        } on DioError catch (e)
+        {
+          httpResult = catchError(e);
+        }
+        return Future.value(httpResult);
       }
-      httpResult.statusCode = response.statusCode;
-      httpResult.statusMessage = response.statusMessage;
-      httpResult.data = response.data;
-    } on DioError catch (e) {
-      httpResult = catchError(e);
-    }
-    return Future.value(httpResult);
-  }
 }

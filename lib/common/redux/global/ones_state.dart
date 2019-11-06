@@ -37,8 +37,8 @@ OnesGlobalState createOnesAppReducer(OnesGlobalState onesState, action) {
       platformLocale: PlatformLocaleReducer(onesState.platformLocale, action));
 }
 
-//reducer Middleware
-
+ThunkAction<OnesGlobalState> LoginUserSateMiddleware =
+    (Store<OnesGlobalState> store) async {};
 final List<Middleware<OnesGlobalState>> onesMiddlewares = [
   thunkMiddleware,
   new LoginUserMiddleware()
@@ -54,6 +54,9 @@ class LoginUserMiddleware implements MiddlewareClass<OnesGlobalState> {
             .initAuthorization(store.state.user.uuid, store.state.user.token);
         GraphqlManager.getInstance()
             .initAuthorization(store.state.user.uuid, store.state.user.token);
+      } else {
+//        HttpManager.getInstance().clearAuthorization();
+//        GraphqlManager.getInstance().clearAuthorization();
       }
       print("*********** UserChangeActioin  Middleware end*********** ");
     }

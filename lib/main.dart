@@ -1,28 +1,25 @@
 import 'dart:async';
-import 'dart:io';
+
+import 'package:auto_size/auto_size.dart';
+import 'package:fluintl/fluintl.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fluintl/fluintl.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:ones_ai_flutter/common/dao/app_dao.dart';
-import 'package:ones_ai_flutter/resources/index.dart';
-import 'package:auto_size/auto_size.dart';
-import 'package:ones_ai_flutter/common/redux/global/ones_state.dart';
-import 'package:ones_ai_flutter/widget/locale/localization_widget.dart';
-import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-
-import 'package:ones_ai_flutter/utils/navigator_utils.dart';
-import 'package:flutter/services.dart';
-import 'common/routes/page_route.dart';
-import 'common/redux/global/locale_redux.dart';
-
-import 'package:ones_ai_flutter/ui/pages/welcome_page.dart';
+import 'package:ones_ai_flutter/common/dao/app_dao.dart';
+import 'package:ones_ai_flutter/common/redux/global/ones_state.dart';
+import 'package:ones_ai_flutter/resources/index.dart';
 import 'package:ones_ai_flutter/ui/pages/home_page.dart';
-import 'package:ones_ai_flutter/ui/pages/login_page.dart';
+import 'package:ones_ai_flutter/ui/pages/welcome_page.dart';
+import 'package:redux/redux.dart';
+import 'package:ones_ai_flutter/platform/web/main_web.dart'
+    if (dart.library.io) "package:ones_ai_flutter/platform/mobile/main_mobile.dart";
+import 'common/redux/global/locale_redux.dart';
+import 'common/routes/page_route.dart';
 
 void main() {
   runZoned(() {
+    initByPlatform();
     ErrorWidget.builder = (FlutterErrorDetails details) {
       Zone.current.handleUncaughtError(details.exception, details.stack);
       return Container(color: Colors.transparent);
@@ -32,11 +29,6 @@ void main() {
 //    SystemChrome.setEnabledSystemUIOverlays([]);
 //    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top, SystemUiOverlay.bottom]);
     runAutoSizeApp(OnesApp());
-    if (Platform.isAndroid) {
-      SystemUiOverlayStyle systemUiOverlayStyle =
-      SystemUiOverlayStyle(statusBarColor: Colors.transparent);
-      SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
-    }
 
 //    runApp(OnesApp());
     PaintingBinding.instance.imageCache.maximumSize = 100;
@@ -71,7 +63,7 @@ class OnesAppState extends State<OnesApp> {
   @override
   void initState() {
     // TODO: implement initState
-    _buildDataFuture=AppDao.initApp(onesStore);
+    _buildDataFuture = AppDao.initApp(onesStore);
     super.initState();
     setLocalizedValues(localizedValues);
   }
@@ -96,7 +88,7 @@ class OnesAppState extends State<OnesApp> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      builder:_buildWidgetBuilder,
+      builder: _buildWidgetBuilder,
       future: _buildDataFuture,
     );
   }
@@ -122,8 +114,8 @@ class OnesAppState extends State<OnesApp> {
                 GlobalWidgetsLocalizations.delegate,
                 CustomLocalizations.delegate
               ],
-              localeListResolutionCallback: (List<Locale> locales,
-                  Iterable<Locale> supportedLocales) {
+              localeListResolutionCallback:
+                  (List<Locale> locales, Iterable<Locale> supportedLocales) {
                 if (locales.length <= 0 || store.state.locale != null) {
                   return;
                 }
@@ -157,9 +149,7 @@ class OnesAppState extends State<OnesApp> {
     } else {
       print("-------3--------");
       return Container(
-        decoration: BoxDecoration(
-          color: Colors.red
-        ),
+        decoration: BoxDecoration(color: Colors.red),
       );
     }
   }
@@ -168,7 +158,7 @@ class OnesAppState extends State<OnesApp> {
     return isLogin
         ? HomePage()
         : WelcomePage(
-      title: 'Flutter Demo Home Page',
-    );
+            title: 'Flutter Demo Home Page',
+          );
   }
 }

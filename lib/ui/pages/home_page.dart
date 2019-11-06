@@ -65,7 +65,7 @@ class HomePage extends StatelessWidget {
 
               centerTitle: true,
               actions: <Widget>[
-//            new IconButton(icon: new Icon(Icons.search), onPressed: () {})
+                new IconButton(icon: new Icon(Icons.search), onPressed: () {})
               ],
             ),
             body: HomePageContent(),

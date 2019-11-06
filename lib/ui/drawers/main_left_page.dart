@@ -1,18 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluintl/fluintl.dart';
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ones_ai_flutter/common/dao/user_dao.dart';
 import 'package:ones_ai_flutter/common/redux/global/ones_state.dart';
 import 'package:ones_ai_flutter/common/routes/page_route.dart';
 import 'package:ones_ai_flutter/resources/index.dart';
-import 'package:ones_ai_flutter/ui/pages/setting/language_page.dart';
-import 'package:ones_ai_flutter/ui/pages/setting/theme_page.dart';
 import 'package:ones_ai_flutter/utils/utils_index.dart';
 import 'package:redux/redux.dart';
 
 class MainLeftMenuPage extends StatefulWidget {
+
   @override
   State<StatefulWidget> createState() {
     return new _MainLeftMenuPageState();

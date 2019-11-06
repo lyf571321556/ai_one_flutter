@@ -1,8 +1,3 @@
-import 'package:dio/dio.dart';
-import 'package:ones_ai_flutter/common/net/dio/http_manager.dart';
-import 'package:ones_ai_flutter/common/net/dio/http_result.dart';
-import 'package:ones_ai_flutter/models/account/index.dart';
-
 class ProjectApi {
   static final String GRAPHQL_PROJECT_LIST =
       r'''query PROJECTS($filter: Filter, $orderBy: OrderBy) {

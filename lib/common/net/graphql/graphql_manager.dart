@@ -29,7 +29,8 @@ class GraphqlManager {
             'https://devapi.myones.net/project/master/api/project/team/DaXf8REY/items/graphql',
         headers: <String, String>{
           'Ones-User-Id': _userId,
-          'Ones-Auth-Token': _token
+          'Ones-Auth-Token': _token,
+          "Access-Control-Allow-Origin":"*"
         });
 
 //    final Link _link = _onesAuthLink.concat(_httpLink);
@@ -44,6 +45,12 @@ class GraphqlManager {
   initAuthorization(String userId, String token) {
     _userId = userId;
     _token = token;
+    _initClient();
+  }
+
+  clearAuthorization() {
+    _userId = null;
+    _token = null;
     _initClient();
   }
 

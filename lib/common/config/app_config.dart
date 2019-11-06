@@ -1,7 +1,7 @@
 class Config {
+  static bool runInWeb = false;
   static const PAGE_SIZE = 20;
-  static const DEBUG = true;
-
+  static const RELEASE = const bool.fromEnvironment("dart.vm.product");
   static const TOKEN_KEY = "token";
   static const USER_NAME_KEY = "user-name";
   static const PW_KEY = "user-pw";
@@ -16,4 +16,10 @@ class Config {
   static const LOGIN_HERO_TAG = "loginOpenHero";
 
   static const PROJECT_UUID = "";
+  static OnesPlatform onesPlatform = OnesPlatform.iOS;
+}
+
+enum OnesPlatform {
+  iOS,
+  Android,
 }

@@ -42,7 +42,7 @@ dependencies:
     git:
       url: git://github.com/flutterchina/auto_size.git
   connectivity: ^0.4.4
-  dio: ^3.0.3
+  dio: ^3.0.2
   dio_http_cache: ^0.2.0
   json_serializable: ^3.0.0
   pretty_dio_logger: ^1.0.7

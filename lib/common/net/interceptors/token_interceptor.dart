@@ -1,8 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:ones_ai_flutter/common/config/app_config.dart';
-import 'package:ones_ai_flutter/common/dao/user_dao.dart';
-import 'package:ones_ai_flutter/common/storage/local_storage.dart';
-import 'package:ones_ai_flutter/models/account/user.dart';
 
 class TokenInterceptor extends InterceptorsWrapper {
   String _userId, _token;
@@ -11,6 +7,7 @@ class TokenInterceptor extends InterceptorsWrapper {
   onRequest(RequestOptions options) async {
     options.headers["Ones-User-Id"] = _userId;
     options.headers["Ones-Auth-Token"] = _token;
+    options.headers["Access-Control-Allow-Origin"] = "*";
     options.contentType = "application/json";
     return options;
   }
