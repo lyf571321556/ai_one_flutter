@@ -8,6 +8,7 @@ class TokenInterceptor extends InterceptorsWrapper {
     options.headers["Ones-User-Id"] = _userId;
     options.headers["Ones-Auth-Token"] = _token;
     options.headers["Access-Control-Allow-Origin"] = "*";
+    options.headers["content-type"] = "application/json";
     options.contentType = "application/json";
     return options;
   }

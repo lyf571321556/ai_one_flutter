@@ -1,8 +1,8 @@
+//import 'package:bot_toast/bot_toast.dart';
 import 'package:fluintl/fluintl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ones_ai_flutter/common/api/user_api.dart';
 import 'package:ones_ai_flutter/common/config/app_config.dart';
 import 'package:ones_ai_flutter/common/dao/user_dao.dart';
@@ -269,7 +269,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
       alignment: Alignment.centerRight,
       child: InkWell(
         onTap: () {
-          Fluttertoast.showToast(msg: "to do!");
+//          BotToast.showText(text: "to do!");
         },
         child: Text(
           IntlUtil.getString(
@@ -317,7 +317,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                           child: GradientButton(
                             child: Text(
                                 IntlUtil.getString(context, Strings.titleLogin),
-                                style: TextStyle(fontSize: 16)),
+                                style: TextStyle(fontSize: 16,color: Colors.white)),
                             borderRadius: BorderRadius.circular(8),
                             onPressed: () async {
                               FocusScope.of(context).requestFocus(FocusNode());
@@ -345,9 +345,16 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                     await _loginAanimationController
                                         .reverse()
                                         .orCancel;
-                                    Fluttertoast.showToast(
-                                        msg: "login failed,please retry!");
+//                                    BotToast.showText(
+//                                        text: "login failed,please retry!");
                                   }
+                                }).catchError((e) async{
+                                  setState(() {
+                                    _loginState = LoginState.LOGIN_FAILED;
+                                  });
+                                  await _loginAanimationController
+                                      .reverse()
+                                      .orCancel;
                                 });
                               }
                             },

@@ -6,6 +6,8 @@ import 'package:ones_ai_flutter/common/net/dio/http_code.dart';
 import 'package:ones_ai_flutter/common/net/dio/http_result.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import '../interceptors/token_interceptor.dart';
+import 'package:ones_ai_flutter/platform/web/main_web.dart'
+    if (dart.library.io) "package:ones_ai_flutter/platform/mobile/main_mobile.dart";
 
 enum HttpMethod { POST, GET }
 
@@ -36,16 +38,18 @@ class HttpManager {
 
   void _initClient() {
     BaseOptions baseOption = new BaseOptions(
+        method: "POST",
         baseUrl: baseUrl,
         connectTimeout: CONNECT_TIMEOUT,
         receiveTimeout: READ_TIMEOUT,
         sendTimeout: WRITE_TIMEOUT);
     _httpClient = new Dio(baseOption);
+    _httpClient.interceptors.add(_tokenInterceptors);
     if (!Config.RELEASE) {
       _httpClient.interceptors
           .add(PrettyDioLogger(responseHeader: true, requestBody: true));
     }
-    _httpClient.interceptors.add(_tokenInterceptors);
+    initProxy(_httpClient);
   }
 
   clearAuthorization() {
@@ -198,7 +202,7 @@ class HttpManager {
             onSendProgress: onSendprogressCallBack,
             onReceiveProgress: onReceiveProgressCallBack,
             cancelToken: token,
-            options: Options(method: HttpMethod.POST.toString()));
+            options: Options(method: "POST"));
 //            .catchError((Object err) {
 //          if (resultCallBack != null) {
 //            resultCallBack.onError(catchError(err));
@@ -209,7 +213,7 @@ class HttpManager {
         response = await _httpClient.get(
           url,
           cancelToken: token,
-          options: Options(method: HttpMethod.GET.toString()),
+          options: Options(method: "GET"),
         );
 //            .catchError((Object err) {
 //          if (resultCallBack != null) {

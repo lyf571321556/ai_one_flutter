@@ -1,8 +1,8 @@
+//import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluintl/fluintl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ones_ai_flutter/common/config/app_config.dart';
 import 'package:ones_ai_flutter/common/redux/global/ones_state.dart';
 import 'package:ones_ai_flutter/resources/index.dart';
@@ -101,9 +101,9 @@ class _HomePageContentState extends State<HomePageContent> {
         if (_lastPressedAt == null ||
             DateTime.now().difference(_lastPressedAt) > Duration(seconds: 1)) {
           _lastPressedAt = DateTime.now();
-          Fluttertoast.showToast(
-              msg: IntlUtil.getString(context, Strings.exitApp),
-              backgroundColor: Colors.grey);
+//          BotToast.showText(
+//              text: IntlUtil.getString(context, Strings.exitApp),
+//              backgroundColor: Colors.grey);
           return false;
         } else {
           return true;

@@ -23,16 +23,16 @@ dependencies:
     sdk: flutter
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
+#  cupertino_icons: ^0.1.2
   fluintl: ^0.1.3
   flutter_redux: ^0.5.3
   redux: ^3.0.0
   redux_thunk: ^0.2.1
 
-  shared_preferences: ^0.5.3+2
+#  shared_preferences: ^0.5.3+2 #ios  android
   #flutter localstorage for ios/android/desktop/web
   localstorage: ^3.0.0
-  fluttertoast: ^3.1.0
+#  bot_toast: ^2.1.0
   flustars: ^0.2.5+1
   fluro:
     git:
@@ -41,17 +41,17 @@ dependencies:
   auto_size:
     git:
       url: git://github.com/flutterchina/auto_size.git
-  connectivity: ^0.4.4
-  dio: ^3.0.2
+  connectivity: ^0.4.5+2 #ios android
+  dio: ^3.0.4 #all
   dio_http_cache: ^0.2.0
   json_serializable: ^3.0.0
   pretty_dio_logger: ^1.0.7
   #https://pub.dev/packages/pull_to_refresh#-readme-tab-
   pull_to_refresh: ^1.5.7
   #https://pub.dev/packages/cached_network_image#-installing-tab-
-  cached_network_image: ^1.1.1
+  cached_network_image: ^1.1.1 #ios android
   #https://github.com/zino-app/graphql-flutter
-  graphql_flutter: ^2.0.0
+  graphql_flutter: ^2.0.0 #android ios
 dev_dependencies:
   flutter_test:
     sdk: flutter

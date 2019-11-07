@@ -24,6 +24,7 @@ class GraphqlManager {
   static GraphqlManager getInstance() => new GraphqlManager();
 
   void _initClient() {
+    print("graphql _initClient start");
     final HttpLink _httpLink = HttpLink(
         uri:
             'https://devapi.myones.net/project/master/api/project/team/DaXf8REY/items/graphql',
@@ -32,7 +33,7 @@ class GraphqlManager {
           'Ones-Auth-Token': _token,
           "Access-Control-Allow-Origin":"*"
         });
-
+    print("graphql _initClient mid");
 //    final Link _link = _onesAuthLink.concat(_httpLink);
     _graphQLClient = GraphQLClient(
       cache: OptimisticCache(
@@ -40,6 +41,8 @@ class GraphqlManager {
       ),
       link: _httpLink,
     );
+
+    print("graphql _initClient endr");
   }
 
   initAuthorization(String userId, String token) {
