@@ -1,4 +1,6 @@
 //import 'package:bot_toast/bot_toast.dart';
+import 'dart:ui';
+
 import 'package:fluintl/fluintl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -49,7 +51,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
     _loginAanimationController = AnimationController(
         vsync: this, duration: Duration(milliseconds: 1500));
     _loginButtonWidthAnimation =
-        Tween<double>(begin: 1000, end: _loginButtonMinWidth).animate(
+        Tween<double>(begin: window.physicalSize.width, end: _loginButtonMinWidth).animate(
             CurvedAnimation(
                 parent: _loginAanimationController,
                 curve: Interval(.0, 0.25, curve: Curves.ease))
