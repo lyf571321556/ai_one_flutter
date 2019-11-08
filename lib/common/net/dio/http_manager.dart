@@ -16,7 +16,7 @@ class HttpManager {
   static final int WRITE_TIMEOUT = 5000;
   static final int READ_TIMEOUT = 5000;
   static Dio _httpClient;
-  static final String baseUrl = "https://devapi.myones.net/";
+  static final String baseUrl = "http://127.0.0.1:8080/apis/";
   final TokenInterceptor _tokenInterceptors = new TokenInterceptor();
 
   factory HttpManager() => _sharedInstance();

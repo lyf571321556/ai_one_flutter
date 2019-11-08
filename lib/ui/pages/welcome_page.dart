@@ -13,7 +13,7 @@ import 'package:ones_ai_flutter/ui/pages/home_page.dart';
 class WelcomePage extends StatefulWidget {
   WelcomePage({Key key, this.title}) : super(key: key);
 
-  // This widget is the home page of your application. It is stateful, meaning
+  // This widget is the main page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
   // how it looks.
 

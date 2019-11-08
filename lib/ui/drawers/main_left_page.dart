@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluintl/fluintl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ones_ai_flutter/common/config/app_config.dart';
 import 'package:ones_ai_flutter/common/dao/user_dao.dart';
 import 'package:ones_ai_flutter/common/redux/global/ones_state.dart';
 import 'package:ones_ai_flutter/common/routes/page_route.dart';
@@ -74,7 +75,6 @@ class _MainLeftMenuPageState extends State<MainLeftMenuPage> {
     return new Column(
       children: <Widget>[
         new Container(
-          height: 180.0,
           color: Theme.of(context).primaryColor,
           padding: EdgeInsets.only(
               top: MediaQuery.of(context).padding.top, left: 10.0),
@@ -85,6 +85,7 @@ class _MainLeftMenuPageState extends State<MainLeftMenuPage> {
                 children: <Widget>[
                   new Container(
                     width: 60.0,
+                    height: 60.0,
                     margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
@@ -94,11 +95,37 @@ class _MainLeftMenuPageState extends State<MainLeftMenuPage> {
                         ),
                       ),
                     ),
-                    child: CachedNetworkImage(
+                    child: Config.runInWeb ?Image.network(StoreProvider.of<OnesGlobalState>(context).state
+                        .user
+                        .avatar,
+                      fit: BoxFit.cover,
+                    ):CachedNetworkImage(
                       imageUrl: StoreProvider.of<OnesGlobalState>(context)
                           .state
                           .user
                           .avatar,
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      placeholder: (context, url) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: AssetImage(
+                                ResourceUtils.getImgPath('default_avatar'),
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        );
+                      },
                       fit: BoxFit.cover,
                     ),
                   ),

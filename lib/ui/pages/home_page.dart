@@ -25,7 +25,11 @@ class HomePage extends StatelessWidget {
             resizeToAvoidBottomPadding: true,
             appBar: MyAppBar(
               elevation: 1,
-              leading: CachedNetworkImage(
+              leading:Config.runInWeb ?Image.network(StoreProvider.of<OnesGlobalState>(context).state
+                  .user
+                  .avatar,
+                fit: BoxFit.cover,
+              ): CachedNetworkImage(
                 imageUrl: StoreProvider.of<OnesGlobalState>(context)
                     .state
                     .user

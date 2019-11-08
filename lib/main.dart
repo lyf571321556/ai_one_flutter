@@ -6,6 +6,7 @@ import 'package:auto_size/auto_size.dart';
 import 'package:fluintl/fluintl.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ones_ai_flutter/common/dao/app_dao.dart';
@@ -20,6 +21,7 @@ import 'common/redux/global/locale_redux.dart';
 import 'common/routes/page_route.dart';
 
 void main() {
+  debugPaintSizeEnabled = !true;
   runZoned(() {
     initByPlatform();
     ErrorWidget.builder = (FlutterErrorDetails details) {
@@ -30,9 +32,10 @@ void main() {
     PageRouteManager.initRoutes();
 //    SystemChrome.setEnabledSystemUIOverlays([]);
 //    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top, SystemUiOverlay.bottom]);
-    runAutoSizeApp(OnesApp());
 
-//    runApp(OnesApp());
+//    runAutoSizeApp(OnesApp());
+
+    runApp(OnesApp());
     PaintingBinding.instance.imageCache.maximumSize = 100;
   }, onError: (object, stack) {
     print("===============global error start===============");

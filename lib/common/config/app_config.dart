@@ -16,10 +16,10 @@ class Config {
   static const LOGIN_HERO_TAG = "loginOpenHero";
 
   static const PROJECT_UUID = "";
-  static OnesPlatform onesPlatform = OnesPlatform.iOS;
+  static OnesAppPlatform onesAppPlatform = OnesAppPlatform.iOS;
 }
 
-enum OnesPlatform {
+enum OnesAppPlatform {
   iOS,
   Android,
 }
