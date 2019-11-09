@@ -10,5 +10,4 @@ Future<bool> isConnected() async {
   return true;
 }
 
-void initProxy(Dio _dio) {
-}
+void initProxy(Dio _dio) {}

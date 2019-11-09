@@ -50,14 +50,14 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
     super.initState();
     _loginAanimationController = AnimationController(
         vsync: this, duration: Duration(milliseconds: 1500));
-    _loginButtonWidthAnimation =
-        Tween<double>(begin: window.physicalSize.width, end: _loginButtonMinWidth).animate(
-            CurvedAnimation(
-                parent: _loginAanimationController,
-                curve: Interval(.0, 0.25, curve: Curves.ease))
-              ..addListener(() {
-                if (_loginButtonWidthAnimation.isCompleted) {}
-              }));
+    _loginButtonWidthAnimation = Tween<double>(
+            begin: window.physicalSize.width, end: _loginButtonMinWidth)
+        .animate(CurvedAnimation(
+            parent: _loginAanimationController,
+            curve: Interval(.0, 0.25, curve: Curves.ease))
+          ..addListener(() {
+            if (_loginButtonWidthAnimation.isCompleted) {}
+          }));
     _loginSuccessAnimationController = new AnimationController(
         duration: new Duration(milliseconds: 1500), vsync: this);
     _loginSuccessAnimationController.addListener(() {
@@ -319,7 +319,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                           child: GradientButton(
                             child: Text(
                                 IntlUtil.getString(context, Strings.titleLogin),
-                                style: TextStyle(fontSize: 16,color: Colors.white)),
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.white)),
                             borderRadius: BorderRadius.circular(8),
                             onPressed: () async {
                               FocusScope.of(context).requestFocus(FocusNode());
@@ -350,7 +351,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
 //                                    BotToast.showText(
 //                                        text: "login failed,please retry!");
                                   }
-                                }).catchError((e) async{
+                                }).catchError((e) async {
                                   setState(() {
                                     _loginState = LoginState.LOGIN_FAILED;
                                   });

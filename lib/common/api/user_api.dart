@@ -21,9 +21,7 @@ class UserApi {
         result.data = User.fromJson(result.data["user"]);
       }
       return result;
-    }).catchError((e){
-
-    });
+    }).catchError((e) {});
     return Future.value(data);
   }
 }

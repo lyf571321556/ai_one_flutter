@@ -31,7 +31,7 @@ class GraphqlManager {
         headers: <String, String>{
           'Ones-User-Id': _userId,
           'Ones-Auth-Token': _token,
-          "Access-Control-Allow-Origin":"*"
+          "Access-Control-Allow-Origin": "*"
         });
     print("graphql _initClient mid");
 //    final Link _link = _onesAuthLink.concat(_httpLink);

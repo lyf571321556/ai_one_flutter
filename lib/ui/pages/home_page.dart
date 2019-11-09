@@ -25,45 +25,55 @@ class HomePage extends StatelessWidget {
             resizeToAvoidBottomPadding: true,
             appBar: MyAppBar(
               elevation: 1,
-              leading:Config.runInWeb ?Image.network(StoreProvider.of<OnesGlobalState>(context).state
-                  .user
-                  .avatar,
-                fit: BoxFit.cover,
-              ): CachedNetworkImage(
-                imageUrl: StoreProvider.of<OnesGlobalState>(context)
-                    .state
-                    .user
-                    .avatar,
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: imageProvider,
+              leading: Config.runInWeb
+                  ? Image.network(
+                      StoreProvider.of<OnesGlobalState>(context)
+                          .state
+                          .user
+                          .avatar,
+                      fit: BoxFit.cover,
+                    )
+                  : CachedNetworkImage(
+                      imageUrl: StoreProvider.of<OnesGlobalState>(context)
+                          .state
+                          .user
+                          .avatar,
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      placeholder: (context, url) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: AssetImage(
+                                ResourceUtils.getImgPath('default_avatar'),
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        );
+                      },
                       fit: BoxFit.cover,
                     ),
-                  ),
-                ),
-                placeholder: (context, url) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        image: AssetImage(
-                          ResourceUtils.getImgPath('default_avatar'),
-                        ),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  );
-                },
-                fit: BoxFit.cover,
-              ),
               title: Container(
+                decoration: BoxDecoration(color: Colors.transparent),
                 constraints: BoxConstraints.expand(),
-                margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.07),
-                padding:
-                    EdgeInsets.all(MediaQuery.of(context).size.height * 0.07),
+                margin: EdgeInsets.only(top: 0),
+                //MediaQuery.of(context).size.height * 0.008
+                padding: EdgeInsets.all(0),
+                //MediaQuery.of(context).size.height * 0.007
+                alignment: Alignment.center,
+                child: Text(
+                  "标题",
+                  style: TextStyle(color: Colors.white),
+                ), //IntlUtil.getString(context, Strings.home_title)
               ),
 //          title: TabLayout(),
 

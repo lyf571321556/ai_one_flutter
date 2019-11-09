@@ -21,8 +21,8 @@ import 'common/redux/global/locale_redux.dart';
 import 'common/routes/page_route.dart';
 
 void main() {
-  debugPaintSizeEnabled = !true;
   runZoned(() {
+    debugPaintSizeEnabled = !true;
     initByPlatform();
     ErrorWidget.builder = (FlutterErrorDetails details) {
       Zone.current.handleUncaughtError(details.exception, details.stack);
@@ -34,7 +34,6 @@ void main() {
 //    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top, SystemUiOverlay.bottom]);
 
 //    runAutoSizeApp(OnesApp());
-
     runApp(OnesApp());
     PaintingBinding.instance.imageCache.maximumSize = 100;
   }, onError: (object, stack) {

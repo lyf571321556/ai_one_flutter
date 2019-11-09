@@ -16,7 +16,6 @@ class ChangeLocaleAction {
   ChangeLocaleAction(this.locale);
 }
 
-
 final PlatformLocaleReducer = combineReducers<Locale>([
   TypedReducer<Locale, ChangePlatformLocaleAction>(_changePlatformLocale),
 ]);

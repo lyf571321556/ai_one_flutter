@@ -11,7 +11,6 @@ import 'package:ones_ai_flutter/utils/utils_index.dart';
 import 'package:redux/redux.dart';
 
 class MainLeftMenuPage extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() {
     return new _MainLeftMenuPageState();
@@ -95,39 +94,44 @@ class _MainLeftMenuPageState extends State<MainLeftMenuPage> {
                         ),
                       ),
                     ),
-                    child: Config.runInWeb ?Image.network(StoreProvider.of<OnesGlobalState>(context).state
-                        .user
-                        .avatar,
-                      fit: BoxFit.cover,
-                    ):CachedNetworkImage(
-                      imageUrl: StoreProvider.of<OnesGlobalState>(context)
-                          .state
-                          .user
-                          .avatar,
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: imageProvider,
+                    child: Config.runInWeb
+                        ? Image.network(
+                            StoreProvider.of<OnesGlobalState>(context)
+                                .state
+                                .user
+                                .avatar,
+                            fit: BoxFit.cover,
+                          )
+                        : CachedNetworkImage(
+                            imageUrl: StoreProvider.of<OnesGlobalState>(context)
+                                .state
+                                .user
+                                .avatar,
+                            imageBuilder: (context, imageProvider) => Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  image: imageProvider,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            placeholder: (context, url) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                      ResourceUtils.getImgPath(
+                                          'default_avatar'),
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              );
+                            },
                             fit: BoxFit.cover,
                           ),
-                        ),
-                      ),
-                      placeholder: (context, url) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: AssetImage(
-                                ResourceUtils.getImgPath('default_avatar'),
-                              ),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        );
-                      },
-                      fit: BoxFit.cover,
-                    ),
                   ),
                   SizedBox(height: 6),
                   new Text(
