@@ -8,7 +8,7 @@ class NotificationPage extends StatefulWidget {
   }
 }
 
-class _NotificationPageContentState extends State<NotificationPage> {
+class _NotificationPageContentState extends State<NotificationPage> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -17,4 +17,8 @@ class _NotificationPageContentState extends State<NotificationPage> {
       child: Text("notification page"),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

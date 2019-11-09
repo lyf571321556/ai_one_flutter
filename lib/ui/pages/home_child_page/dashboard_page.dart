@@ -8,7 +8,8 @@ class DashboardPage extends StatefulWidget {
   }
 }
 
-class _DashboardPageContentState extends State<DashboardPage> {
+class _DashboardPageContentState extends State<DashboardPage>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -17,4 +18,8 @@ class _DashboardPageContentState extends State<DashboardPage> {
       child: Text("Dashboard page"),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

@@ -68,7 +68,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
     });
     _homePageZoomOut = new Tween(
       begin: _loginButtonMinWidth,
-      end: 1000.0,
+      end: window.physicalSize.width,
     ).animate(
       new CurvedAnimation(
         parent: _loginSuccessAnimationController,

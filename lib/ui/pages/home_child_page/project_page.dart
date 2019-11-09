@@ -8,7 +8,7 @@ class ProjectPage extends StatefulWidget {
   }
 }
 
-class _ProjectPageContentState extends State<ProjectPage> {
+class _ProjectPageContentState extends State<ProjectPage> with AutomaticKeepAliveClientMixin{
   bool _clicked = false;
 
   @override
@@ -26,4 +26,8 @@ class _ProjectPageContentState extends State<ProjectPage> {
       ),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

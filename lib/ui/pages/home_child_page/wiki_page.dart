@@ -8,7 +8,7 @@ class WikiPage extends StatefulWidget {
   }
 }
 
-class _WikiPageContentState extends State<WikiPage> {
+class _WikiPageContentState extends State<WikiPage> with AutomaticKeepAliveClientMixin{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -17,4 +17,8 @@ class _WikiPageContentState extends State<WikiPage> {
       child: Text("wiki page"),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

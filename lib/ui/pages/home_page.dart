@@ -93,14 +93,14 @@ class _HomePageContentState extends State<HomePage>
                     StoreProvider.of<OnesGlobalState>(context)
                         .state
                         .user
-                        .avatar,
+                        ?.avatar,
                     fit: BoxFit.cover,
                   )
                 : CachedNetworkImage(
                     imageUrl: StoreProvider.of<OnesGlobalState>(context)
                         .state
                         .user
-                        .avatar,
+                        ?.avatar,
                     imageBuilder: (context, imageProvider) => Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
