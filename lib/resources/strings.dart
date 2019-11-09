@@ -18,6 +18,11 @@ class Strings {
 
   static const String titleForgetPassword = 'title_forget_password';
 
+  static const String titleProject = 'title_project';
+  static const String titleWiki = 'title_wiki';
+  static const String titleDashboard = 'title_dashboard';
+  static const String titleNotification = 'title_notification';
+
   static const String languageAuto = 'language_auto';
   static const String languageZH = 'language_zh';
   static const String languageTW = 'language_tw';
@@ -65,6 +70,10 @@ Map<String, Map<String, Map<String, String>>> localizedValues = {
       Strings.titlePasswordHint: "请输入密码",
       Strings.titlePasswordError: "密码为8~32位,且必须包含大小写字母和数字",
       Strings.titleForgetPassword: "忘记密码?",
+      Strings.titleProject: "Project",
+      Strings.titleWiki: "Wiki",
+      Strings.titleDashboard: "仪表盘",
+      Strings.titleNotification: "通知"
     },
     "TW": {
       Strings.titleHome: '主頁',
@@ -89,6 +98,10 @@ Map<String, Map<String, Map<String, String>>> localizedValues = {
       Strings.titlePasswordHint: "请输入密碼",
       Strings.titlePasswordError: "密碼8~32位,且必須包含大小寫字母和數字",
       Strings.titleForgetPassword: "忘記密碼?",
+      Strings.titleProject: "Project",
+      Strings.titleWiki: "Wiki",
+      Strings.titleDashboard: "仪表盘",
+      Strings.titleNotification: "通知"
     },
     "HK": {
       Strings.titleHome: '主頁',
@@ -113,6 +126,10 @@ Map<String, Map<String, Map<String, String>>> localizedValues = {
       Strings.titlePasswordHint: "请输入密碼",
       Strings.titlePasswordError: "密碼8~32位,且必須包含大小寫字母和數字",
       Strings.titleForgetPassword: "忘記密碼?",
+      Strings.titleProject: "Project",
+      Strings.titleWiki: "Wiki",
+      Strings.titleDashboard: "仪表盘",
+      Strings.titleNotification: "通知"
     }
   },
   'en': {
@@ -136,6 +153,10 @@ Map<String, Map<String, Map<String, String>>> localizedValues = {
       Strings.titlePasswordHint: 'Input password',
       Strings.titlePasswordError: "",
       Strings.titleForgetPassword: "Forget password?",
+      Strings.titleProject: "Project",
+      Strings.titleWiki: "Wiki",
+      Strings.titleDashboard: "Dashboard",
+      Strings.titleNotification: "Notification"
     }
   }
 };

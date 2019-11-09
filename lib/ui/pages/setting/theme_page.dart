@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:fluintl/fluintl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -44,7 +46,7 @@ class _ThemeSelectPageState extends State<ThemeSelectPage> {
             alignment: Alignment.topCenter,
             child: GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
+                  crossAxisCount:  (window.physicalSize.width/100).toInt(),
                   childAspectRatio: 1.0,
                   crossAxisSpacing: 0),
               itemCount: list.length,

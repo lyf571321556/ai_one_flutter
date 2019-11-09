@@ -1,6 +1,7 @@
 //import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluintl/fluintl.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ones_ai_flutter/common/config/app_config.dart';
@@ -8,91 +9,12 @@ import 'package:ones_ai_flutter/common/redux/global/ones_state.dart';
 import 'package:ones_ai_flutter/resources/index.dart';
 import 'package:flustars/flustars.dart';
 import 'package:ones_ai_flutter/ui/drawers/main_left_page.dart';
+import 'package:ones_ai_flutter/ui/pages/home_child_page/home_child_pages.dart';
 import 'package:ones_ai_flutter/utils/utils_index.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   static final String pageName = "HomePage";
 
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return Hero(
-        tag: Config.LOGIN_HERO_TAG,
-        child: Container(
-          decoration: BoxDecoration(),
-          child: Scaffold(
-            resizeToAvoidBottomInset: true,
-            resizeToAvoidBottomPadding: true,
-            appBar: MyAppBar(
-              elevation: 1,
-              leading: Config.runInWeb
-                  ? Image.network(
-                      StoreProvider.of<OnesGlobalState>(context)
-                          .state
-                          .user
-                          .avatar,
-                      fit: BoxFit.cover,
-                    )
-                  : CachedNetworkImage(
-                      imageUrl: StoreProvider.of<OnesGlobalState>(context)
-                          .state
-                          .user
-                          .avatar,
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      placeholder: (context, url) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: AssetImage(
-                                ResourceUtils.getImgPath('default_avatar'),
-                              ),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        );
-                      },
-                      fit: BoxFit.cover,
-                    ),
-              title: Container(
-                decoration: BoxDecoration(color: Colors.transparent),
-                constraints: BoxConstraints.expand(),
-                margin: EdgeInsets.only(top: 0),
-                //MediaQuery.of(context).size.height * 0.008
-                padding: EdgeInsets.all(0),
-                //MediaQuery.of(context).size.height * 0.007
-                alignment: Alignment.center,
-                child: Text(
-                  "标题",
-                  style: TextStyle(color: Colors.white),
-                ), //IntlUtil.getString(context, Strings.home_title)
-              ),
-//          title: TabLayout(),
-
-              centerTitle: true,
-              actions: <Widget>[
-                new IconButton(icon: new Icon(Icons.search), onPressed: () {})
-              ],
-            ),
-            body: HomePageContent(),
-//        body: new TabBarViewLayout(),
-            drawer: new Drawer(
-              child: MainLeftMenuPage(),
-            ),
-          ),
-        ));
-  }
-}
-
-class HomePageContent extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -100,8 +22,46 @@ class HomePageContent extends StatefulWidget {
   }
 }
 
-class _HomePageContentState extends State<HomePageContent> {
+class _ChildPage {
+  final String labelId;
+  final String iconId;
+
+  _ChildPage(this.labelId, this.iconId);
+}
+
+final List<_ChildPage> _allChildPages = <_ChildPage>[
+  new _ChildPage(Strings.titleProject, Drawables.PROJECT_ICON),
+  new _ChildPage(Strings.titleWiki, Drawables.WIKI_ICON),
+  new _ChildPage(Strings.titleDashboard, Drawables.DASHBOARD_ICON),
+  new _ChildPage(Strings.titleNotification, Drawables.NOTIFICATION_ICON),
+];
+
+class _HomePageContentState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   DateTime _lastPressedAt;
+  TabController _tabController;
+  GlobalKey<_NavigationBarState> _NavigationBarStateKey = GlobalKey();
+  GlobalKey<_TitleBarWidgetState> _TitleBarWidgetStateKey = GlobalKey();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _tabController =
+        new TabController(vsync: this, length: _allChildPages.length);
+    _tabController.addListener(() {
+      _NavigationBarStateKey.currentState.changeTo(_tabController.index);
+      _TitleBarWidgetStateKey.currentState.ssetTitle(IntlUtil.getString(
+          context, _allChildPages[_tabController.index].labelId));
+    });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -123,48 +83,207 @@ class _HomePageContentState extends State<HomePageContent> {
           return true;
         }
       },
-      child: Container(
-        constraints: BoxConstraints.expand(),
-        alignment: Alignment.center,
-        child: Text(IntlUtil.getString(context, Strings.titleHome)),
+      child: Hero(
+        tag: Config.LOGIN_HERO_TAG,
+        child: Scaffold(
+          appBar: MyAppBar(
+            elevation: 1,
+            leading: Config.runInWeb
+                ? Image.network(
+                    StoreProvider.of<OnesGlobalState>(context)
+                        .state
+                        .user
+                        .avatar,
+                    fit: BoxFit.cover,
+                  )
+                : CachedNetworkImage(
+                    imageUrl: StoreProvider.of<OnesGlobalState>(context)
+                        .state
+                        .user
+                        .avatar,
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    placeholder: (context, url) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: AssetImage(
+                              ResourceUtils.getImgPath('default_avatar'),
+                            ),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      );
+                    },
+                    fit: BoxFit.cover,
+                  ),
+            title: TitleBarWidget(
+              key: _TitleBarWidgetStateKey,
+              title: IntlUtil.getString(
+                  context, _allChildPages[_tabController.index].labelId),
+            ),
+//                title: NavigationBarWidget(_tabController),
+            centerTitle: false,
+            actions: <Widget>[
+              new IconButton(icon: new Icon(Icons.search), onPressed: () {})
+            ],
+          ),
+          body: TabContentViewWidget(_tabController),
+          drawer: new Drawer(
+            child: MainLeftMenuPage(),
+          ),
+          bottomNavigationBar: NavigationBarWidget(
+            _tabController,
+            key: _NavigationBarStateKey,
+          ),
+        ),
       ),
     );
   }
 }
 
-class _Page {
-  final String labelId;
+class TitleBarWidget extends StatefulWidget {
+  final String title;
 
-  _Page(this.labelId);
+  TitleBarWidget({Key key, this.title}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _TitleBarWidgetState(title);
+  }
 }
 
-final List<_Page> _allPages = <_Page>[
-  new _Page(Strings.titleHome),
-];
+class _TitleBarWidgetState extends State<TitleBarWidget> {
+  String _title;
 
-class TabLayout extends StatelessWidget {
+  _TitleBarWidgetState(this._title) : super();
+
+  void ssetTitle(String title) {
+    setState(() {
+      _title = title;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return new TabBar(
-      isScrollable: true,
-      labelPadding: EdgeInsets.all(12.0),
-      indicatorSize: TabBarIndicatorSize.label,
-      tabs: _allPages
-          .map((_Page page) =>
-              new Tab(text: IntlUtil.getString(context, page.labelId)))
-          .toList(),
+    // TODO: implement build
+    return Container(
+      decoration: BoxDecoration(color: Colors.transparent),
+      constraints: BoxConstraints.expand(),
+      margin: EdgeInsets.only(top: 0),
+      //MediaQuery.of(context).size.height * 0.008
+      padding: EdgeInsets.all(0),
+      //MediaQuery.of(context).size.height * 0.007
+      alignment: Alignment.centerLeft,
+      child: Text(
+        _title,
+        style: TextStyle(color: Colors.white),
+      ), //IntlUtil.getString(context, Strings.home_title)
     );
   }
 }
 
-class TabBarViewLayout extends StatelessWidget {
-  Widget buildTabView(BuildContext context, _Page page) {
+class NavigationBarWidget extends StatefulWidget {
+  TabController _tabController;
+
+  NavigationBarWidget(this._tabController, {Key key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _NavigationBarState();
+  }
+}
+
+class _NavigationBarState extends State<NavigationBarWidget> {
+  static int _currentIndex = 0;
+
+  void changeTo(int index) {
+    if (_currentIndex != index) {
+      setState(() {
+        _currentIndex = index;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Material(
+      child: SafeArea(
+          child: CupertinoTabBar(
+        currentIndex: _currentIndex,
+        backgroundColor: Colors.white,
+        items: _allChildPages
+            .map((_ChildPage page) => BottomNavigationBarItem(
+                icon: new Icon(Icons.assignment, size: 20.0),
+                title: Text(IntlUtil.getString(context, page.labelId)),
+                activeIcon: new Icon(
+                  Icons.assignment,
+                  size: 20.0,
+                  color: Colors.blueAccent,
+                )))
+            .toList(),
+//            child: TabBar(
+//        controller: _tabController,
+//        isScrollable: false,
+//        indicatorSize: TabBarIndicatorSize.tab,
+//        tabs: _allChildPages
+//            .map((_ChildPage page) => new Tab(
+//                  child: new Column(
+//                    mainAxisAlignment: MainAxisAlignment.center,
+//                    children: <Widget>[
+//                      new Icon(Icons.report_problem, size: 20.0),
+//                      new Text(
+//                        IntlUtil.getString(
+//                          context,
+//                          page.labelId,
+//                        ),
+//                        style: TextStyle(color: Colors.black26),
+//                      )
+//                    ],
+//                  ),
+//                ))
+//            .toList(),
+        onTap: (index) {
+          widget._tabController?.animateTo(index);
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+      )),
+    );
+  }
+}
+
+class TabContentViewWidget extends StatelessWidget {
+  TabController _tabController;
+
+  TabContentViewWidget(this._tabController, {Key key}) : super(key: key);
+
+  Widget buildTabView(BuildContext context, _ChildPage page) {
     String labelId = page.labelId;
     switch (labelId) {
-      case Strings.titleHome:
-        return Container(
-          color: Colors.red,
-        );
+      case Strings.titleProject:
+        return ProjectPage();
+        break;
+      case Strings.titleWiki:
+        return WikiPage();
+        break;
+      case Strings.titleDashboard:
+        return DashboardPage();
+        break;
+      case Strings.titleNotification:
+        return NotificationPage();
         break;
       default:
         return Container();
@@ -174,10 +293,17 @@ class TabBarViewLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LogUtil.e("TabBarViewLayout build.......");
+//    like fragment
+//    return IndexedStack(
+//      children: _allChildPages.map((_ChildPage page) {
+//        return buildTabView(context, page);
+//      }).toList(),
+//      index: _currentIndex,
+//    );
     return new TabBarView(
-        children: _allPages.map((_Page page) {
-      return buildTabView(context, page);
-    }).toList());
+        controller: _tabController,
+        children: _allChildPages.map((_ChildPage page) {
+          return buildTabView(context, page);
+        }).toList());
   }
 }
