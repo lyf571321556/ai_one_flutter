@@ -32,7 +32,7 @@ dependencies:
   #  shared_preferences: ^0.5.3+2 #ios  android
   #flutter localstorage for ios/android/desktop/web
   localstorage: ^3.0.0
-  #  bot_toast: ^2.1.0
+#  bot_toast: ^2.1.1
   flustars: ^0.2.5+1
   fluro:
     git:
