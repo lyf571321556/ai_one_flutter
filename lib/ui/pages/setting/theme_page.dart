@@ -43,24 +43,31 @@ class _ThemeSelectPageState extends State<ThemeSelectPage> {
             actions: <Widget>[],
           ),
           body: Container(
-//            child: GridView.
-//            builder(
-//              gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-//                  crossAxisCount:  (window.physicalSize.width/100).toInt(),
-//                  childAspectRatio: 1.0,
-//                  crossAxisSpacing: 0),
-//              itemCount: list.length,
-//              itemBuilder: (context, index) {
-//                return _buildGridItem(context, index, store);
-//              },
-//            ),
             alignment: Alignment.topCenter,
-            child: SingleChildScrollView(
-              child: Wrap(
-                children: List.generate(list.length, (index) {
-                  return _buildGridItem(context, index, store);
-                }),
-              ),
+            child:
+//            SingleChildScrollView(
+//                    child: Wrap(
+//                      children: List.generate(list.length, (index) {
+//                        return _buildGridItem(context, index, store);
+//                      }),
+//                    ),
+//                  ):
+//                GridView.builder(
+//                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+//                        crossAxisCount:
+//                            (window.physicalSize.width / 100).toInt(),
+//                        childAspectRatio: 1.0,
+//                        crossAxisSpacing: 0),
+//                    itemCount: list.length,
+//                    itemBuilder: (context, index) {
+//                      return _buildGridItem(context, index, store);
+//                    },
+//                  )
+                GridView.extent(
+              maxCrossAxisExtent: 100,
+              children: List.generate(list.length, (inedx) {
+                return _buildGridItem(context, inedx, store);
+              }),
             ),
           ),
         );
@@ -96,7 +103,7 @@ class _ThemeSelectPageState extends State<ThemeSelectPage> {
             },
             child: Container(
               alignment: Alignment.center,
-              margin: EdgeInsets.all(20),
+              margin: EdgeInsets.all(10),
               child: Text(
                 key,
                 textAlign: TextAlign.center,
