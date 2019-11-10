@@ -43,7 +43,8 @@ class _ThemeSelectPageState extends State<ThemeSelectPage> {
             actions: <Widget>[],
           ),
           body: Container(
-//            child: GridView.builder(
+//            child: GridView.
+//            builder(
 //              gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
 //                  crossAxisCount:  (window.physicalSize.width/100).toInt(),
 //                  childAspectRatio: 1.0,
@@ -53,6 +54,7 @@ class _ThemeSelectPageState extends State<ThemeSelectPage> {
 //                return _buildGridItem(context, index, store);
 //              },
 //            ),
+            alignment: Alignment.topCenter,
             child: SingleChildScrollView(
               child: Wrap(
                 children: List.generate(list.length, (index) {
