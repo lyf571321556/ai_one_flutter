@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-class WikiPage extends StatefulWidget {
+class NotificationListPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _WikiPageContentState();
+    return _NotificationListPageContentState();
   }
 }
 
-class _WikiPageContentState extends State<WikiPage> with AutomaticKeepAliveClientMixin{
+class _NotificationListPageContentState extends State<NotificationListPage> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
       alignment: Alignment.center,
-      child: Text("wiki page"),
+      child: Text("notification page"),
     );
   }
 
