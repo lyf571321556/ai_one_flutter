@@ -28,14 +28,15 @@ class _ProjectListPageContentState extends State<ProjectListPage>
         BlocListProviderWidget.of<ProjectListBloc>(context);
     _projectListBloc.projectListEventStream.listen((action) {
       switch (action) {
-        case ListAction.RefreshActin:
+        case ListAction.RefreshAction:
           _refreshController.refreshCompleted();
+          print("_refreshController.refreshCompleted");
           break;
         case ListAction.LoadAction:
           _refreshController.loadComplete();
+          print("_refreshController.loadComplete");
           break;
       }
-      print("_refreshController.loadComplete");
     });
     return StreamBuilder(
       stream: _projectListBloc.projectListStream,
@@ -48,6 +49,10 @@ class _ProjectListPageContentState extends State<ProjectListPage>
             header: WaterDropHeader(
               waterDropColor: Theme.of(context).primaryColor,
             ),
+            footer: ClassicFooter(
+              loadStyle: LoadStyle.ShowAlways,
+              completeDuration: Duration(milliseconds: 500),
+            ),
             onLoading: () {
               _projectListBloc.onLoadMore();
             },
@@ -55,7 +60,8 @@ class _ProjectListPageContentState extends State<ProjectListPage>
               _projectListBloc.onRefresh();
             },
             child: ListView.builder(
-                itemExtent: 100,
+                physics: ClampingScrollPhysics(),
+                itemExtent: 20,
                 itemCount: snapshot.data == null ? 0 : snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(

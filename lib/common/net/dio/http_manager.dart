@@ -16,12 +16,23 @@ class HttpManager {
   static final int WRITE_TIMEOUT = 5000;
   static final int READ_TIMEOUT = 5000;
   static Dio _httpClient;
-  static final String baseUrl = "http://127.0.0.1:8080/apis/";
+  static final String web_dev_baseUrl = "http://127.0.0.1:8080/apis/";
+  static final String mobile_dev_baseUrl = "https://devapi.myones.net/";
+  static final String web_release_baseUrl = "http://127.0.0.1:8080/apis/";
+  static final String mobile_release_baseUrl = "https://devapi.myones.net/";
   final TokenInterceptor _tokenInterceptors = new TokenInterceptor();
 
   factory HttpManager() => _sharedInstance();
 
   static HttpManager _instance;
+
+  String _getBaseUrl() {
+    if (Config.RELEASE) {
+      return Config.runInWeb ? web_release_baseUrl : mobile_release_baseUrl;
+    } else {
+      return Config.runInWeb ? web_dev_baseUrl : mobile_dev_baseUrl;
+    }
+  }
 
   HttpManager._internal() {
     _initClient();
@@ -39,7 +50,7 @@ class HttpManager {
   void _initClient() {
     BaseOptions baseOption = new BaseOptions(
         method: "POST",
-        baseUrl: baseUrl,
+        baseUrl: _getBaseUrl(),
         connectTimeout: CONNECT_TIMEOUT,
         receiveTimeout: READ_TIMEOUT,
         sendTimeout: WRITE_TIMEOUT);

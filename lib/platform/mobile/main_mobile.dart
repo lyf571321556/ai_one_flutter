@@ -24,9 +24,9 @@ Future<bool> isConnected() async {
 void initProxy(Dio _dio) {
   (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
       (client) {
-    client.findProxy = (uri) {
-      return Config.RELEASE ? 'DIRECT' : "PROXY 192.168.1.213:8888";
-    };
+//    client.findProxy = (uri) {
+//      return Config.RELEASE ? 'DIRECT' : "PROXY 192.168.1.213:8888";
+//    };
     if (!Config.RELEASE) {
       client.badCertificateCallback =
           (X509Certificate cert, String host, int port) {

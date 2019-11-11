@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum ListAction { RefreshActin, LoadAction }
+enum ListAction { RefreshAction, LoadAction }
 
 abstract class BlocListBase {
   Future getData({Map params});

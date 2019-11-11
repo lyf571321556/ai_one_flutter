@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:math';
 
 import 'package:ones_ai_flutter/common/bloc/bloc_widget.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -24,11 +25,9 @@ class ProjectListBloc implements BlocListBase {
   // get  the total number of projects  interfase
   BehaviorSubject<int> _projectListTotalController = new BehaviorSubject<int>();
 
-  Sink<int> get _projectListInTotalFavorites =>
-      _projectListTotalController.sink;
+  Sink<int> get _projectListInTotal => _projectListTotalController.sink;
 
-  Stream<int> get rojectListOutTotalFavorites =>
-      _projectListTotalController.stream;
+  Stream<int> get rojectListOutTotal => _projectListTotalController.stream;
 
   List<String> _projectList = new List();
 
@@ -46,27 +45,35 @@ class ProjectListBloc implements BlocListBase {
   }
 
   @override
-  Future onLoadMore({Map params}) {
+  Future onLoadMore({Map params}) async {
     // TODO: implement onLoadMore
     print("onLoadMore");
-    _projectList.add("2");
+    await Future.delayed(Duration(milliseconds: 2000));
+    String result = Random().nextInt(1000).toString();
+    print(result);
+    _projectList.add(result);
+    print(_projectList.length);
     _projectListSink.add(UnmodifiableListView<String>(_projectList));
     _projectListEventSink.add(ListAction.LoadAction);
-//    _notify();
+    _notify();
   }
 
   @override
-  Future onRefresh({Map params}) {
+  Future onRefresh({Map params}) async {
     // TODO: implement onRefresh
     print("onRefresh");
-    _projectList.add("3");
+    await Future.delayed(Duration(milliseconds: 2000));
+    String result = Random().nextInt(1000).toString();
+    print(result);
+    _projectList.add(result);
+    print(_projectList.length);
     _projectListSink.add(UnmodifiableListView<String>(_projectList));
-    _projectListEventSink.add(ListAction.RefreshActin);
-//    _notify();
+    _projectListEventSink.add(ListAction.RefreshAction);
+    _notify();
   }
 
   void _notify() {
     // The total number of projects
-    _projectListInTotalFavorites.add(_projectList.length);
+    _projectListInTotal.add(_projectList.length);
   }
 }
