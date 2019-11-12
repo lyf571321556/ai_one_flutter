@@ -23,7 +23,7 @@ class _ProjectListPageContentState extends State<ProjectListPage>
   Widget build(BuildContext context) {
     print("ComListPage build......");
     RefreshController _refreshController =
-        new RefreshController(initialRefresh: false);
+        new RefreshController(initialRefresh: true);
     final ProjectListBloc _projectListBloc =
         BlocListProviderWidget.of<ProjectListBloc>(context);
     _projectListBloc.projectListEventStream.listen((action) {
@@ -41,34 +41,32 @@ class _ProjectListPageContentState extends State<ProjectListPage>
     return StreamBuilder(
       stream: _projectListBloc.projectListStream,
       builder: (context, snapshot) {
-        return Scaffold(
-          body: SmartRefresher(
-            controller: _refreshController,
-            enablePullDown: true,
-            enablePullUp: true,
-            header: WaterDropHeader(
-              waterDropColor: Theme.of(context).primaryColor,
-            ),
-            footer: ClassicFooter(
-              loadStyle: LoadStyle.ShowAlways,
-              completeDuration: Duration(milliseconds: 500),
-            ),
-            onLoading: () {
-              _projectListBloc.onLoadMore();
-            },
-            onRefresh: () {
-              _projectListBloc.onRefresh();
-            },
-            child: ListView.builder(
-                physics: ClampingScrollPhysics(),
-                itemExtent: 20,
-                itemCount: snapshot.data == null ? 0 : snapshot.data.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    child: Text(snapshot.data[index]),
-                  );
-                }),
+        return SmartRefresher(
+          controller: _refreshController,
+          enablePullDown: true,
+          enablePullUp: false,
+          header: WaterDropHeader(
+            waterDropColor: Theme.of(context).primaryColor,
           ),
+          footer: ClassicFooter(
+            loadStyle: LoadStyle.ShowAlways,
+            completeDuration: Duration(milliseconds: 500),
+          ),
+          onLoading: () {
+            _projectListBloc.onLoadMore();
+          },
+          onRefresh: () {
+            _projectListBloc.onRefresh();
+          },
+          child: ListView.builder(
+              physics: ClampingScrollPhysics(),
+              itemExtent: 100,
+              itemCount: snapshot.data == null ? 0 : snapshot.data.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  child: Text(snapshot.data[index]),
+                );
+              }),
         );
       },
     );

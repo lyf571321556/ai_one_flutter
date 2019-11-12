@@ -48,7 +48,7 @@ class ProjectListBloc implements BlocListBase {
   Future onLoadMore({Map params}) async {
     // TODO: implement onLoadMore
     print("onLoadMore");
-    await Future.delayed(Duration(milliseconds: 2000));
+    await Future.delayed(Duration(milliseconds: 500));
     String result = Random().nextInt(1000).toString();
     print(result);
     _projectList.add(result);
@@ -62,7 +62,7 @@ class ProjectListBloc implements BlocListBase {
   Future onRefresh({Map params}) async {
     // TODO: implement onRefresh
     print("onRefresh");
-    await Future.delayed(Duration(milliseconds: 2000));
+    await Future.delayed(Duration(milliseconds: 500));
     String result = Random().nextInt(1000).toString();
     print(result);
     _projectList.add(result);
