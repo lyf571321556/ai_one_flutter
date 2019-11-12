@@ -48,7 +48,8 @@ dependencies:
   json_serializable: ^3.0.0
   pretty_dio_logger: ^1.0.7
   #https://pub.dev/packages/pull_to_refresh#-readme-tab-
-  pull_to_refresh: ^1.5.7
+#  pull_to_refresh: ^1.5.7
+  flutter_easyrefresh: ^2.0.4
   #https://pub.dev/packages/cached_network_image#-installing-tab-
   cached_network_image: ^2.0.0-rc #ios android
   #https://github.com/zino-app/graphql-flutter

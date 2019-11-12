@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyrefresh/bezier_bounce_footer.dart';
+import 'package:flutter_easyrefresh/bezier_circle_header.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:ones_ai_flutter/common/bloc/bloc_widget.dart';
 import 'package:ones_ai_flutter/ui/pages/project/list/project_list_bloc.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ProjectListPage extends StatefulWidget {
   @override
@@ -13,27 +15,30 @@ class ProjectListPage extends StatefulWidget {
 
 class _ProjectListPageContentState extends State<ProjectListPage>
     with AutomaticKeepAliveClientMixin {
+  EasyRefreshController _refreshController;
+  ScrollController _scrollController;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _refreshController = EasyRefreshController();
+    _scrollController = ScrollController();
   }
 
   @override
   Widget build(BuildContext context) {
     print("ComListPage build......");
-    RefreshController _refreshController =
-        new RefreshController(initialRefresh: true);
     final ProjectListBloc _projectListBloc =
         BlocListProviderWidget.of<ProjectListBloc>(context);
     _projectListBloc.projectListEventStream.listen((action) {
       switch (action) {
         case ListAction.RefreshAction:
-          _refreshController.refreshCompleted();
+          _refreshController.finishRefresh(success: true);
           print("_refreshController.refreshCompleted");
           break;
         case ListAction.LoadAction:
-          _refreshController.loadComplete();
+          _refreshController.finishLoad(success: true);
           print("_refreshController.loadComplete");
           break;
       }
@@ -41,18 +46,16 @@ class _ProjectListPageContentState extends State<ProjectListPage>
     return StreamBuilder(
       stream: _projectListBloc.projectListStream,
       builder: (context, snapshot) {
-        return SmartRefresher(
+        return EasyRefresh(
           controller: _refreshController,
-          enablePullDown: true,
-          enablePullUp: false,
-          header: WaterDropHeader(
-            waterDropColor: Theme.of(context).primaryColor,
-          ),
-          footer: ClassicFooter(
-            loadStyle: LoadStyle.ShowAlways,
-            completeDuration: Duration(milliseconds: 500),
-          ),
-          onLoading: () {
+          scrollController: _scrollController,
+          enableControlFinishRefresh: true,
+          enableControlFinishLoad: true,
+          header: BezierCircleHeader(
+              backgroundColor: Theme.of(context).primaryColor),
+          footer: BezierBounceFooter(
+              backgroundColor: Theme.of(context).primaryColor),
+          onLoad: () {
             _projectListBloc.onLoadMore();
           },
           onRefresh: () {
