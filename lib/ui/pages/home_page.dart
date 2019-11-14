@@ -71,6 +71,8 @@ class _HomePageContentState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    String avatar =
+        StoreProvider.of<OnesGlobalState>(context).state.user?.avatar;
     return WillPopScope(
       onWillPop: () async {
         if (Scaffold.of(context).isDrawerOpen) {
@@ -95,17 +97,11 @@ class _HomePageContentState extends State<HomePage>
             elevation: 1,
             leading: Config.runInWeb
                 ? Image.network(
-                    StoreProvider.of<OnesGlobalState>(context)
-                        .state
-                        .user
-                        ?.avatar,
+                    avatar == null ? "" : avatar,
                     fit: BoxFit.cover,
                   )
                 : CachedNetworkImage(
-                    imageUrl: StoreProvider.of<OnesGlobalState>(context)
-                        .state
-                        .user
-                        ?.avatar,
+                    imageUrl: avatar == null ? "" : avatar,
                     imageBuilder: (context, imageProvider) => Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,

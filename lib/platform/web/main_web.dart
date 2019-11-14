@@ -19,6 +19,7 @@ void initProxy(Dio _dio) {}
 
 void saveToken(User user, Store store) async {
   print(user.toJson());
+  print("uid=${user.uuid};lt=${user.token}");
   html.window.document.cookie = "uid=${user.uuid};lt=${user.token}";
   CommonUtils.changeUser(store, user);
 }
