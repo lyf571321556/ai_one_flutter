@@ -19,8 +19,8 @@ void initProxy(Dio _dio) {}
 
 void saveToken(User user, Store store) async {
   print(user.toJson());
-  print("uid=${user.uuid};lt=${user.token}");
-  html.window.document.cookie = "uid=${user.uuid};lt=${user.token}";
+  html.window.document.cookie = "uid=${user.uuid};expires=Thu, 18 Dec 2020 12:00:00 UTC";
+  html.window.document.cookie = "lt=${user.token};expires=Thu, 18 Dec 2020 12:00:00 UTC";
   CommonUtils.changeUser(store, user);
 }
 
