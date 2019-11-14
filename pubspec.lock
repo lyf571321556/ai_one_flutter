@@ -52,6 +52,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
+  bot_toast:
+    dependency: "direct main"
+    description:
+      name: bot_toast
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.1"
   build:
     dependency: transitive
     description:
@@ -300,27 +307,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
-  graphql:
-    dependency: transitive
-    description:
-      name: graphql
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.0"
-  graphql_flutter:
-    dependency: "direct main"
-    description:
-      name: graphql_flutter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.0"
-  graphql_parser:
-    dependency: transitive
-    description:
-      name: graphql_parser
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.4"
   graphs:
     dependency: transitive
     description:
@@ -432,7 +418,7 @@ packages:
       name: meta
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.7"
+    version: "1.1.8"
   mime:
     dependency: transitive
     description:
@@ -683,13 +669,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.2"
-  uuid_enhanced:
-    dependency: transitive
-    description:
-      name: uuid_enhanced
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.2"
   vector_math:
     dependency: transitive
     description:
@@ -711,13 +690,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
-  websocket:
-    dependency: transitive
+  webview_flutter:
+    dependency: "direct main"
     description:
-      name: websocket
+      name: webview_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.5"
+    version: "0.3.15+1"
   xml:
     dependency: transitive
     description:

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:auto_size/auto_size.dart';
+import 'package:bot_toast/bot_toast.dart';
 
 //import 'package:bot_toast/bot_toast.dart';
 import 'package:fluintl/fluintl.dart';
@@ -104,7 +105,7 @@ class OnesAppState extends State<OnesApp> {
       return StoreProvider<OnesGlobalState>(
           store: snapshot.data,
           child: StoreBuilder<OnesGlobalState>(builder: (context, store) {
-            return MaterialApp(
+            return BotToastInit(child: MaterialApp(
               onGenerateRoute: PageRouteManager.pageRouter.generator,
               debugShowCheckedModeBanner: false,
               title: 'Ones App',
@@ -148,7 +149,7 @@ class OnesAppState extends State<OnesApp> {
 //                    }
 //                  },
               home: _getHomePage(store.state.user != null),
-            );
+            ));
           }));
     } else {
       print("-------3--------");

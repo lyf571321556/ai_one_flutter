@@ -1,6 +1,7 @@
 //import 'package:bot_toast/bot_toast.dart';
 import 'dart:ui';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:fluintl/fluintl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +15,9 @@ import 'package:ones_ai_flutter/resources/font_icons.dart';
 import 'package:ones_ai_flutter/resources/index.dart';
 import 'package:ones_ai_flutter/widget/button/gradient_button.dart';
 import 'package:redux/redux.dart';
+import 'package:ones_ai_flutter/platform/web/main_web.dart'
+if (dart.library.io) "package:ones_ai_flutter/platform/mobile/main_mobile.dart";
+
 
 class LoginPage extends StatefulWidget {
   @override
@@ -271,7 +275,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
       alignment: Alignment.centerRight,
       child: InkWell(
         onTap: () {
-//          BotToast.showText(text: "to do!");
+          BotToast.showText(text: "to do!");
         },
         child: Text(
           IntlUtil.getString(
@@ -335,8 +339,9 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                     .then((result) async {
                                   if (result.isSuccess) {
                                     print(result.data.email);
-                                    await UserDao.saveLoginUserInfo(
-                                        result.data, store);
+//                                    await UserDao.saveLoginUserInfo(
+//                                        result.data, store);
+                                    await saveToken(result.data, store);
                                     setState(() {
                                       _loginState = LoginState.LOGIN_SUCCESS;
                                     });
@@ -348,8 +353,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                     await _loginAanimationController
                                         .reverse()
                                         .orCancel;
-//                                    BotToast.showText(
-//                                        text: "login failed,please retry!");
+                                    BotToast.showText(
+                                        text: "login failed,please retry!");
                                   }
                                 }).catchError((e) async {
                                   setState(() {

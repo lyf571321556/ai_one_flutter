@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ones_ai_flutter/common/config/app_config.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:ones_ai_flutter/common/dao/user_dao.dart';
+import 'package:ones_ai_flutter/models/account/user.dart';
+import 'package:redux/redux.dart';
 
 void initByPlatform() {
   Config.runInWeb = identical(0, 0.0);
@@ -34,4 +37,9 @@ void initProxy(Dio _dio) {
       };
     }
   };
+}
+
+void saveToken(User user,Store store) async{
+  await UserDao.saveLoginUserInfo(
+      user, store);
 }

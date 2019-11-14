@@ -32,7 +32,8 @@ dependencies:
   #  shared_preferences: ^0.5.3+2 #ios  android
   #flutter localstorage for ios/android/desktop/web
   localstorage: ^3.0.0
-#  bot_toast: ^2.1.1
+  webview_flutter: ^0.3.15+1
+  bot_toast: ^2.1.1
   rxdart: ^0.22.6
   flustars: ^0.2.5+1
   fluro:
@@ -53,7 +54,7 @@ dependencies:
   #https://pub.dev/packages/cached_network_image#-installing-tab-
   cached_network_image: ^2.0.0-rc #ios android
   #https://github.com/zino-app/graphql-flutter
-  graphql_flutter: ^2.0.0 #android ios
+#  graphql_flutter: ^2.0.0 #android ios
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -76,6 +77,11 @@ flutter:
     - assets/images/welcome.png
     - assets/images/default_avatar.png
     - assets/images/ones_icon.png
+    - assets/html
+    - assets/html/css
+    - assets/html/js
+    - assets/html/js/function.js
+    - assets/html/index.html
   fonts:
     - family: iconfont
       fonts:
