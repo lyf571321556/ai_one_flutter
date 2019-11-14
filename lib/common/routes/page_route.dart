@@ -5,6 +5,7 @@ import 'package:ones_ai_flutter/ui/pages/home_page.dart';
 import 'package:ones_ai_flutter/ui/pages/setting/language_page.dart';
 import 'package:ones_ai_flutter/ui/pages/login_page.dart';
 import 'package:ones_ai_flutter/ui/pages/setting/theme_page.dart';
+import 'package:ones_ai_flutter/ui/pages/wiki/list/web_page.dart';
 
 class PageRouteManager {
   static final String rootPagePath = "/";
@@ -12,6 +13,7 @@ class PageRouteManager {
   static final String homePagePath = "/home";
   static final String languagePagePath = "/language";
   static final String themePagePath = "/theme";
+  static final String themeWebViewPath = "/webview";
   static Router pageRouter;
 
   static void initRoutes() {
@@ -26,6 +28,7 @@ class PageRouteManager {
     pageRouter.define(homePagePath, handler: _homePageHandler);
     pageRouter.define(languagePagePath, handler: _languagePageHandler);
     pageRouter.define(themePagePath, handler: _themePageHandler);
+    pageRouter.define(themeWebViewPath, handler: _webViewPageHandler);
   }
 
   static final Handler _loginPageHandler = new Handler(
@@ -51,6 +54,12 @@ class PageRouteManager {
     print("接收参数${params['param'].first}");
     return ThemeSelectPage();
   });
+
+  static final Handler _webViewPageHandler = new Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+        print("接收参数${params['param'].first}");
+        return WebViewPage();
+      });
 
   static openNewPage(BuildContext context, String pagePath,
       {Map<String, dynamic> params, bool replace, TransitionType transition}) {
