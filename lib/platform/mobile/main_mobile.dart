@@ -39,7 +39,18 @@ void initProxy(Dio _dio) {
   };
 }
 
-void saveToken(User user,Store store) async{
-  await UserDao.saveLoginUserInfo(
-      user, store);
+void saveToken(User user, Store store) async {
+  await UserDao.saveLoginUserInfo(user, store);
+}
+
+String getCurrentRequestUrl() {
+  return "";
+}
+
+String getCurrentRequestUrlPath() {
+  return "";
+}
+
+String goToDestPage(String url) {
+
 }

@@ -5,6 +5,7 @@ import 'package:bot_toast/bot_toast.dart';
 
 //import 'package:bot_toast/bot_toast.dart';
 import 'package:fluintl/fluintl.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -14,6 +15,7 @@ import 'package:ones_ai_flutter/common/dao/app_dao.dart';
 import 'package:ones_ai_flutter/common/redux/global/ones_state.dart';
 import 'package:ones_ai_flutter/resources/index.dart';
 import 'package:ones_ai_flutter/ui/pages/home_page.dart';
+import 'package:ones_ai_flutter/ui/pages/login_page.dart';
 import 'package:ones_ai_flutter/ui/pages/welcome_page.dart';
 import 'package:redux/redux.dart';
 import 'package:ones_ai_flutter/platform/web/main_web.dart'
@@ -33,7 +35,13 @@ void main() {
     PageRouteManager.initRoutes();
 //    SystemChrome.setEnabledSystemUIOverlays([]);
 //    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top, SystemUiOverlay.bottom]);
-
+      print("request coming");
+      print(getCurrentRequestUrl());
+    AppRouteMatch appRouteMatch=PageRouteManager.pageRouter.match(getCurrentRequestUrlPath());
+    print(appRouteMatch?.parameters);
+    if(appRouteMatch!=null){
+      goToDestPage(getCurrentRequestUrl());
+    }
 //    runAutoSizeApp(OnesApp());
     runApp(OnesApp());
     PaintingBinding.instance.imageCache.maximumSize = 100;
@@ -162,8 +170,6 @@ class OnesAppState extends State<OnesApp> {
   Widget _getHomePage(bool isLogin) {
     return isLogin
         ? HomePage()
-        : WelcomePage(
-            title: 'Flutter Demo Home Page',
-          );
+        : LoginPage();
   }
 }

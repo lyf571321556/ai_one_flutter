@@ -22,7 +22,9 @@ class PageRouteManager {
     }
     pageRouter.notFoundHandler = new Handler(
         handlerFunc:
-            (BuildContext context, Map<String, List<String>> params) {});
+            (BuildContext context, Map<String, List<String>> params) {
+
+            });
 
     pageRouter.define(loginPagePath, handler: _loginPageHandler);
     pageRouter.define(homePagePath, handler: _homePageHandler);
@@ -57,9 +59,9 @@ class PageRouteManager {
 
   static final Handler _webViewPageHandler = new Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-        print("接收参数${params['param'].first}");
-        return WebViewPage();
-      });
+    print("接收参数${params['param'].first}");
+    return WebViewPage();
+  });
 
   static openNewPage(BuildContext context, String pagePath,
       {Map<String, dynamic> params, bool replace, TransitionType transition}) {

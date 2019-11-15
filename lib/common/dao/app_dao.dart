@@ -13,6 +13,7 @@ import 'package:ones_ai_flutter/resources/index.dart';
 class AppDao {
   static Future<Store<OnesGlobalState>> initApp(
       Store<OnesGlobalState> store) async {
+    print("initapp");
     await LocalDataHelper.ready();
     String userInfo = await LocalDataHelper.get(Config.USER_INFO);
     User user = null; //await UserDao.getUserInfo();
@@ -45,6 +46,7 @@ class AppDao {
           platform: TargetPlatform.iOS);
     }
     CommonUtils.changeTheme(store, newThemeData);
+    print("initapp");
     return Future.value(store);
   }
 }
