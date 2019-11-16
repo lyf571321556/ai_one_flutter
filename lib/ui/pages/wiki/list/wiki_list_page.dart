@@ -75,10 +75,10 @@ class _WikiListPageContentState extends State<WikiListPage>
   }
 }
 
-JavascriptChannel _alertJavascriptChannel(BuildContext context) {
-  return JavascriptChannel(
-      name: 'Toast',
-      onMessageReceived: (JavascriptMessage message) {
-        print("flutter" + message.message);
-      });
-}
+//JavascriptChannel _alertJavascriptChannel(BuildContext context) {
+//  return JavascriptChannel(
+//      name: 'Toast',
+//      onMessageReceived: (JavascriptMessage message) {
+//        print("flutter" + message.message);
+//      });
+//}
