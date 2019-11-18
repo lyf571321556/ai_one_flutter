@@ -16,8 +16,7 @@ import 'package:ones_ai_flutter/resources/index.dart';
 import 'package:ones_ai_flutter/widget/button/gradient_button.dart';
 import 'package:redux/redux.dart';
 import 'package:ones_ai_flutter/platform/web/main_web.dart'
-if (dart.library.io) "package:ones_ai_flutter/platform/mobile/main_mobile.dart";
-
+    if (dart.library.io) "package:ones_ai_flutter/platform/mobile/main_mobile.dart";
 
 class LoginPage extends StatefulWidget {
   @override
@@ -177,6 +176,39 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
 //                : Padding(padding: EdgeInsets.all(0))
   }
 
+  //输入框样式
+  Widget _buildAccountOrPswInputBox(bool obscureText, String hintText) {
+    return Container(
+      alignment: Alignment.center,
+      height: 45.0,
+//                  decoration: new BoxDecoration(
+//                      color: Colors.white,
+//                      border: new Border.all(
+//                          color: OnesColors.login_button_backgroun, width: 1.0),
+//                      borderRadius: new BorderRadius.circular(4.0)),
+      child: new TextField(
+        textAlign: TextAlign.left,
+        style:
+        TextStyle(fontSize: 20, color: Colors.black),
+        obscureText: obscureText,
+        decoration: InputDecoration(
+            isDense: true,
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                borderSide: BorderSide(
+                    color: Theme.of(context).primaryColor, width: 1.0)),
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                borderSide: BorderSide(
+                    color: Theme.of(context).primaryColor.withOpacity(0.5), width: 1.0)),
+//                        border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(4.0)),borderSide: BorderSide(color: OnesColors.LoginPageTitleBackGround, width: 1.0)),
+            hintText: hintText,
+            hintStyle: TextStyle(
+                fontSize: 14, color: Theme.of(context).primaryColor)),
+      ),
+    );
+  }
+  
   Widget _buildAccountTextField() {
     return TextFormField(
       onSaved: (String value) {

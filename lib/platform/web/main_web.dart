@@ -46,5 +46,6 @@ String getCurrentRequestUrlPath() {
 }
 
 String goToDestPage(String url) {
+//  html.window.open("https://dev.myones.net/wiki/master/#/team/YcGYa2G4/space/PmCBHfN2/page/VmtPK2vC", "窗口");
   html.window.location.href = "https://dev.myones.net/wiki/master/#/team/YcGYa2G4/space/PmCBHfN2/page/VmtPK2vC";
 }
