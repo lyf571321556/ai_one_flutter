@@ -155,6 +155,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                               SizedBox(height: _userNameValied ? 10 : 10),
                               _buildPasswordTextField(),
                               _buildForgetPasswordWidget(),
+                              _buildAccountOrPswInputBox(false,"样式对比输入框")
                             ],
                           ),
                         ),
@@ -178,21 +179,14 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
 
   //输入框样式
   Widget _buildAccountOrPswInputBox(bool obscureText, String hintText) {
-    return Container(
-      alignment: Alignment.center,
-      height: 45.0,
-//                  decoration: new BoxDecoration(
-//                      color: Colors.white,
-//                      border: new Border.all(
-//                          color: OnesColors.login_button_backgroun, width: 1.0),
-//                      borderRadius: new BorderRadius.circular(4.0)),
-      child: new TextField(
+    return TextField(
         textAlign: TextAlign.left,
         style:
         TextStyle(fontSize: 20, color: Colors.black),
         obscureText: obscureText,
         decoration: InputDecoration(
             isDense: true,
+            contentPadding: EdgeInsets.symmetric(vertical: 10,horizontal: 6),
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(4.0)),
                 borderSide: BorderSide(
@@ -205,8 +199,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
             hintText: hintText,
             hintStyle: TextStyle(
                 fontSize: 14, color: Theme.of(context).primaryColor)),
-      ),
-    );
+      );
   }
   
   Widget _buildAccountTextField() {
