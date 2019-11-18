@@ -114,6 +114,7 @@ class OnesAppState extends State<OnesApp> {
           store: snapshot.data,
           child: StoreBuilder<OnesGlobalState>(builder: (context, store) {
             return BotToastInit(child: MaterialApp(
+              navigatorObservers: [BotToastNavigatorObserver()],
               onGenerateRoute: PageRouteManager.pageRouter.generator,
               debugShowCheckedModeBanner: false,
               title: 'Ones App',

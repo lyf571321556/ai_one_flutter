@@ -190,16 +190,6 @@ class _MainLeftMenuPageState extends State<MainLeftMenuPage> {
                           : null),
                   trailing: Icon(Icons.keyboard_arrow_right),
                   title: Text(IntlUtil.getString(context, pageInfo.titleId)),
-                  onTap: () async {
-                    if (pageInfo.pagePath == null) {
-                      await UserDao.saveLoginUserInfo(null, store);
-                      PageRouteManager.openNewPage(
-                          context, PageRouteManager.loginPagePath,
-                          replace: true);
-                    } else {
-                      PageRouteManager.openNewPage(context, pageInfo.pagePath);
-                    }
-                  },
                 );
               }),
           flex: 1,

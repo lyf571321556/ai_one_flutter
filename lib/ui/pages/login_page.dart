@@ -307,7 +307,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
       alignment: Alignment.centerRight,
       child: InkWell(
         onTap: () {
-          BotToast.showText(text: "to do!");
+          BotToast.showText(text: "to do!",duration: Duration(seconds: 5),onlyOne: true,crossPage: true,contentColor: Colors.red);
         },
         child: Text(
           IntlUtil.getString(
