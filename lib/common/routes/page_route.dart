@@ -10,7 +10,7 @@ import 'package:ones_ai_flutter/ui/pages/wiki/list/web_page.dart';
 class PageRouteManager {
   static final String rootPagePath = "/";
   static final String loginPagePath = "/login";
-  static final String homePagePath = "/home";
+  static final String homePagePath = "/home1";
   static final String languagePagePath = "/language";
   static final String themePagePath = "/theme";
   static final String webViewPath = "/webview/:data";

@@ -8,6 +8,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:ones_ai_flutter/common/dao/user_dao.dart';
 import 'package:ones_ai_flutter/models/account/user.dart';
 import 'package:redux/redux.dart';
+import 'package:uni_links/uni_links.dart';
 
 void initByPlatform() {
   Config.runInWeb = identical(0, 0.0);
@@ -43,14 +44,13 @@ void saveToken(User user, Store store) async {
   await UserDao.saveLoginUserInfo(user, store);
 }
 
-String getCurrentRequestUrl() {
-  return "";
+Future<String> getCurrentRequestUrl() async {
+  String intentlink = await getInitialLink();
+  return intentlink;
 }
 
 String getCurrentRequestUrlPath() {
-  return "";
+  return "-------";
 }
 
-String goToDestPage(String url) {
-
-}
+String goToDestPage(String url) {}

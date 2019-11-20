@@ -34,11 +34,11 @@ _sessionStore() {
   html.window.sessionStorage['session_value'] = "";
 }
 
-String getCurrentRequestUrl() {
+Future<String> getCurrentRequestUrl() {
   print(html.window.location.hash);
   print(html.window.location.href);
   print(html.window.location.origin);
-  return html.window.location.toString();
+  return Future.value(html.window.location.toString());
 }
 
 String getCurrentRequestUrlPath() {
@@ -47,5 +47,6 @@ String getCurrentRequestUrlPath() {
 
 String goToDestPage(String url) {
 //  html.window.open("https://dev.myones.net/wiki/master/#/team/YcGYa2G4/space/PmCBHfN2/page/VmtPK2vC", "窗口");
-  html.window.location.href = "https://dev.myones.net/wiki/master/#/team/YcGYa2G4/space/PmCBHfN2/page/VmtPK2vC";
+  html.window.location.href =
+      "https://dev.myones.net/wiki/master/#/team/YcGYa2G4/space/PmCBHfN2/page/VmtPK2vC";
 }

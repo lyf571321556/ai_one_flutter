@@ -26,6 +26,7 @@ import 'common/routes/page_route.dart';
 void main() {
   runZoned(() {
     debugPaintSizeEnabled = !true;
+    WidgetsFlutterBinding.ensureInitialized();
     initByPlatform();
     ErrorWidget.builder = (FlutterErrorDetails details) {
       Zone.current.handleUncaughtError(details.exception, details.stack);
@@ -35,13 +36,6 @@ void main() {
     PageRouteManager.initRoutes();
 //    SystemChrome.setEnabledSystemUIOverlays([]);
 //    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top, SystemUiOverlay.bottom]);
-      print("request coming");
-      print(getCurrentRequestUrl());
-    AppRouteMatch appRouteMatch=PageRouteManager.pageRouter.match(getCurrentRequestUrlPath());
-    print(appRouteMatch?.parameters);
-    if(appRouteMatch!=null){
-      goToDestPage(getCurrentRequestUrl());
-    }
 //    runAutoSizeApp(OnesApp());
     runApp(OnesApp());
     PaintingBinding.instance.imageCache.maximumSize = 100;
@@ -51,6 +45,19 @@ void main() {
     print(stack);
     print("===============global error end===============");
   });
+}
+
+void initPlatformStateForUniLinks() async {
+  print("request coming");
+  String url = await getCurrentRequestUrl();
+  print(url);
+  AppRouteMatch appRouteMatch =
+      PageRouteManager.pageRouter.match(getCurrentRequestUrlPath());
+  print(appRouteMatch?.parameters);
+  if (appRouteMatch != null) {
+    goToDestPage(url);
+  }
+  print("request ending");
 }
 
 class OnesApp extends StatefulWidget {
@@ -70,7 +77,7 @@ class OnesAppState extends State<OnesApp> {
               primaryColor: Colors.blueAccent,
               accentColor: Colors.blueAccent,
               hintColor: Colors.grey.withOpacity(0.5),
-              highlightColor:Colors.lightBlueAccent ,
+              highlightColor: Colors.lightBlueAccent,
               indicatorColor: Colors.white,
               platform: TargetPlatform.iOS),
           platformLocale: WidgetsBinding.instance.window.locale));
@@ -78,6 +85,7 @@ class OnesAppState extends State<OnesApp> {
   @override
   void initState() {
     // TODO: implement initState
+    initPlatformStateForUniLinks();
     _buildDataFuture = AppDao.initApp(onesStore);
     super.initState();
     setLocalizedValues(localizedValues);
@@ -115,7 +123,8 @@ class OnesAppState extends State<OnesApp> {
       return StoreProvider<OnesGlobalState>(
           store: snapshot.data,
           child: StoreBuilder<OnesGlobalState>(builder: (context, store) {
-            return BotToastInit(child: MaterialApp(
+            return BotToastInit(
+                child: MaterialApp(
               navigatorObservers: [BotToastNavigatorObserver()],
               onGenerateRoute: PageRouteManager.pageRouter.generator,
               debugShowCheckedModeBanner: false,
@@ -171,8 +180,6 @@ class OnesAppState extends State<OnesApp> {
   }
 
   Widget _getHomePage(bool isLogin) {
-    return isLogin
-        ? HomePage()
-        : LoginPage();
+    return isLogin ? HomePage() : LoginPage();
   }
 }
