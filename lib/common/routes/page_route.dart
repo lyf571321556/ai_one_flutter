@@ -13,8 +13,8 @@ class PageRouteManager {
   static final String homePagePath = "/home";
   static final String languagePagePath = "/language";
   static final String themePagePath = "/theme";
-  static final String themeWebViewPath = "/webview";
-  static Router pageRouter;
+  static final String webViewPath = "/webview/:data";
+  static Router pageRouter = Router.appRouter;
 
   static void initRoutes() {
     if (pageRouter == null) {
@@ -22,15 +22,13 @@ class PageRouteManager {
     }
     pageRouter.notFoundHandler = new Handler(
         handlerFunc:
-            (BuildContext context, Map<String, List<String>> params) {
-
-            });
+            (BuildContext context, Map<String, List<String>> params) {});
 
     pageRouter.define(loginPagePath, handler: _loginPageHandler);
     pageRouter.define(homePagePath, handler: _homePageHandler);
     pageRouter.define(languagePagePath, handler: _languagePageHandler);
     pageRouter.define(themePagePath, handler: _themePageHandler);
-    pageRouter.define(themeWebViewPath, handler: _webViewPageHandler);
+    pageRouter.define(webViewPath, handler: _webViewPageHandler);
   }
 
   static final Handler _loginPageHandler = new Handler(
@@ -60,6 +58,7 @@ class PageRouteManager {
   static final Handler _webViewPageHandler = new Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     print("接收参数${params['param'].first}");
+    print("接收参数${params['data'].first}");
     return WebViewPage();
   });
 

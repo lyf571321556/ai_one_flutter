@@ -37,8 +37,8 @@ class _WikiListPageContentState extends State<WikiListPage>
 //      },child: Text("webview"),),
       child: RaisedButton(
         onPressed: () {
-          PageRouteManager.openNewPage(
-              context, PageRouteManager.themeWebViewPath);
+          var path = PageRouteManager.webViewPath.replaceAll(":data", "1111");
+          PageRouteManager.openNewPage(context, path);
         },
         child: Text("open"),
       ),
