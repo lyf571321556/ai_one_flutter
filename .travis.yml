@@ -16,12 +16,8 @@ jobs:
         - libstdc++6
         - fonts-droid
     before_script:
-    - git clone https://github.com/flutter/flutter.git -b master --depth 1
+    - git clone https://github.com/flutter/flutter.git -b master --depth 50
     script:
-    - git clean -xfd
-    - git stash save --keep-index
-    - git stash drop
-    - git pull
     - "./flutter/bin/flutter upgrade"
   - stage: deploy-web
     os: linux
