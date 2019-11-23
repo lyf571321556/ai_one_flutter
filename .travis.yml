@@ -23,6 +23,9 @@ jobs:
     - "./flutter/bin/flutter upgrade"
     - "./flutter/bin/flutter --enable-web"
     - "./flutter/bin/flutter -v build web --release"
+    - ls
+    - cd build
+    - ls
     - 7z a $WEB_OUTPUT ../build/web
     deploy:
       provider: releases
