@@ -36,7 +36,7 @@ void main() {
     PageRouteManager.initRoutes();
 //    SystemChrome.setEnabledSystemUIOverlays([]);
 //    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top, SystemUiOverlay.bottom]);
-//    runAutoSizeApp(OnesApp());;
+//    runAutoSizeApp(OnesApp());1;
     runApp(OnesApp());
     PaintingBinding.instance.imageCache.maximumSize = 100;
   }, onError: (object, stack) {
