@@ -21,8 +21,6 @@ jobs:
     - "./flutter/bin/flutter upgrade"
   - stage: deploy-web
     os: linux
-    language: generic
-    sudo: false
     script:
     - "./flutter/bin/flutter -v build web --release"
     deploy:
