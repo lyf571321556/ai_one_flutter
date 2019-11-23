@@ -3,7 +3,7 @@ cache:
   - "$HOME/.pub-cache"
 jobs:
   include:
-  - stage: test
+  - stage: flutter-test
     os: linux
     language: generic
     sudo: false
