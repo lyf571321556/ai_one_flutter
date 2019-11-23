@@ -21,7 +21,7 @@ jobs:
     - git clone https://github.com/flutter/flutter.git -b master --depth 50
     script:
     - "./flutter/bin/flutter upgrade"
-    - "./flutter/bin/flutter --enable-web"
+    - "./flutter/bin/flutter config --enable-web"
     - "./flutter/bin/flutter -v build web --release"
     - ls
     - cd build
