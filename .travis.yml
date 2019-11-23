@@ -46,8 +46,8 @@ jobs:
       components:
       - tools
       - platform-tools
-      - build-tools-27.0.3
-      - android-27
+      - build-tools-28.0.3
+      - android-28
       - sys-img-armeabi-v7a-google_apis-25
       - extra-android-m2repository
       - extra-google-m2repository
@@ -82,6 +82,7 @@ jobs:
     language: objective-c
     osx_image: xcode11.2
     before_script:
+    - brew install python2
     - pip2 install six
     - brew update
     - brew install libimobiledevice
