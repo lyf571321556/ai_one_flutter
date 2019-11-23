@@ -4,7 +4,7 @@ cache:
   - "$HOME/.pub-cache"
 jobs:
   include:
-  - stage: test
+  - stage: flutter-test
     os: linux
     language: generic
     sudo: false
@@ -16,11 +16,17 @@ jobs:
         - libstdc++6
         - fonts-droid
     before_script:
-    - git clone https://github.com/flutter/flutter.git -b beta --depth 1
+    - git clone https://github.com/flutter/flutter.git -b master --depth 1
     script:
     - "./flutter/bin/flutter upgrade"
-    - "./flutter/bin/flutter test"
-  - stage: deployAPK
+#    - "./flutter/bin/flutter test"
+  - stage: deploy-web
+      os: linux
+      language: generic
+      sudo: false
+      script:
+      - "./flutter/bin/flutter -v build web --release"
+  - stage: deploy-android
     os: linux
     language: android
     licenses:
@@ -62,17 +68,17 @@ jobs:
       file: $APK_OUTPUT
       on:
         tags: true
-  - stage: deployIPA
+  - stage: deploy-ios
     os: osx
     language: objective-c
-    osx_image: xcode9.2
+    osx_image: xcode11.2
     before_script:
     - pip2 install six
     - brew update
     - brew install libimobiledevice
     - brew install ideviceinstaller
     - brew install ios-deploy
-    - git clone https://github.com/flutter/flutter.git -b beta --depth 1
+    - git clone https://github.com/flutter/flutter.git -b master --depth 1
     script:
     - "./flutter/bin/flutter upgrade"
     - gem install cocoapods
