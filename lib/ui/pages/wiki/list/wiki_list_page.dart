@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+//import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:ones_ai_flutter/common/routes/page_route.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -16,7 +16,7 @@ class WikiListPage extends StatefulWidget {
 
 class _WikiListPageContentState extends State<WikiListPage>
     with AutomaticKeepAliveClientMixin {
-  final flutterWebViewPlugin = FlutterWebviewPlugin();
+//  final flutterWebViewPlugin = FlutterWebviewPlugin();
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +71,7 @@ class _WikiListPageContentState extends State<WikiListPage>
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    flutterWebViewPlugin.close();
+//    flutterWebViewPlugin.close();
   }
 }
 

@@ -33,7 +33,6 @@ dependencies:
   #flutter localstorage for ios/android/desktop/web
   localstorage: ^3.0.0
   webview_flutter: ^0.3.15+1
-  flutter_webview_plugin: ^0.3.8
   url_launcher: ^5.2.5
   bot_toast: ^2.1.1
   rxdart: ^0.22.6
