@@ -4,7 +4,7 @@ cache:
   - "$HOME/.pub-cache"
 jobs:
   include:
-  - stage: flutter-test
+  - stage: deploy-web
     os: linux
     language: generic
     sudo: false
@@ -19,9 +19,6 @@ jobs:
     - git clone https://github.com/flutter/flutter.git -b master --depth 50
     script:
     - "./flutter/bin/flutter upgrade"
-  - stage: deploy-web
-    os: linux
-    script:
     - "./flutter/bin/flutter -v build web --release"
     deploy:
       provider: releases
