@@ -18,7 +18,7 @@ jobs:
     before_script:
     - git clone https://github.com/flutter/flutter.git -b master --depth 1
     script:
-    - "./flutter/bin/flutter upgrade"
+    - "./flutter/bin/flutter upgrade --force"
   - stage: deploy-web
     os: linux
     language: generic
