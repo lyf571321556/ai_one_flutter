@@ -22,7 +22,7 @@ jobs:
     - git stash save --keep-index
     - git stash drop
     - git pull
-    - "./flutter/bin/flutter upgrade --force"
+    - "./flutter/bin/flutter upgrade"
   - stage: deploy-web
     os: linux
     language: generic
