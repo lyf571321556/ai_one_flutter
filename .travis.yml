@@ -65,7 +65,7 @@ jobs:
     before_script:
 #    - openssl aes-256-cbc -K $encrypted_faf484425141_key -iv $encrypted_faf484425141_iv -in key.properties.enc -out android/key.properties -d
 #    - openssl aes-256-cbc -K $encrypted_a1a476bece9a_key -iv $encrypted_a1a476bece9a_iv -in feng.jks.enc -out android/app/feng.jks -d
-    - git clone https://github.com/flutter/flutter.git -b beta --depth 50
+    - git clone https://github.com/flutter/flutter.git -b master --depth 50
     script:
     - "./flutter/bin/flutter upgrade"
     - "./flutter/bin/flutter -v build apk --release"
