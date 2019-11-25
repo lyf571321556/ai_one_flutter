@@ -1,0 +1,9 @@
+#通过fastlane将产物推送到crashlytics
+default_platform(:android)
+lane :beta do
+  crashlytics(
+    apk_path: '../build/app/outputs/apk/release/app-release.apk',
+    api_token: '5f8865758b6b54bd996ecfe9a4e595973b69eca4',
+    build_secret: '134abc8fa1eea939ded25e754f4d0b21900073263f7336205663027f66aa39f4'
+  )
+end
