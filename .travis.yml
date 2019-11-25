@@ -74,6 +74,8 @@ jobs:
     script:
     - "./flutter/bin/flutter upgrade"
     - "./flutter/bin/flutter -v build apk --release"
+    - cd android
+    - bundler exec fastlane beta
     deploy:
       provider: releases
       skip_cleanup: true
