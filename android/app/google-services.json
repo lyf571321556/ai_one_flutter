@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1013703069030",
+    "firebase_url": "https://ai-one-flutter.firebaseio.com",
+    "project_id": "ai-one-flutter",
+    "storage_bucket": "ai-one-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1013703069030:android:5b777cf3f37aa571e40ca7",
+        "android_client_info": {
+          "package_name": "ai.ones.ones_ai_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1013703069030-6v965dvh7c37oe7pgrr73491hgjm4gcb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqX1iZa1_CvnEa5aXSL2KoGXndSmrCSwg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1013703069030-6v965dvh7c37oe7pgrr73491hgjm4gcb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
