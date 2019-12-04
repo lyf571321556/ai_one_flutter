@@ -79,7 +79,6 @@ flutter:
     - assets/images/welcome.png
     - assets/images/default_avatar.png
     - assets/images/ones_icon.png
-    - assets/html
     - assets/html/css
     - assets/html/js
     - assets/html/js/function.js
