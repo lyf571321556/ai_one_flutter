@@ -15,4 +15,4 @@ jobs:
     - name: Install dependencies
       run:  apt-get update && apt-get install -y unzip && git clone https://github.com/flutter/flutter.git -b master --depth 50 && ./flutter/bin/flutter doctor -v && ./flutter/bin/flutter config --enable-web
     - name: Run tests
-      run: export PATH=$PATH:$PWD/flutter/bin && echo $PATH && flutter test
+      run: export PATH=$PATH:$PWD/flutter/bin && echo $PATH && flutter -v build web --release
