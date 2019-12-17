@@ -13,6 +13,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Install dependencies
-      run:  apt-get update && apt-get install -y unzip && git clone https://github.com/flutter/flutter.git -b master --depth 50 && ./flutter/bin/flutter doctor -v && ./flutter/bin/flutter config --enable-web && echo 'export PATH=$PATH:$PWD/flutter/bin' > ~/.bash_profile
+      run:  apt-get update && apt-get install -y unzip && git clone https://github.com/flutter/flutter.git -b master --depth 50 && ./flutter/bin/flutter doctor -v && ./flutter/bin/flutter config --enable-web && echo 'export PATH=$PATH:$PWD/flutter/bin' > ~/.bash_profile && source ~/.bash_profile
     - name: Run tests
       run: echo $PATH && flutter pub run test
