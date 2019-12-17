@@ -13,6 +13,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Install dependencies
-      run: git clone https://github.com/flutter/flutter.git -b master --depth 50 &&
+      run: git clone https://github.com/flutter/flutter.git -b master --depth 50 && ./flutter/bin/flutter doctor -v && ./flutter/bin/flutter config --enable-web
     - name: Run tests
       run: flutter pub run test
