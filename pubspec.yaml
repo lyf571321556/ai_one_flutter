@@ -79,9 +79,7 @@ flutter:
     - assets/images/welcome.png
     - assets/images/default_avatar.png
     - assets/images/ones_icon.png
-    - assets/html/css
     - assets/html/css/style.css
-    - assets/html/js
     - assets/html/js/function.js
     - assets/html/index.html
   fonts:
