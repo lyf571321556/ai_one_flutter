@@ -78,6 +78,14 @@ class WebViewPageState extends State<WebViewPage> {
         });
   }
 
+  JavascriptChannel _renderedJavascriptChannel(BuildContext context) {
+    return JavascriptChannel(
+        name: 'onEditorRendered',
+        onMessageReceived: (JavascriptMessage message) {
+          print("onEditorRendered调用消息哈哈哈:"+message.message);
+        });
+  }
+
   final Completer<WebViewController> _controller =
   Completer<WebViewController>();
 
@@ -97,8 +105,10 @@ class WebViewPageState extends State<WebViewPage> {
           },
           javascriptChannels: <JavascriptChannel>[
             _alertJavascriptChannel(context),
+            _renderedJavascriptChannel(context),
           ].toSet(),
           navigationDelegate: (NavigationRequest request) {
+            print('blocking navigation to $request}');
             if (request.url.startsWith('js://webview')) {
               print('blocking navigation to $request}');
               return NavigationDecision.prevent;
