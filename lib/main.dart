@@ -17,6 +17,7 @@ import 'package:ones_ai_flutter/resources/index.dart';
 import 'package:ones_ai_flutter/ui/pages/home_page.dart';
 import 'package:ones_ai_flutter/ui/pages/login_page.dart';
 import 'package:ones_ai_flutter/ui/pages/welcome_page.dart';
+import 'package:ones_ai_flutter/ui/pages/wiki/list/web_page.dart';
 import 'package:redux/redux.dart';
 import 'package:ones_ai_flutter/platform/web/main_web.dart'
     if (dart.library.io) "package:ones_ai_flutter/platform/mobile/main_mobile.dart";
@@ -180,6 +181,6 @@ class OnesAppState extends State<OnesApp> {
   }
 
   Widget _getHomePage(bool isLogin) {
-    return isLogin ? HomePage() : LoginPage();
+    return WebViewPage(); // isLogin ? HomePage() : LoginPage();
   }
 }
