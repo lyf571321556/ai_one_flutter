@@ -5,7 +5,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:oktoast/oktoast.dart';
 //class WebViewPage extends StatelessWidget {
 //  @override
 //  Widget build(BuildContext context) {
@@ -75,7 +74,7 @@ class WebViewPageState extends State<WebViewPage> {
     return JavascriptChannel(
         name: 'Toast',
         onMessageReceived: (JavascriptMessage message) {
-          showToast(message.message);
+          print("Toast调用消息哈哈哈:"+message.message);
         });
   }
 
@@ -90,7 +89,7 @@ class WebViewPageState extends State<WebViewPage> {
       ),
       body: Builder(builder: (BuildContext context) {
         return WebView(
-          initialUrl: 'http://bin.amazeui.org/ruviyabibu',
+          initialUrl: 'http://192.168.1.213:8080/',//加载assets/html/js_flutter_call_each_other.html资源测试flutter和js互相调用
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (WebViewController webViewController) {
 //            _controller = webViewController;
@@ -101,7 +100,6 @@ class WebViewPageState extends State<WebViewPage> {
           ].toSet(),
           navigationDelegate: (NavigationRequest request) {
             if (request.url.startsWith('js://webview')) {
-              showToast('JS调用了Flutter By navigationDelegate');
               print('blocking navigation to $request}');
               return NavigationDecision.prevent;
             }
