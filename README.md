@@ -17,3 +17,7 @@ samples, guidance on mobile development, and a full API reference.
 # ones-ai-flutter
 # json_model
 pub run json_model src=jsons  dist=models/xxx
+
+
+# run
+ flutter run -d chrome --release --web-port=55140  // release在指定端口下运行，且此时可以访问在web/assets目录下未在pubspec.yaml申明的资源（手动拷贝到此目录的文件）;
