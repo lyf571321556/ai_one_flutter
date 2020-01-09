@@ -117,6 +117,11 @@ class OnesAppState extends State<OnesApp> {
     );
   }
 
+  Route<dynamic> generateRoute(RouteSettings routeSettings){
+    print('Incoming Route Setting\n- Name: ${routeSettings.name}\n- Param: ${routeSettings.arguments}\n- isInitial: ${routeSettings.isInitialRoute}\n\n');
+   return PageRouteManager.pageRouter.generator(routeSettings);
+  }
+
   Widget _buildWidgetBuilder(BuildContext context, AsyncSnapshot snapshot) {
     print("-------1--------");
     if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {

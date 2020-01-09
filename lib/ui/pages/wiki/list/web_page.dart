@@ -2,7 +2,6 @@
 import 'dart:html' as html;
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
 import 'package:url_launcher/url_launcher.dart';
 
 class WebViewPage extends StatelessWidget {
@@ -10,7 +9,7 @@ class WebViewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     ui.platformViewRegistry.registerViewFactory(
         'hello-world-html',
-        (int viewId) => IFrameElement()
+        (int viewId) => html.IFrameElement()
           ..width = '640'
           ..height = '360'
           ..src = 'https://www.baidu.com/'
