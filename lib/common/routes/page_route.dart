@@ -5,7 +5,7 @@ import 'package:ones_ai_flutter/ui/pages/home_page.dart';
 import 'package:ones_ai_flutter/ui/pages/setting/language_page.dart';
 import 'package:ones_ai_flutter/ui/pages/login_page.dart';
 import 'package:ones_ai_flutter/ui/pages/setting/theme_page.dart';
-import 'package:ones_ai_flutter/ui/pages/wiki/list/web_page.dart';
+import 'package:ones_ai_flutter/ui/pages/wiki/list/mobile_web_page.dart';
 
 class PageRouteManager {
   static final String rootPagePath = "/";

@@ -1,6 +1,5 @@
-
-import 'dart:html' as html;
 import 'dart:ui' as ui;
+import 'dart:html' as html;
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
