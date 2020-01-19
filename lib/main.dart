@@ -186,6 +186,6 @@ class OnesAppState extends State<OnesApp> {
   }
 
   Widget _getHomePage(bool isLogin) {
-    return WebViewPage(); // isLogin ? HomePage() : LoginPage();
+    return isLogin ? HomePage() : LoginPage();//WebViewPage(); // isLogin ? HomePage() : LoginPage();
   }
 }

@@ -93,7 +93,7 @@ class _HomePageContentState extends State<HomePage>
       child: Hero(
         tag: Config.LOGIN_HERO_TAG,
         child: Scaffold(
-          appBar: MyAppBar(
+          appBar:PreferredSize(child:MyAppBar(
             elevation: 1,
             leading: Config.runInWeb
                 ? Image.network(
@@ -136,7 +136,7 @@ class _HomePageContentState extends State<HomePage>
             actions: <Widget>[
               new IconButton(icon: new Icon(Icons.search), onPressed: () {})
             ],
-          ),
+          ),preferredSize: Size(double.infinity, 35),),
           body: TabContentViewWidget(_tabController),
           drawer: new Drawer(
             child: MainLeftMenuPage(),
