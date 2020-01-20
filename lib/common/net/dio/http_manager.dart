@@ -16,9 +16,9 @@ class HttpManager {
   static final int WRITE_TIMEOUT = 5000;
   static final int READ_TIMEOUT = 5000;
   static Dio _httpClient;
-  static final String web_dev_baseUrl = "http://127.0.0.1:8080/apis/";
+  static final String web_dev_baseUrl = "http://127.0.0.1:3000/api/";
   static final String mobile_dev_baseUrl = "https://devapi.myones.net/";
-  static final String web_release_baseUrl = "http://127.0.0.1:8080/apis/";
+  static final String web_release_baseUrl = "http://127.0.0.1:3000/api/";
   static final String mobile_release_baseUrl = "https://devapi.myones.net/";
   final TokenInterceptor _tokenInterceptors = new TokenInterceptor();
 
