@@ -18,7 +18,15 @@ pipeline {
 			options {
 				retry(3)
 			}
-			steps {
+
+// 			withCredentials([//使用用户名密码认证方式的凭据
+//             					usernamePassword(credentialsId: 'ones-ai-android', passwordVariable: 'GITHUB_TOKEN')
+//             				]) {
+//             				    sh '''
+//             				    echo ${TAR_FILE_NAME}
+//             				    '''
+//             				}
+			steps {//使用服务器整数认证方式的凭据
 				withCredentials([
 						sshUserPrivateKey(credentialsId: 'dev.ones.team', keyFileVariable: 'SSH_PRIVATE_KEY')
 				]) {

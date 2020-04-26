@@ -296,7 +296,7 @@ class TabContentViewWidget extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBuildContext( context) {
 //    like fragment
 //    return IndexedStack(
 //      children: _allChildPages.map((_ChildPage page) {
@@ -304,6 +304,16 @@ class TabContentViewWidget extends StatelessWidget {
 //      }).toList(),
 //      index: _currentIndex,
 //    );
+    return new TabBarView(
+        controller: _tabController,
+        children: _allChildPages.map((_ChildPage page) {
+          return buildTabView(context, page);
+        }).toList());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
     return new TabBarView(
         controller: _tabController,
         children: _allChildPages.map((_ChildPage page) {
