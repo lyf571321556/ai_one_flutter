@@ -1,0 +1,105 @@
+def getAssetsTarFileName() {
+    return "ones-mobile-web-${TAG_NAME}-assets.tar.gz";
+}
+
+def getBuildTagName() {
+    return "${TAG_NAME}";
+}
+
+
+def getSSHCredentialsID() {
+    return "${SSH_CREDENTIALSID}";
+}
+
+def getGithubApiTokenCredentialsID() {
+    return "${GITHUB_API_TOKEN_CREDENTIALSID}";
+}
+
+def getTarFiledOnlineSavePath() {
+    return "${SAVE_PATH}";
+}
+
+def getOnlineUser(){
+    return "${SSH_USER}";
+}
+
+def getOnlineHost(){
+    return "${SSH_HOST}";
+}
+
+pipeline {
+	agent {
+    		docker {
+    			image 'lyf571321556/flutter_master_img:1.14.5'
+    		}
+    	}
+
+    options {
+        timeout(time: 5, unit: 'MINUTES')
+    }
+
+
+	environment {
+	    GIT_OWNER = 'BangWork'
+	    GIT_REPO = 'ones_mobile'
+	    GIT_TAG_NAME = getBuildTagName()
+	    ASSETS_LIKE_NAME = 'ones_ai_flutter_for_web'
+        TAR_FILE_NAME = getAssetsTarFileName()
+	    ONLINE_SSH_PORT = 8022
+
+		ONLINE_HOST = getOnlineHost()
+		ONLINE_USER =getOnlineUser()
+		ONLINE_DATA_PATH = getTarFiledOnlineSavePath()
+		ONLINE_SSH_CREDENTIALSID= getSSHCredentialsID()
+		ONLINE_GITHUB_API_TOKEN_CREDENTIALSID= getGithubApiTokenCredentialsID()
+	}
+
+
+
+	stages {
+        stage('SSH PERMITTED') {
+                    steps {
+                        withCredentials([
+                            sshUserPrivateKey(credentialsId: env.ONLINE_SSH_CREDENTIALSID, keyFileVariable: 'SSH_PRIVATE_KEY')
+                        ]) {
+                            sh '''
+                            set +x
+                            chmod 0700 /root/.ssh
+                            cat $SSH_PRIVATE_KEY > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+                            '''
+                        }
+                    }
+                }
+
+         stage('download assects from github') {
+                options {
+                    retry(3)
+                }
+                steps {
+                    withCredentials([
+                        string(credentialsId:env.ONLINE_GITHUB_API_TOKEN_CREDENTIALSID,variable:'GITHUB_TOKEN')
+                    ]) {
+                        sh '''
+                        rm -rf ./ones_ai_flutter_for_web_*.tar.gz
+                        echo ${TAR_FILE_NAME}
+                        echo ${TAG_NAME}
+                        bash ./devops/scripts/flutter_web_asset_download.sh ${GIT_OWNER} ${GIT_REPO} ${GIT_TAG_NAME} ${ASSETS_LIKE_NAME} ${GITHUB_TOKEN} ${TAR_FILE_NAME}
+                        pwd
+                        ls
+                        '''
+                    }
+                }
+            }
+
+            stage('deploy to ${evn.ONLINE_HOST}') {
+                options {
+                    retry(3)
+                     }
+                steps {
+                        sh '''
+                          bash ./devops/scripts/flutter_web_asset_deploy.sh ${ONLINE_HOST} ${ONLINE_SSH_PORT} ${ONLINE_USER} ${ONLINE_DATA_PATH} ${TAR_FILE_NAME}
+                         '''
+                 }
+            }
+     }
+}
