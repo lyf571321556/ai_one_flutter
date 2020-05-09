@@ -103,6 +103,7 @@ class _HomePageContentState extends State<HomePage>
                 : CachedNetworkImage(
                     imageUrl: avatar == null ? "" : avatar,
                     imageBuilder: (context, imageProvider) => Container(
+                      constraints: BoxConstraints.tightFor(width: 50,height: 50),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
@@ -113,6 +114,7 @@ class _HomePageContentState extends State<HomePage>
                     ),
                     placeholder: (context, url) {
                       return Container(
+                        constraints: BoxConstraints.tightFor(width: 50,height: 50),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           image: DecorationImage(
@@ -136,7 +138,7 @@ class _HomePageContentState extends State<HomePage>
             actions: <Widget>[
               new IconButton(icon: new Icon(Icons.search), onPressed: () {})
             ],
-          ),preferredSize: Size(double.infinity, 35),),
+          ),preferredSize: Size(double.infinity, 55),),
           body: TabContentViewWidget(_tabController),
           drawer: new Drawer(
             child: MainLeftMenuPage(),

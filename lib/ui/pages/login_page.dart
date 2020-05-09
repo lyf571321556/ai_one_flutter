@@ -96,7 +96,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
       ),
     );
     _accountController.text = "huangjinfan+5001@ones.ai";
-    _passwordController.text = "11111111";
+    _passwordController.text = "Aa123456";
   }
 
   @override

@@ -25,48 +25,50 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   #  cupertino_icons: ^0.1.2
   fluintl: ^0.1.3
-  flutter_redux: ^0.5.3
-  redux: ^3.0.0
-  redux_thunk: ^0.2.1
+  flutter_redux: ^0.6.0
+  redux: ^4.0.0
+  redux_thunk: ^0.3.0
 
   #shared_preferences: ^0.5.7+1 #offical lib support ios  android web.
   #flutter localstorage for ios/android/desktop/web
-  localstorage: ^3.0.0
-  webview_flutter: ^0.3.15+2
-  url_launcher: ^5.2.5
-  bot_toast: ^2.1.1
-  rxdart: ^0.22.6
+  localstorage: ^3.0.2+5
+  webview_flutter: ^0.3.21
+  url_launcher: ^5.4.5
+  bot_toast: ^3.0.0
+  rxdart: ^0.24.0
   flustars: ^0.2.5+1
   fluro:
     git:
       url: git://github.com/theyakka/fluro.git
+  #网页中唤醒原生app页面
   uni_links: ^0.2.0
   #  fluro: #"^1.5.1"
   auto_size:
     git:
       url: git://github.com/flutterchina/auto_size.git
-  connectivity: ^0.4.5+3 #ios android
-  dio: ^3.0.4 #all
-  dio_http_cache: ^0.2.0
-  json_serializable: ^3.0.0
-  pretty_dio_logger: ^1.0.7
+  connectivity: ^0.4.8+5 #ios android
+  dio: ^3.0.9 #all
+  dio_http_cache: ^0.2.6 # ios android
+  json_serializable: ^3.3.0
+  pretty_dio_logger: ^1.1.1
   #https://pub.dev/packages/pull_to_refresh#-readme-tab-
   #pull_to_refresh: ^1.5.7
-  flutter_easyrefresh: ^2.0.8
+  flutter_easyrefresh: ^2.1.1 #android ios web
   #https://pub.dev/packages/cached_network_image#-installing-tab-
-  cached_network_image: ^2.0.0-rc #ios android
+  cached_network_image: ^2.2.0+1 #ios android
   #https://github.com/zino-app/graphql-flutter
 #  graphql_flutter: ^2.0.0 #android ios
   #键盘弹起和隐藏
-  keyboard_visibility: ^0.5.6
+  keyboard_visibility: ^0.5.6  # android ios web
   retrofit: ^1.3.4
   logger: ^0.9.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
   #  json_model: #latest version
-  build_runner: ^1.0.0
-#  json_serializable: ^3.0.0
+  build_runner: any
+#  json_serializable: ^3.3.0
+  retrofit_generator: any
 
 
 # For information on the generic Dart part of this file, see the

@@ -129,8 +129,8 @@ class OnesAppState extends State<OnesApp> {
       return StoreProvider<OnesGlobalState>(
           store: snapshot.data,
           child: StoreBuilder<OnesGlobalState>(builder: (context, store) {
-            return BotToastInit(
-                child: MaterialApp(
+            return MaterialApp(
+              builder: BotToastInit(),
               navigatorObservers: [BotToastNavigatorObserver()],
               onGenerateRoute: PageRouteManager.pageRouter.generator,
               debugShowCheckedModeBanner: false,
@@ -175,7 +175,7 @@ class OnesAppState extends State<OnesApp> {
 //                    }
 //                  },
               home: _getHomePage(store.state.user != null),
-            ));
+            );
           }));
     } else {
       print("-------3--------");
