@@ -56,10 +56,10 @@ class _ProjectListPageContentState extends State<ProjectListPage>
           footer: BezierBounceFooter(
               backgroundColor: Theme.of(context).primaryColor),
           onLoad: () {
-            _projectListBloc.onLoadMore();
+            return _projectListBloc.onLoadMore();
           },
           onRefresh: () {
-            _projectListBloc.onRefresh();
+            return _projectListBloc.onRefresh();
           },
           child: ListView.builder(
               physics: ClampingScrollPhysics(),

@@ -4,7 +4,6 @@ import 'package:fluintl/fluintl.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ones_ai_flutter/common/bloc/bloc_widget.dart';
 import 'package:ones_ai_flutter/common/config/app_config.dart';
@@ -94,57 +93,52 @@ class _HomePageContentState extends State<HomePage>
       child: Hero(
         tag: Config.LOGIN_HERO_TAG,
         child: Scaffold(
-          appBar: PreferredSize(
-            child: MyAppBar(
-              elevation: 1,
-              leading: Config.runInWeb
-                  ? Image.network(
-                      avatar == null ? "" : avatar,
-                      fit: BoxFit.cover,
-                    )
-                  : CachedNetworkImage(
-                      imageUrl: avatar == null ? "" : avatar,
-                      imageBuilder: (context, imageProvider) => Container(
-                        constraints:
-                            BoxConstraints.tightFor(width: 50, height: 50),
+          appBar:PreferredSize(child:MyAppBar(
+            elevation: 1,
+            leading: Config.runInWeb
+                ? Image.network(
+                    avatar == null ? "" : avatar,
+                    fit: BoxFit.cover,
+                  )
+                : CachedNetworkImage(
+                    imageUrl: avatar == null ? "" : avatar,
+                    imageBuilder: (context, imageProvider) => Container(
+                      constraints: BoxConstraints.tightFor(width: 50,height: 50),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    placeholder: (context, url) {
+                      return Container(
+                        constraints: BoxConstraints.tightFor(width: 50,height: 50),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           image: DecorationImage(
-                            image: imageProvider,
+                            image: AssetImage(
+                              ResourceUtils.getImgPath('default_avatar'),
+                            ),
                             fit: BoxFit.cover,
                           ),
                         ),
-                      ),
-                      placeholder: (context, url) {
-                        return Container(
-                          constraints:
-                              BoxConstraints.tightFor(width: 50, height: 50),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: AssetImage(
-                                ResourceUtils.getImgPath('default_avatar'),
-                              ),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        );
-                      },
-                      fit: BoxFit.cover,
-                    ),
-              title: TitleBarWidget(
-                key: _TitleBarWidgetStateKey,
-                title: IntlUtil.getString(
-                    context, _allChildPages[_tabController.index].labelId),
-              ),
-//                title: NavigationBarWidget(_tabController),
-              centerTitle: false,
-              actions: <Widget>[
-                new IconButton(icon: new Icon(Icons.search), onPressed: () {})
-              ],
+                      );
+                    },
+                    fit: BoxFit.cover,
+                  ),
+            title: TitleBarWidget(
+              key: _TitleBarWidgetStateKey,
+              title: IntlUtil.getString(
+                  context, _allChildPages[_tabController.index].labelId),
             ),
-            preferredSize: Size(double.infinity, 55),
-          ),
+//                title: NavigationBarWidget(_tabController),
+            centerTitle: false,
+            actions: <Widget>[
+              new IconButton(icon: new Icon(Icons.search), onPressed: () {})
+            ],
+          ),preferredSize: Size(double.infinity, 55),),
           body: TabContentViewWidget(_tabController),
           drawer: new Drawer(
             child: MainLeftMenuPage(),
@@ -227,62 +221,51 @@ class _NavigationBarState extends State<NavigationBarWidget> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return StoreBuilder<OnesGlobalState>(builder: (context, store) {
-      return Localizations(
-        locale: store.state.locale ?? store.state.platformLocale,
-        delegates: [
-          DefaultWidgetsLocalizations.delegate,
-          DefaultCupertinoLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          CustomLocalizations.delegate
-        ],
-        child: Material(
-          child: SafeArea(
-              child: CupertinoTabBar(
-            currentIndex: _currentIndex,
-            backgroundColor: Colors.white,
-            items: _allChildPages
-                .map((_ChildPage page) => BottomNavigationBarItem(
-                    icon: new Icon(Icons.assignment, size: 20.0),
-                    title: Text(IntlUtil.getString(context, page.labelId)),
-                    activeIcon: new Icon(
-                      Icons.assignment,
-                      size: 20.0,
-                      color: Colors.blueAccent,
-                    )))
-                .toList(),
-//            child: TabBar(
-//        controller: _tabController,
-//        isScrollable: false,
-//        indicatorSize: TabBarIndicatorSize.tab,
-//        tabs: _allChildPages
-//            .map((_ChildPage page) => new Tab(
-//                  child: new Column(
-//                    mainAxisAlignment: MainAxisAlignment.center,
-//                    children: <Widget>[
-//                      new Icon(Icons.report_problem, size: 20.0),
-//                      new Text(
-//                        IntlUtil.getString(
-//                          context,
-//                          page.labelId,
-//                        ),
-//                        style: TextStyle(color: Colors.black26),
-//                      )
-//                    ],
-//                  ),
-//                ))
+    return Material(
+      child: SafeArea(
+//          child:
+//          CupertinoTabBar(
+//        currentIndex: _currentIndex,
+//        backgroundColor: Colors.white,
+//        items: _allChildPages
+//            .map((_ChildPage page) => BottomNavigationBarItem(
+//                icon: new Icon(Icons.assignment, size: 20.0),
+//                title: Text(IntlUtil.getString(context, page.labelId)),
+//                activeIcon: new Icon(
+//                  Icons.assignment,
+//                  size: 20.0,
+//                  color: Colors.blueAccent,
+//                )))
 //            .toList(),
-            onTap: (index) {
-              widget._tabController?.animateTo(index);
-              setState(() {
-                _currentIndex = index;
-              });
-            },
-          )),
-        ),
-      );
-    });
+            child: TabBar(
+        controller: widget._tabController,
+        isScrollable: false,
+        indicatorSize: TabBarIndicatorSize.tab,
+        tabs: _allChildPages
+            .map((_ChildPage page) => new Tab(
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      new Icon(Icons.report_problem, size: 20.0),
+                      new Text(
+                        IntlUtil.getString(
+                          context,
+                          page.labelId,
+                        ),
+                        style: TextStyle(color: Colors.black26),
+                      )
+                    ],
+                  ),
+                ))
+            .toList(),
+        onTap: (index) {
+          widget._tabController?.animateTo(index);
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+      )),
+    );
   }
 }
 
@@ -316,7 +299,7 @@ class TabContentViewWidget extends StatelessWidget {
   }
 
   @override
-  Widget buildBuildContext(context) {
+  Widget buildBuildContext( context) {
 //    like fragment
 //    return IndexedStack(
 //      children: _allChildPages.map((_ChildPage page) {

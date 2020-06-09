@@ -34,8 +34,8 @@ class Database extends _$Database {
           List<UsersCompanion> allUsers = [];
           for (int i = 0; i < 10; i++) {
             allUsers.add(UsersCompanion.insert(
-                uuid: i.toString(),
-                name: 'user$i',
+                uuid: 'uuid is $i',
+                name: 'tom is $i',
                 json: {"age": "($i\*10)"}.toString()));
           }
           await batch((batch) {
@@ -44,8 +44,8 @@ class Database extends _$Database {
           debugPrint("首次创建");
           //默认插入数据
           await into(users).insert(UsersCompanion(
-              uuid: Value("123"),
-              name: Value("tom"),
+              uuid: Value("123123"),
+              name: Value("tom123"),
               json: Value({"age": "12"}.toString())));
         }
       },
@@ -60,10 +60,11 @@ class Database extends _$Database {
 
   //分页查询数据
   Future<List<User>> queryAllUsers(int limit, {int offset}) {
-    final query = select(users);
-    query.where((tbl) => users.name.contains("tom"));
+//    final query = select(users);
+//    query..where((tbl) => tbl.name.contains("tom"));
     //排序
-    query.orderBy([(t) => OrderingTerm(expression: t.name)]);
-    return (query..limit(limit, offset: offset)).get();
+//    query..orderBy([(t) => OrderingTerm(expression: t.name)]);
+//    return (query..limit(limit, offset: offset)).get();
+  return (select(users)).get();
   }
 }
