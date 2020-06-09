@@ -118,7 +118,7 @@ class OnesAppState extends State<OnesApp> {
   }
 
   Route<dynamic> generateRoute(RouteSettings routeSettings){
-    print('Incoming Route Setting\n- Name: ${routeSettings.name}\n- Param: ${routeSettings.arguments}\n- isInitial: ${routeSettings.isInitialRoute}\n\n');
+//    print('Incoming Route Setting\n- Name: ${routeSettings.name}\n- Param: ${routeSettings.arguments}\n- isInitial: ${routeSettings.isInitialRoute}\n\n');
    return PageRouteManager.pageRouter.generator(routeSettings);
   }
 

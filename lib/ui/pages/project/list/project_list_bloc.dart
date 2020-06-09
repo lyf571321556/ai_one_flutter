@@ -2,9 +2,17 @@ import 'dart:collection';
 import 'dart:math';
 
 import 'package:ones_ai_flutter/common/bloc/bloc_widget.dart';
+import 'package:ones_ai_flutter/common/database/database.dart';
+import 'package:ones_ai_flutter/common/database/platform/index.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ProjectListBloc implements BlocListBase {
+  Database db;
+
+  ProjectListBloc() {
+    db = createDatabase();
+  }
+
   //get list interfase
   BehaviorSubject<List<String>> _projectListData =
       BehaviorSubject<List<String>>();
@@ -61,6 +69,10 @@ class ProjectListBloc implements BlocListBase {
   Future onRefresh({Map params}) async {
     // TODO: implement onRefresh
     print("onRefresh");
+    List<User> allUsers= await db.queryAllUsers(0,offset: 3);
+    allUsers.forEach((element) {
+      print(element);
+    });
     await Future.delayed(Duration(milliseconds: 500));
     String result = Random().nextInt(1000).toString();
     print(result);

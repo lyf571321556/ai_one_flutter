@@ -26,5 +26,7 @@ dev_dependencies:
   build_runner: ^1.4.0
   retrofit_generator: any
 flutter pub run build_runner build 
+# moor数据库
+flutter packages pub run build_runner build --delete-conflicting-outputs
 # run
  flutter run -d chrome --release --web-port=55140  // release在指定端口下运行，且此时可以访问在web/assets目录下未在pubspec.yaml申明的资源（手动拷贝到此目录的文件）;
