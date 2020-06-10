@@ -60,11 +60,10 @@ class Database extends _$Database {
 
   //分页查询数据
   Future<List<User>> queryAllUsers(int limit, {int offset}) {
-//    final query = select(users);
-//    query..where((tbl) => tbl.name.contains("tom"));
+    final query = select(users);
+    query..where((tbl) => tbl.name.contains("tom"));
     //排序
-//    query..orderBy([(t) => OrderingTerm(expression: t.name)]);
-//    return (query..limit(limit, offset: offset)).get();
-  return (select(users)).get();
+    query..orderBy([(t) => OrderingTerm(expression: t.name)]);
+    return (query..limit(limit, offset: offset)).get();
   }
 }

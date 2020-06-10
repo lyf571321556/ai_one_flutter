@@ -69,10 +69,11 @@ class ProjectListBloc implements BlocListBase {
   Future onRefresh({Map params}) async {
     // TODO: implement onRefresh
     print("onRefresh");
-    List<User> allUsers= await db.queryAllUsers(0,offset: 3);
+    List<User> allUsers= await db.queryAllUsers(10,offset: 0);
     allUsers.forEach((element) {
       print(element);
     });
+    print("user'size is ${allUsers.length}");
     await Future.delayed(Duration(milliseconds: 500));
     String result = Random().nextInt(1000).toString();
     print(result);
