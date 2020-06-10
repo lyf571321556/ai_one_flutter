@@ -4,6 +4,7 @@ import 'package:fluintl/fluintl.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ones_ai_flutter/common/bloc/bloc_widget.dart';
 import 'package:ones_ai_flutter/common/config/app_config.dart';
@@ -12,6 +13,8 @@ import 'package:ones_ai_flutter/resources/index.dart';
 import 'package:ones_ai_flutter/ui/drawers/main_left_page.dart';
 import 'package:ones_ai_flutter/ui/pages/dashboard/list/dashboard_page.dart';
 import 'package:ones_ai_flutter/ui/pages/notification/list/notification_list_page.dart';
+import 'package:ones_ai_flutter/ui/pages/project/list/list_project_bloc.dart';
+import 'package:ones_ai_flutter/ui/pages/project/list/list_project_page.dart';
 import 'package:ones_ai_flutter/ui/pages/project/list/project_list_bloc.dart';
 import 'package:ones_ai_flutter/ui/pages/project/list/project_list_page.dart';
 import 'package:ones_ai_flutter/ui/pages/wiki/list/wiki_list_page.dart';
@@ -289,9 +292,15 @@ class TabContentViewWidget extends StatelessWidget {
     String labelId = page.labelId;
     switch (labelId) {
       case Strings.titleProject:
-        return BlocListProviderWidget(
-          bloc: ProjectListBloc(),
-          child: ProjectListPage(),
+//        return BlocListProviderWidget(
+//          bloc: ProjectListBloc(),
+//          child: ProjectListPage(),
+//        );
+        return BlocProvider(
+          create: (context) {
+            return ListProjectBloc();
+          },
+          child: ListProjectPage(),
         );
         break;
       case Strings.titleWiki:

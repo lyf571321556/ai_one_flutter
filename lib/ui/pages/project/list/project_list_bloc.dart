@@ -5,7 +5,7 @@ import 'package:ones_ai_flutter/common/bloc/bloc_widget.dart';
 import 'package:ones_ai_flutter/common/database/database.dart';
 import 'package:ones_ai_flutter/common/database/platform/index.dart';
 import 'package:rxdart/rxdart.dart';
-
+@deprecated
 class ProjectListBloc implements BlocListBase {
   Database db;
 
