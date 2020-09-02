@@ -38,6 +38,10 @@ class _MainLeftMenuPageState extends State<MainLeftMenuPage> {
   void initState() {
     super.initState();
     /**
+     *
+     *
+     *
+     *
         _pageInfo.add(PageInfo(
         Strings.titleHome,
         Icons.collections,
