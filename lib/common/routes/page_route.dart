@@ -14,11 +14,11 @@ class PageRouteManager {
   static final String languagePagePath = "/language";
   static final String themePagePath = "/theme";
   static final String webViewPath = "/webview/:data";
-  static Router pageRouter = Router.appRouter;
+  static FluroRouter pageRouter = FluroRouter.appRouter;
 
   static void initRoutes() {
     if (pageRouter == null) {
-      pageRouter = new Router();
+      pageRouter = new FluroRouter();
     }
     pageRouter.notFoundHandler = new Handler(
         handlerFunc:

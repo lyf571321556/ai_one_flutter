@@ -43,7 +43,7 @@ dependencies:
 #      url: git://github.com/theyakka/fluro.git
   #网页中唤醒原生app页面
   uni_links: ^0.2.0
-  fluro: ^1.6.3 #ios android web
+  fluro: ^1.7.8 #ios android web
   auto_size:
     git:
       url: git://github.com/flutterchina/auto_size.git
