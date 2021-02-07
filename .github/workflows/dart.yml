@@ -14,7 +14,7 @@ jobs:
     name: start build iOS
     runs-on: macOS-latest
     steps:
-      - name xcode select
+      - name: xcode select
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: '11.6'
