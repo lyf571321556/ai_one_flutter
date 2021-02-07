@@ -11,7 +11,7 @@ on:
 
 jobs:
   ios-build-job:
-    name: start build iOS
+    name: Build for iOS
     runs-on: macOS-latest
     steps:
       - name: xcode select
@@ -47,4 +47,5 @@ jobs:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           PGY_API_KEY: ${{ secrets.PGY_API_KEY }}
           PGY_USER_KEY: ${{ secrets.PGY_USER_KEY }}
+          MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
         run: sh ./ios/build.sh
