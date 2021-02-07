@@ -15,9 +15,171 @@
 
 default_platform(:ios)
 
+setup_travis
+
+# --- Const ---
+$repository_name = 'lyf571321556/ai_one_flutter'
+
+$signing_identity_ones_distribution = 'iPhone Distribution: BangWork Inc. (9UFLGY6SJS)'
+$app_identifier = 'ai.ones.project.mobile'
+$provisioning_name_adhoc = 'ONES.AI Project Mobile Ad Hoc'
+$provisioning_name_distribution = 'ONES.AI Project Mobile Distribution'
+
+
+$match_type_adhoc = 'adhoc'
+$match_type_appstore = 'appstore'
+
+$gym_scheme = 'Runner'
+$gym_workspace = 'Runner.xcworkspace'
+
+$gym_config_beta = 'Beta'
+$gym_config_release = 'Release'
+
+$adhoc_app_identifier = 'ai.ones.project.ios.preview'
+$appstore_app_identifier = 'ai.ones.project.ios'
+
+$env_key_mobile_root = 'GITHUB_WORKSPACE'
+$env_key_current_commit = 'CURRENT_COMMIT'
+$env_key_current_branch = 'CURRENT_BRANCH'
+$env_key_github_token = 'GITHUB_OAUTH_TOKEN'
+$env_key_leancloud_appid = 'LEANCLOUD_APP_ID'
+$env_key_leancloud_appkey = 'LEANCLOUD_APP_KEY'
+$env_key_fabric_api_token = 'FABRIC_API_TOKEN'
+$env_key_fabric_build_secret = 'FABRIC_BUILD_SECRET'
+$env_key_fastlane_match_basic_auth = 'MATCH_GIT_BASIC_AUTHORIZATION'
+
+$filename_ipa_default = 'ones_mobile.ipa'
+
+$path_dir_build = ENV[$env_key_mobile_root]
+$path_dir_ios = File.join($path_dir_build, 'ios') # {build Dir}/ios
+$path_dir_fastlane = File.join($path_dir_ios, 'fastlane') # {build Dir}/ios/fastlane
+$path_dir_fastlane_ipas = File.join($path_dir_fastlane, 'ipas') # {build Dir}/ios/fastlane/ipas
+$path_dir_fastlane_profiles = File.join($path_dir_fastlane, 'profiles') # {build Dir}/ios/fastlane/profiles
+$path_file_ipa_default = File.join($path_dir_fastlane_ipas, $filename_ipa_default) # {build Dir}/ios/fastlane/ipas/{filename_ipa_default}
+
+
+
+# --- Lanes ---
 platform :ios do
-  desc "Description of what the lane does"
-  lane :custom_lane do
-    # add actions here: https://docs.fastlane.tools/actions
+  before_all do
+    print_header '🏁 Before All'
+    xcversion(version: '11.6') # Selects Xcode
+    sh('pwd')
   end
+
+  desc "Build & Deliver to Crashlytics Beta"
+  lane :beta do
+    match(type: $match_type_adhoc,app_identifier:$adhoc_app_identifier)
+    increment_build_number(build_number: number_of_commits)
+    gym(
+      scheme: $gym_scheme,
+      workspace: $gym_workspace,
+      configuration: $gym_config_beta,
+      output_directory: $path_dir_fastlane_ipas,
+      output_name: $filename_ipa_default,
+    )
+    log = changelog_from_git_commits(
+      pretty: '- %s (%cn)',
+      include_merges: false
+    )
+    appcenter_upload(
+      release_notes:log,
+      file:$path_file_ipa_default,
+      notify_testers:true,
+      api_token:ENV['APPCENTER_API_TOKEN_IOS'],
+      app_name:ENV['APPCENTER_APP_NAME_IOS']
+     )
+    pgyer(api_key: ENV['PGY_API_KEY'] , user_key:ENV['PGY_USER_KEY'],update_description:log)
+  end
+
+  desc "Build & Deliver to App Store Connect"
+  lane :release do
+    match(type: $match_type_appstore,app_identifier:$appstore_app_identifier)
+    short_version = ENV[$env_key_current_branch]
+    if match = short_version.match(/^v(\d+\.\d+\.\d+)$/)
+        should_deliver = true
+        short_version = match.captures[0]
+    else
+        should_deliver = false
+        if match = short_version.match(/^v(\d+\.\d+\.\d+)/)
+            short_version = match.captures[0]
+        end
+    end
+    set_bundle_short_version('./Runner/Info.plist', short_version)
+    increment_build_number(build_number: number_of_commits)
+    gym(
+      scheme: $gym_scheme,
+      workspace: $gym_workspace,
+      configuration: $gym_config_release,
+      output_directory: $path_dir_fastlane_ipas,
+      output_name: $filename_ipa_default,
+    )
+    log = changelog_from_git_commits(
+      pretty: '- %s (%cn)',
+      include_merges: false
+    )
+    if should_deliver
+      # deliver(ipa: $path_file_ipa_default)
+        pilot(
+            skip_submission: true,
+            skip_waiting_for_build_processing: true
+        )
+    end
+    # set_github_release(
+    #   repository_name: $repository_name,
+    #   api_token: ENV[$env_key_github_token],
+    #   name: ENV[$env_key_current_branch],
+    #   tag_name: ENV[$env_key_current_branch],
+    #   description: log,
+    #   commitish: 'master',
+    #   upload_assets: [$path_file_ipa_default],
+    # )
+  end
+
+  desc "[TEMP] Build & Deliver to Crashlytics Beta"
+  lane :__temp_crashlytics do
+    crashlytics(
+      api_token: ENV[$env_key_fabric_api_token],
+      build_secret: ENV[$env_key_fabric_build_secret],
+      groups: ['ones.ai'],
+      ipa_path: $path_file_ipa_default,
+    )
+  end
+
+  lane :__temp do
+    print_log 'hi'
+  end
+end
+
+
+
+# --- Prints ---
+def print_title_log(title, content)
+  UI.message '📠 ' + title.to_s + ':'
+  print_log content
+end
+
+def print_log(content)
+  UI.message '📠 ' + content.to_s
+end
+
+def print_dir(path)
+  UI.message '📂📂📂 Print Dir 📂📂📂'
+  Dir.chdir(path) do
+      sh('ls -lh')
+  end
+end
+
+def print_header header
+  UI.message "~~~~~~~~~~~~~~~~~~~~~~"
+  UI.message '📍 ' + header.to_s
+  UI.message "~~~~~~~~~~~~~~~~~~~~~~"
+end
+
+# --- Methods ---
+def set_bundle_short_version(plist_path, version_string)
+  print_header "Set Bundle short version"
+  print_log plist_path
+  print_log version_string
+  set_info_plist_value(path: plist_path, key: 'CFBundleShortVersionString', value: version_string)
 end

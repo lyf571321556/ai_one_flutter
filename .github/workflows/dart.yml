@@ -39,4 +39,12 @@ jobs:
         env:
           CURRENT_TAG: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG }}
           CURRENT_BRANCH: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH }}
+          APPCENTER_API_TOKEN_IOS: ${{ secrets.APPCENTER_API_TOKEN_IOS }}
+          APPCENTER_APP_NAME_IOS: ${{ secrets.APPCENTER_APP_NAME_IOS }}
+          APPCENTER_OWNER_NAME: ${{ secrets.APPCENTER_OWNER_NAME }}
+          FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
+          FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          PGY_API_KEY: ${{ secrets.PGY_API_KEY }}
+          PGY_USER_KEY: ${{ secrets.PGY_USER_KEY }}
         run: sh ./ios/build.sh
