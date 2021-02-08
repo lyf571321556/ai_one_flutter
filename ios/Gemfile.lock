@@ -130,6 +130,8 @@ GEM
       xcodeproj (>= 1.13.0, < 2.0.0)
       xcpretty (~> 0.3.0)
       xcpretty-travis-formatter (>= 0.0.3)
+    fastlane-plugin-appcenter (1.11.0)
+    fastlane-plugin-pgyer (0.2.2)
     ffi (1.13.1)
     fourflusher (2.3.1)
     fuzzy_match (2.0.4)
@@ -243,6 +245,8 @@ PLATFORMS
 DEPENDENCIES
   cocoapods
   fastlane
+  fastlane-plugin-appcenter
+  fastlane-plugin-pgyer
   public_suffix (= 2.0.5)
   xcode-install
 
