@@ -11,10 +11,11 @@ mark_last_build_revision() {
     echo "$BUILD_REVISION" > "$LAST_BUILD_REVISION_FILE"
 }
 
+WEB_OUTPUT_FILE="$GITHUB_WORKSPACE/ones-ai-mobile-web-$TRAVIS_TAG.tar.gz"
+
 pkg_to_tarfile() {
     pwd
     echo "start package..."
-    WEB_OUTPUT_FILE="$GITHUB_WORKSPACE/ones-ai-mobile-web-$TRAVIS_TAG.tar.gz"
 #   unzip -o ./build/web/assets/assets/editor_package.zip -d ./build/web/assets/assets/editor_package > /dev/null
     echo $WEB_OUTPUT_FILE
     rm -rf ./build/web/assets/assets/editor_package.zip
@@ -36,13 +37,16 @@ build_mobile_web() {
 git fetch --unshallow
 BUILD_REVISION=`git rev-list HEAD --count`
 
+build_mobile_web
+pkg_to_tarfile
+
 if [[ "${CURRENT_TAG}" =~ v[0-9]+.[0-9]+.[0-9]+ ]]; then
-    echo "start build web for tag $CURRENT_TAG"
-    build_mobile_web
-    pkg_to_tarfile
+    echo "start upload artifact to tag $CURRENT_TAG"
+    echo "upload package $WEB_OUTPUT_FILE ......"
+    echo "finish upload artifact to tag $CURRENT_TAG"
 else
-    echo "start build web for branch $CURRENT_BRANCH"
     build_mobile_web
     pkg_to_tarfile
+    echo "ignore artifact for branch $CURRENT_BRANCH"
 fi
 exit 0
