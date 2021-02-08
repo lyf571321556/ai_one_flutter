@@ -63,7 +63,7 @@ $path_file_ipa_default = File.join($path_dir_fastlane_ipas, $filename_ipa_defaul
 platform :ios do
   before_all do
     print_header '🏁 Before All'
-    xcversion(version: '11.6') # Selects Xcode
+    xcversion(version: '11.2') # Selects Xcode
     sh('pwd')
   end
 
