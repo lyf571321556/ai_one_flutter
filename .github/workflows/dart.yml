@@ -9,8 +9,8 @@ on:
   pull_request:
     branches: []
 env:
-  FLUTTER_VERSION:'1.21.0-9.1.pre'
-  FLUTTER_CHANNEL:'beta'
+  FLUTTER_VERSION: '1.21.0-9.1.pre'
+  FLUTTER_CHANNEL: 'beta'
 jobs:
   web-build-job:
     name: Build for web
