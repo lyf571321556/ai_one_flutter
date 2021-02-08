@@ -53,8 +53,8 @@ jobs:
         id: CURRENT_TAG_OR_TAG
       - uses: subosito/flutter-action@v1
         with:
-          flutter-version: '1.21.0-9.1.pre'
-          channel: 'beta'
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
       - name: build iOS with fastlane
         env:
           CURRENT_TAG: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG }}

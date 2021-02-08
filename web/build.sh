@@ -43,5 +43,6 @@ if [[ "${CURRENT_TAG}" =~ v[0-9]+.[0-9]+.[0-9]+ ]]; then
 else
     echo "start build web for branch $CURRENT_BRANCH"
     build_mobile_web
+    pkg_to_tarfile
 fi
 exit 0
