@@ -29,8 +29,8 @@ jobs:
       - name: init flutter env
         uses: subosito/flutter-action@v1
         with:
-          flutter-version: $FLUTTER_VERSION
-          channel: $FLUTTER_CHANNEL
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
       - name: build web with shell
         env:
           CURRENT_TAG: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG }}
