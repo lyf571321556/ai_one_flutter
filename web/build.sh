@@ -26,8 +26,7 @@ pkg_to_tarfile() {
 
 build_mobile_web() {
     echo "start build..."
-    flutter doctor
-    flutter --version
+    flutter doctor -v
     flutter config --enable-web
     flutter pub get
     flutter build web --release
