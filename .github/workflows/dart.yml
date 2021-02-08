@@ -36,7 +36,7 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: ${{ env.FLUTTER_CHANNEL }}
       - name: Build apk with fastlane
-        run: flutter build apk --release
+        run: flutter build apk --verbose --release
 
   web-build-job:
     name: Build for web
