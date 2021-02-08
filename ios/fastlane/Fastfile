@@ -69,7 +69,8 @@ platform :ios do
 
   desc "Build & Deliver to Crashlytics Beta"
   lane :beta do
-    #提供MATCH_GIT_BASIC_AUTHORIZATION供match命令下载证书使用(https://github.com/settings/tokens/new)
+    #需要提供MATCH_GIT_BASIC_AUTHORIZATION(格式为username:personal access token)供match命令下载证书使用(https://github.com/settings/tokens/new)
+    #需要提供MATCH_PASSWORD供match命令解密证书使用
     match(type: $match_type_adhoc,app_identifier:$adhoc_app_identifier)
     increment_build_number(build_number: number_of_commits)
     gym(
@@ -95,7 +96,8 @@ platform :ios do
 
   desc "Build & Deliver to App Store Connect"
   lane :release do
-    #提供MATCH_GIT_BASIC_AUTHORIZATION供match命令下载证书使用(https://github.com/settings/tokens/new)
+    #需要提供MATCH_GIT_BASIC_AUTHORIZATION(格式为username:personal access token)供match命令下载证书使用(https://github.com/settings/tokens/new)
+    #需要提供MATCH_PASSWORD供match命令解密证书使用
     match(type: $match_type_appstore,app_identifier:$appstore_app_identifier)
     short_version = ENV[$env_key_current_branch]
     if match = short_version.match(/^v(\d+\.\d+\.\d+)$/)
