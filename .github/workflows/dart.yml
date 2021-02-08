@@ -17,7 +17,7 @@ jobs:
       - name: xcode select
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: '11.2.1'
+          xcode-version: '11.6'
       - name: checkout code
         uses: actions/checkout@v2
         with:
