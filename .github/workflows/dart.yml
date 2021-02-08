@@ -8,8 +8,28 @@ on:
       - 'v[0-9]+.[0-9]+.[0-9]+'
   pull_request:
     branches: []
-
+env:
+  FLUTTER_VERSION:'1.21.0-9.1.pre'
+  FLUTTER_CHANNEL:'beta'
 jobs:
+  web-build-job:
+    name: Build for web
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+        with:
+          submodules: false
+      - name: init flutter env
+        users: subosito/flutter-action@v1
+        with:
+          flutter-version: '1.21.0-9.1.pre'
+          channel: 'beta'
+      - name: build web with shell
+        env:
+          CURRENT_TAG: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG }}
+        run: sh ./web/build.sh
+
   ios-build-job:
     name: Build for iOS
     runs-on: macOS-latest
