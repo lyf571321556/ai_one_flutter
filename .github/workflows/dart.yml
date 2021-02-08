@@ -21,7 +21,7 @@ jobs:
         with:
           submodules: false
       - name: init flutter env
-        users: subosito/flutter-action@v1
+        uses: subosito/flutter-action@v1
         with:
           flutter-version: '1.21.0-9.1.pre'
           channel: 'beta'
