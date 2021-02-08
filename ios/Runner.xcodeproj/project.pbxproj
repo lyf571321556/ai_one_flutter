@@ -512,7 +512,7 @@
 			};
 			name = Release;
 		};
-		E0AFB83225CDA4D5005E7EB0 /* Beta */ = {
+		E0AFB83225CDA4D5005E7EB0 /* Release-Beta */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -565,9 +565,9 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = Beta;
+			name = "Release-Beta";
 		};
-		E0AFB83325CDA4D5005E7EB0 /* Beta */ = {
+		E0AFB83325CDA4D5005E7EB0 /* Release-Beta */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9740EEB21CF90195004384FC /* Debug.xcconfig */;
 			buildSettings = {
@@ -597,7 +597,7 @@
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = Beta;
+			name = "Release-Beta";
 		};
 /* End XCBuildConfiguration section */
 
@@ -606,7 +606,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				97C147031CF9000F007C117D /* Debug */,
-				E0AFB83225CDA4D5005E7EB0 /* Beta */,
+				E0AFB83225CDA4D5005E7EB0 /* Release-Beta */,
 				97C147041CF9000F007C117D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -616,7 +616,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				97C147061CF9000F007C117D /* Debug */,
-				E0AFB83325CDA4D5005E7EB0 /* Beta */,
+				E0AFB83325CDA4D5005E7EB0 /* Release-Beta */,
 				97C147071CF9000F007C117D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
