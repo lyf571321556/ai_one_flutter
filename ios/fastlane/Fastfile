@@ -91,7 +91,7 @@ platform :ios do
       api_token:ENV['APPCENTER_API_TOKEN_IOS'],
       app_name:ENV['APPCENTER_APP_NAME_IOS']
      )
-    pgyer(api_key: ENV['PGY_API_KEY'] , user_key:ENV['PGY_USER_KEY'],update_description:log)
+    #pgyer(api_key: ENV['PGY_API_KEY'] , user_key:ENV['PGY_USER_KEY'],update_description:log)
   end
 
   desc "Build & Deliver to App Store Connect"
