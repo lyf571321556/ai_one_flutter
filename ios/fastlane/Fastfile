@@ -32,7 +32,7 @@ $match_type_appstore = 'appstore'
 $gym_scheme = 'Runner'
 $gym_workspace = 'Runner.xcworkspace'
 
-$gym_config_beta = 'Beta'
+$gym_config_beta = 'Release-Beta'
 $gym_config_release = 'Release'
 
 $adhoc_app_identifier = 'ai.ones.project.ios.preview'
