@@ -44,7 +44,7 @@ if [[ "${CURRENT_TAG}" =~ v[0-9]+.[0-9]+.[0-9]+ ]]; then
     echo "start upload artifact to tag $CURRENT_TAG"
     echo "upload package $WEB_OUTPUT_FILE ......"
     echo "finish upload artifact to tag $CURRENT_TAG"
-else
+elif [[ "${CURRENT_BRANCH}" =~ F[0-9]+ ]]; then
     build_mobile_web
     pkg_to_tarfile
     echo "ignore artifact for branch $CURRENT_BRANCH"
