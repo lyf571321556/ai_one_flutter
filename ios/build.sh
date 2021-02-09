@@ -11,7 +11,7 @@ rm -rf ~/Library/MobileDevice/Provisioning\ Profiles*
 
 if [[ "${CURRENT_TAG}" =~ v[0-9]+.[0-9]+.[0-9]+ ]]; then
     sh $GITHUB_WORKSPACE/ios/fastlane/build_release.sh
-else [[ "${TRAVIS_PULL_REQUEST}" =~ F[0-9]+ ]]
+else [[ "${CURRENT_BRANCH}" =~ F[0-9]+ ]]
     sh $GITHUB_WORKSPACE/ios/fastlane/build_beta.sh
 fi
 exit 0
