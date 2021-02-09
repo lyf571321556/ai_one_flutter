@@ -41,7 +41,7 @@ jobs:
 #        if: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG }} =~ v[0-9]+.[0-9]+.[0-9]+
         uses: actions/upload-artifact@v2
         with:
-          name: ones-mobile-${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG }}.apk
+          name: ones-mobile-${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH }}.apk
           path: "./build/app/outputs/flutter-apk/app-release.apk"
 
 #  web-build-job:
