@@ -38,30 +38,30 @@ jobs:
       - name: Build apk with fastlane
         run: flutter build apk --verbose --release
 
-  web-build-job:
-    name: Build for web
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout code
-        uses: actions/checkout@v2
-        with:
-          submodules: false
-      - name: Extract branch or tag name
-        shell: bash
-        run: |
-          echo ::set-output name=SOURCE_BRANCH::${GITHUB_REF#refs/heads/}
-          echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
-        id: CURRENT_TAG_OR_TAG
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v1
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: ${{ env.FLUTTER_CHANNEL }}
-      - name: build web with shell
-        env:
-          CURRENT_TAG: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG }}
-          CURRENT_BRANCH: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH }}
-        run: sh ./web/build.sh
+#  web-build-job:
+#    name: Build for web
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: checkout code
+#        uses: actions/checkout@v2
+#        with:
+#          submodules: false
+#      - name: Extract branch or tag name
+#        shell: bash
+#        run: |
+#          echo ::set-output name=SOURCE_BRANCH::${GITHUB_REF#refs/heads/}
+#          echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
+#        id: CURRENT_TAG_OR_TAG
+#      - name: Setup Flutter
+#        uses: subosito/flutter-action@v1
+#        with:
+#          flutter-version: ${{ env.FLUTTER_VERSION }}
+#          channel: ${{ env.FLUTTER_CHANNEL }}
+#      - name: build web with shell
+#        env:
+#          CURRENT_TAG: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG }}
+#          CURRENT_BRANCH: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH }}
+#        run: sh ./web/build.sh
 
 #  ios-build-job:
 #    name: Build for iOS
