@@ -78,7 +78,19 @@ jobs:
           CURRENT_TAG: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG }}
           CURRENT_BRANCH: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH }}
         run: bash ./web/build.sh
-
+      - name: upload artifact to Actions
+        if: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH }} =~ F[0-9]+
+        uses: actions/upload-artifact@v2
+        with:
+          name: ones-mobile-web-${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH }}.tar.gz
+          path: "ones-ai-mobile-web*.tar.gz"
+      - name: upload artifact to Github Release
+        if: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG }} =~ v[0-9]+.[0-9]+.[0-9]+
+        uses: ncipollo/release-action@v1
+        with:
+          bodyFile: ones-mobile-web-${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG }}.tar.gz
+          artifacts: "ones-ai-mobile-web*.tar.gz"
+          token: ${{ secrets.RELEASE_GITHUB_TOKEN }}
 #  ios-build-job:
 #    name: Build for iOS
 #    runs-on: macOS-latest

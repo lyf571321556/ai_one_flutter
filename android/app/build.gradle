@@ -52,6 +52,55 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    signingConfigs {
+        debug {
+            storeFile file("key/ones_test.jks")
+            storePassword '123456'
+            keyAlias 'ones'
+            keyPassword '123456'
+            v2SigningEnabled false
+
+            ext.betaDistributionReleaseNotesFilePath = ""
+            ext.betaDistributionGroupAliases = "ones.ai"
+            ext.betaDistributionNotifications = true
+        }
+
+        release {
+            storeFile file("key/ones_test.jks")
+            storePassword '123456'
+            keyAlias 'ones'
+            keyPassword '123456'
+//            storeFile file(signingStoreFile)
+//            storePassword signingStorePassword
+//            keyAlias signingKeyAlias
+//            keyPassword signingKeyPassword
+            v2SigningEnabled false
+        }
+    }
+    flavorDimensions "channel"
+
+    productFlavors {
+        dev {
+            dimension "channel"
+            applicationIdSuffix ".dev"
+            versionCode 1
+            versionName "1.0"
+        }
+
+        preview {
+            dimension "channel"
+            applicationIdSuffix ".preview"
+            versionCode 1
+            versionName "1.0"
+        }
+
+        production {
+            dimension "channel"
+            versionCode 1
+            versionName "1.0"
+        }
+    }
 }
 
 flutter {
