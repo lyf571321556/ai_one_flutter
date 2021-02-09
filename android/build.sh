@@ -7,7 +7,7 @@ echo "CURRENT_BRANCH:$CURRENT_BRANCH"
 flutter doctor
 flutter pub get
 
-if  [[ "${CURRENT_TAG}" =~ v[0-9]+.[0-9]+.[0-9]+ ]]; then
+if [[ "${CURRENT_TAG}" =~ v[0-9]+.[0-9]+.[0-9]+ ]]; then
     echo "===Building Android Release==="
     flutter build apk --no-tree-shake-icons --release --flavor production -t lib/main.dart
 else [[ "${CURRENT_BRANCH}" =~ F[0-9]+ ]]
