@@ -35,14 +35,21 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: ${{ env.FLUTTER_CHANNEL }}
-      - name: Build apk with fastlane
-        run: flutter build apk --verbose --release
-      - name: upload artifact to github release
-#        if: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG }} =~ v[0-9]+.[0-9]+.[0-9]+
+      - name: Build apk with shell
+        run: sh ./android/build.sh
+      - name: upload artifact to Actions
+        if: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH }} =~ F[0-9]+
         uses: actions/upload-artifact@v2
         with:
           name: ones-mobile-${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH }}.apk
-          path: "./build/app/outputs/flutter-apk/app-release.apk"
+          path: "./build/app/outputs/apk/preview/release/app-preview-release.apk"
+      - name: upload artifact to Github Release
+        if: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG }} =~ v[0-9]+.[0-9]+.[0-9]+
+        uses: ncipollo/release-action@v1
+        with:
+          bodyFile: ones-mobile-${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG }}.apk
+          artifacts: "./build/app/outputs/apk/release/app-release.apk"
+          token: ${{ secrets.RELEASE_GITHUB_TOKEN }}
 
 #  web-build-job:
 #    name: Build for web
