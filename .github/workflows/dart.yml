@@ -37,6 +37,9 @@ jobs:
           channel: ${{ env.FLUTTER_CHANNEL }}
       - name: Build apk with shell
         run: sh ./android/build.sh
+        env:
+          CURRENT_TAG: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG }}
+          CURRENT_BRANCH: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH }}
       - name: upload artifact to Actions
         if: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH }} =~ F[0-9]+
         uses: actions/upload-artifact@v2
