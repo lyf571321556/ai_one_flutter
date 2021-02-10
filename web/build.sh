@@ -36,9 +36,6 @@ build_mobile_web() {
     echo "finish build..."
 }
 
-build_mobile_web
-pkg_to_tarfile
-
 if [[ "${CURRENT_TAG}" =~ v[0-9]+.[0-9]+.[0-9]+ ]]; then
     WEB_OUTPUT_FILE="$GITHUB_WORKSPACE/ones-ai-mobile-web-$TRAVIS_TAG-$BUILD_REVISION.tar.gz"
     echo "start upload artifact to tag $CURRENT_TAG"
@@ -48,4 +45,6 @@ elif [[ "${CURRENT_BRANCH}" =~ F[0-9]+ ]]; then
     WEB_OUTPUT_FILE="$GITHUB_WORKSPACE/ones-ai-mobile-web-$CURRENT_BRANCH-$BUILD_REVISION.tar.gz"
     echo "ignore artifact for branch $CURRENT_BRANCH"
 fi
+build_mobile_web
+pkg_to_tarfile
 exit 0
