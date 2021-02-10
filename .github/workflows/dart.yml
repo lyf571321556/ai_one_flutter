@@ -50,7 +50,7 @@ jobs:
         if: ${{ startsWith(steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG, 'v') }}
         uses: ncipollo/release-action@v1
         with:
-          bodyFile: ones-mobile-${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG }}.apk
+          name: ones-mobile-${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG }}.apk
           artifacts: "./build/app/outputs/apk/release/app-release.apk"
           token: ${{ secrets.RELEASE_GITHUB_TOKEN }}
 
@@ -88,7 +88,7 @@ jobs:
         if: ${{ startsWith(steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG, 'v') }}
         uses: ncipollo/release-action@v1
         with:
-          bodyFile: ones-mobile-web-${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG }}.tar.gz
+          name: ones-mobile-web-${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG }}.tar.gz
           artifacts: "ones-ai-mobile-web*.tar.gz"
           token: ${{ secrets.RELEASE_GITHUB_TOKEN }}
 #  ios-build-job:
