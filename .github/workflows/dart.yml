@@ -44,15 +44,14 @@ jobs:
         if: ${{ startsWith(steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH, 'F') }}
         uses: actions/upload-artifact@v2
         with:
-          name: ones-mobile-${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH }}.apk
-          path: "./build/app/outputs/apk/preview/release/app-preview-release.apk"
+          path: ones-mobile-*.apk
       - name: Upload artifact to Github Release
         if: ${{ startsWith(steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG, 'v') }}
         uses: ncipollo/release-action@v1
         with:
-          name: ones-mobile-${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG }}.apk
-          artifacts: "./build/app/outputs/apk/release/app-release.apk"
+          artifacts: ones-mobile-*.apk
           token: ${{ secrets.RELEASE_GITHUB_TOKEN }}
+          allowUpdates: true
 
   web-build-job:
     name: Build for web
@@ -82,15 +81,14 @@ jobs:
         if: ${{ startsWith(steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH, 'F') }}
         uses: actions/upload-artifact@v2
         with:
-          name: ones-mobile-web-${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH }}.tar.gz
           path: "ones-ai-mobile-web*.tar.gz"
       - name: Upload artifact to Github Release
         if: ${{ startsWith(steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG, 'v') }}
         uses: ncipollo/release-action@v1
         with:
-          name: ones-mobile-web-${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG }}.tar.gz
           artifacts: "ones-ai-mobile-web*.tar.gz"
           token: ${{ secrets.RELEASE_GITHUB_TOKEN }}
+          allowUpdates: true
 #  ios-build-job:
 #    name: Build for iOS
 #    runs-on: macOS-latest
