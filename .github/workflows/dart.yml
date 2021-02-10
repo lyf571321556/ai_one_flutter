@@ -48,12 +48,12 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ones-mobile-${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH }}.apk
-          path: ones-mobile-*.apk
+          path: ones-ai-mobile*.apk
       - name: Upload artifact to Github Release
         if: ${{ startsWith(steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG, 'v') }}
         uses: ncipollo/release-action@v1
         with:
-          artifacts: ones-mobile-*.apk
+          artifacts: ones-ai-mobile*.apk
           token: ${{ secrets.RELEASE_GITHUB_TOKEN }}
           allowUpdates: true
 
