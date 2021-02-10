@@ -1,11 +1,7 @@
 #!/bin/bash
 set -e
-
-echo "build wordspace:$GITHUB_WORKSPACE"
-echo "CURRENT_TAG:$CURRENT_TAG"
-echo "CURRENT_BRANCH:$CURRENT_BRANCH"
-echo "FLUTTER_VERSION:$FLUTTER_VERSION"
-echo "FLUTTER_CHANNEL:$FLUTTER_CHANNEL"
+echo "Build Env Info:Build FLUTTER_VERSION:$FLUTTER_VERSION,Build FLUTTER_CHANNEL:$FLUTTER_CHANNEL"
+echo "Build Params Info:Build Dir:$GITHUB_WORKSPACE,Build Tag:$CURRENT_TAG,Build Branch:$CURRENT_BRANCH,Build BUILD_REVISION:$BUILD_REVISION"
 mark_last_build_revision() {
     mkdir -p "$LAST_BUILD_DIR"
     echo "$BUILD_REVISION" > "$LAST_BUILD_REVISION_FILE"
@@ -38,13 +34,13 @@ build_mobile_web() {
 
 if [[ "${CURRENT_TAG}" =~ v[0-9]+.[0-9]+.[0-9]+ ]]; then
     WEB_OUTPUT_FILE="$GITHUB_WORKSPACE/ones-ai-mobile-web-$TRAVIS_TAG-$BUILD_REVISION.tar.gz"
-    echo "start upload artifact to tag $CURRENT_TAG"
-    echo "upload package $WEB_OUTPUT_FILE ......"
-    echo "finish upload artifact to tag $CURRENT_TAG"
+    build_mobile_web
+    pkg_to_tarfile
+    echo "finish build and upload for tag $CURRENT_TAG"
 elif [[ "${CURRENT_BRANCH}" =~ F[0-9]+ ]]; then
     WEB_OUTPUT_FILE="$GITHUB_WORKSPACE/ones-ai-mobile-web-$CURRENT_BRANCH-$BUILD_REVISION.tar.gz"
-    echo "ignore artifact for branch $CURRENT_BRANCH"
+    build_mobile_web
+    pkg_to_tarfile
+    echo "finish build and upload for branch $CURRENT_BRANCH"
 fi
-build_mobile_web
-pkg_to_tarfile
 exit 0
