@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e
 
-BUILD_REVISION1=`git rev-list HEAD --count`
 echo "current BUILD_REVISION1:$BUILD_REVISION1"
 echo "Build Env Info:Build FLUTTER_VERSION:$FLUTTER_VERSION,Build FLUTTER_CHANNEL:$FLUTTER_CHANNEL"
 echo "Build Params Info:Build Dir:$GITHUB_WORKSPACE,Build Tag:$CURRENT_TAG,Build Branch:$CURRENT_BRANCH,Build BUILD_REVISION:$BUILD_REVISION"
@@ -9,8 +8,8 @@ mark_last_build_revision() {
     mkdir -p "$LAST_BUILD_DIR"
     echo "$BUILD_REVISION" > "$LAST_BUILD_REVISION_FILE"
 }
-
-git fetch --unshallow
+#获取全部的提交记录
+#git fetch --unshallow
 BUILD_REVISION=`git rev-list HEAD --count`
 
 
