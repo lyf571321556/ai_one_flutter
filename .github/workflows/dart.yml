@@ -56,7 +56,6 @@ jobs:
           artifacts: ones-ai-mobile*.apk
           token: ${{ secrets.RELEASE_GITHUB_TOKEN }}
           allowUpdates: true
-
   web-build-job:
     name: Build for web
     runs-on: ubuntu-latest
@@ -97,37 +96,37 @@ jobs:
           artifacts: "ones-ai-mobile-web*.tar.gz"
           token: ${{ secrets.RELEASE_GITHUB_TOKEN }}
           allowUpdates: true
-#  ios-build-job:
-#    name: Build for iOS
-#    runs-on: macOS-latest
-#    steps:
-#      - name: checkout code
-#        uses: actions/checkout@v2
-#        with:
-#          submodules: false
-#          fetch-depth: 0
-#      - name: Extract branch or tag name
-#        shell: bash
-#        run: |
-#          echo ::set-output name=SOURCE_BRANCH::${GITHUB_REF#refs/heads/}
-#          echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
-#        id: CURRENT_TAG_OR_TAG
-#      - name: Setup Flutter
-#        uses: subosito/flutter-action@v1
-#        with:
-#          flutter-version: ${{ env.FLUTTER_VERSION }}
-#          channel: ${{ env.FLUTTER_CHANNEL }}
-#      - name: build iOS with fastlane
-#        env:
-#          CURRENT_TAG: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG }}
-#          CURRENT_BRANCH: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH }}
-#          APPCENTER_API_TOKEN_IOS: ${{ secrets.APPCENTER_API_TOKEN_IOS }}
-#          APPCENTER_APP_NAME_IOS: ${{ secrets.APPCENTER_APP_NAME_IOS }}
-#          APPCENTER_OWNER_NAME: ${{ secrets.APPCENTER_OWNER_NAME }}
-#          FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
-#          FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
-#          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-#          PGY_API_KEY: ${{ secrets.PGY_API_KEY }}
-#          PGY_USER_KEY: ${{ secrets.PGY_USER_KEY }}
-#          MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
-#        run: sh ./ios/build.sh
+  ios-build-job:
+    name: Build for iOS
+    runs-on: macOS-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+        with:
+          submodules: false
+          fetch-depth: 0
+      - name: Extract branch or tag name
+        shell: bash
+        run: |
+          echo ::set-output name=SOURCE_BRANCH::${GITHUB_REF#refs/heads/}
+          echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
+        id: CURRENT_TAG_OR_TAG
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
+      - name: build iOS with fastlane
+        env:
+          CURRENT_TAG: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG }}
+          CURRENT_BRANCH: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH }}
+          APPCENTER_API_TOKEN_IOS: ${{ secrets.APPCENTER_API_TOKEN_IOS }}
+          APPCENTER_APP_NAME_IOS: ${{ secrets.APPCENTER_APP_NAME_IOS }}
+          APPCENTER_OWNER_NAME: ${{ secrets.APPCENTER_OWNER_NAME }}
+          FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
+          FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          PGY_API_KEY: ${{ secrets.PGY_API_KEY }}
+          PGY_USER_KEY: ${{ secrets.PGY_USER_KEY }}
+          MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
+        run: sh ./ios/build.sh
