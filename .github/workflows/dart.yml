@@ -111,6 +111,7 @@ jobs:
         run: |
           echo ::set-output name=SOURCE_BRANCH::${GITHUB_REF#refs/heads/}
           echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
+          echo ::set-output name=BUILD_REVISION::`git rev-list HEAD --count`
         id: CURRENT_TAG_OR_TAG
       - name: Setup Flutter
         uses: subosito/flutter-action@v1
@@ -130,6 +131,7 @@ jobs:
           PGY_API_KEY: ${{ secrets.PGY_API_KEY }}
           PGY_USER_KEY: ${{ secrets.PGY_USER_KEY }}
           MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
+          BUILD_REVISION: ${{ steps.CURRENT_TAG_OR_TAG.outputs.BUILD_REVISION }}
         run: sh ./ios/build.sh
       - name: Upload artifact to Actions
         if: ${{ startsWith(steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH, 'F') }}
