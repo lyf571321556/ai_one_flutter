@@ -47,7 +47,7 @@ dependencies:
   auto_size:
     git:
       url: git://github.com/flutterchina/auto_size.git
-  connectivity: ^0.4.9 #ios android web
+  connectivity: ^2.0.2 #ios android web
   dio: ^3.0.9 #all
   dio_http_cache: ^0.2.8 # ios android
   json_serializable: ^3.3.0
