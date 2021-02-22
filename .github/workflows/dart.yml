@@ -87,6 +87,8 @@ jobs:
           CURRENT_TAG: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG }}
           CURRENT_BRANCH: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH }}
           BUILD_REVISION: ${{ steps.CURRENT_TAG_OR_TAG.outputs.BUILD_REVISION }}
+          APPCENTER_API_TOKEN_ANDROID: ${{ secrets.APPCENTER_API_TOKEN_ANDROID }}
+          APPCENTER_APP_NAME_ANDROID: ${{ secrets.APPCENTER_APP_NAME_ANDROID }}
         run: bash ./android/build.sh
       - name: Upload artifact to Actions
         if: ${{ startsWith(steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH, 'F') }}
