@@ -51,6 +51,8 @@ platform :android do
     print_log $path_file_release_apk_default
     print_log $path_file_preview_apk_copy
     print_log $path_file_release_apk_copy
+    print_log ENV['APPCENTER_API_TOKEN_ANDROID']
+    print_log ENV['APPCENTER_APP_NAME_ANDROID']
     sh('pwd')
   end
 
