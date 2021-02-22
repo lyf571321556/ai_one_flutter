@@ -14,7 +14,22 @@ $filename_release_apk_default = 'app-production-release.apk'
 $path_dir_build = ENV[$env_key_mobile_root]
 $current_branch = ENV[$env_current_branch]
 $current_tag = ENV[$env_current_tag]
+
 #./build/app/outputs/apk/preview/release/app-preview-release.apk
+
+$path_apk_output_dir = File.join($path_dir_build, 'build/app/outputs/flutter-apk') # {build Dir}/build/app/outputs/flutter-apk
+
+$filename_preview_apk_default = 'app-preview-release.apk'
+$filename_preview_apk_copy = 'ones-ai-mobile-'+$current_branch+'.apk'
+$path_file_preview_apk_default = File.join($path_apk_output_dir, $filename_preview_apk_default) # {build Dir}/build/app/outputs/flutter-apk/{$filename_preview_apk_default}
+$path_file_preview_apk_copy = File.join($path_dir_build, $filename_preview_apk_copy) # {build Dir}/{$filename_preview_apk_copy}
+
+
+$filename_release_apk_default = 'app-production-release.apk'
+$filename_release_apk_copy = 'ones-ai-mobile-'+$current_tag+'.apk'
+$path_file_release_apk_default = File.join($path_apk_output_dir, $filename_release_apk_default) # {build Dir}/build/app/outputs/flutter-apk/{$filename__release_apk_default}
+$path_file_release_apk_copy = File.join($path_dir_build, $filename_release_apk_copy) # {build Dir}/{$filename_release_apk_copy}
+
 
 def print_header header
     UI.message "~~~~~~~~~~~~~~~~~~~~~~"
@@ -32,6 +47,10 @@ platform :android do
     print_header '🏁 Before All'
     print_log $current_branch
     print_log $current_tag
+    print_log $path_file_preview_apk_default
+    print_log $path_file_release_apk_default
+    print_log $path_file_preview_apk_copy
+    print_log $path_file_release_apk_copy
     sh('pwd')
   end
 
@@ -49,7 +68,7 @@ platform :android do
       sh('flutter', 'clean')
       sh('pwd')
       sh("flutter", "build", "apk", "--verbose", "--no-tree-shake-icons", "--release", "--flavor", "preview", "-t", "lib/main.dart", "--dart-define=username=wuxingjuan@ones.ai", "--dart-define=password=juan1997", "--dart-define=isdev=true", "--dart-define=projectServerUrl=https://devapi.myones.net/project/F8032", "--dart-define=wikiServerUrl=https://dev.myones.net/wiki/F8032", "--build-number=#{build_number}")
-      #sh('cp','$path_dir_build/build/app/outputs/flutter-apk/app-production-release.apk','$path_dir_build/ones-ai-mobile-$current_branch.apk')
+      sh('cp',$path_file_preview_apk_default,$path_file_preview_apk_copy)
     end
     log = changelog_from_git_commits(
       pretty: '- %s (%cn)',
@@ -57,7 +76,7 @@ platform :android do
     )
     appcenter_upload(
       release_notes:log,
-      file:'$path_dir_build/ones-ai-mobile-$current_branch.apk',
+      file:$path_file_preview_apk_copy,
       notify_testers:true,
       api_token:ENV['APPCENTER_API_TOKEN_ANDROID'],
       app_name:ENV['APPCENTER_APP_NAME_ANDROID']
