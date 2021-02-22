@@ -16,7 +16,6 @@ $current_branch = ENV[$env_current_branch]
 $current_tag = ENV[$env_current_tag]
 #./build/app/outputs/apk/preview/release/app-preview-release.apk
 
-$CURRENT_BRANCH = ENV[$env_key_mobile_root]
 def print_header header
     UI.message "~~~~~~~~~~~~~~~~~~~~~~"
     UI.message '📍 ' + header.to_s
