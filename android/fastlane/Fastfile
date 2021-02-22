@@ -54,7 +54,6 @@ platform :android do
     print_log ENV['APPCENTER_API_TOKEN_ANDROID']
     print_log ENV['APPCENTER_APP_NAME_ANDROID']
     Dir.chdir "../.." do
-        sh('flutter', 'pub', 'get')
         sh('flutter', 'clean')
         sh('pwd')
     end

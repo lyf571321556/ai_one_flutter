@@ -3,6 +3,7 @@ echo "Build Env Info:Build FLUTTER_VERSION:$FLUTTER_VERSION,Build FLUTTER_CHANNE
 echo "Build Params Info:Build Dir:$GITHUB_WORKSPACE,Build Tag:$CURRENT_TAG,Build Branch:$CURRENT_BRANCH,Build BUILD_REVISION:$BUILD_REVISION"
 
 bundle install --gemfile ios/Gemfile
+flutter pub get
 cd $GITHUB_WORKSPACE/ios
 bundle exec pod install --repo-update
 
