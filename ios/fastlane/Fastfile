@@ -39,6 +39,8 @@ $adhoc_app_identifier = 'ai.ones.project.ios.preview'
 $appstore_app_identifier = 'ai.ones.project.ios'
 
 $env_key_mobile_root = 'GITHUB_WORKSPACE'
+$env_current_branch = 'CURRENT_BRANCH'
+$env_current_tag = 'CURRENT_TAG'
 $env_key_current_commit = 'CURRENT_COMMIT'
 $env_key_current_branch = 'CURRENT_BRANCH'
 $env_key_github_token = 'GITHUB_OAUTH_TOKEN'
@@ -48,27 +50,36 @@ $env_key_fabric_api_token = 'FABRIC_API_TOKEN'
 $env_key_fabric_build_secret = 'FABRIC_BUILD_SECRET'
 $env_key_fastlane_match_basic_auth = 'MATCH_GIT_BASIC_AUTHORIZATION'
 
-$filename_ipa_default = 'ones_mobile.ipa'
-
 $path_dir_build = ENV[$env_key_mobile_root]
+$current_branch = ENV[$env_current_branch]
+$current_tag = ENV[$env_current_tag]
+
+$filename_ipa_default = 'ones_mobile.ipa'
+$filename_beta_ipa_copy = 'ones-ai-mobile-'+$current_branch+'.ipa'
+$filename_release_ipa_copy = 'ones-ai-mobile-'+$current_tag+'.ipa'
+
 $path_dir_ios = File.join($path_dir_build, 'ios') # {build Dir}/ios
 $path_dir_fastlane = File.join($path_dir_ios, 'fastlane') # {build Dir}/ios/fastlane
 $path_dir_fastlane_ipas = File.join($path_dir_fastlane, 'ipas') # {build Dir}/ios/fastlane/ipas
 $path_dir_fastlane_profiles = File.join($path_dir_fastlane, 'profiles') # {build Dir}/ios/fastlane/profiles
 $path_file_ipa_default = File.join($path_dir_fastlane_ipas, $filename_ipa_default) # {build Dir}/ios/fastlane/ipas/{filename_ipa_default}
-
-
-
+$path_file_beta_ipa_copy = File.join($path_dir_build, $filename_beta_ipa_copy) # {build Dir}/ios/fastlane/ipas/{filename_ipa_default}
+$path_file_release_ipa_copy = File.join($path_dir_build, $filename_release_ipa_copy) # {build Dir}/ios/fastlane/ipas/{filename_ipa_default}
 # --- Lanes ---
 platform :ios do
   before_all do
     print_header '🏁 Before All'
     xcversion(version: '11.6') # Selects Xcode
-    sh('pwd')
   end
 
   desc "Build & Deliver to Crashlytics Beta"
   lane :beta do
+    build_number = number_of_commits()
+    print_log "Build Commits #{build_number}"
+    Dir.chdir "../.." do
+        # "--verbose",
+        sh("flutter", "build", "ios", "--no-tree-shake-icons", "--no-codesign", "--release", "--flavor", "Beta", "-t", "lib/main.dart", "--dart-define=username=wuxingjuan@ones.ai", "--dart-define=password=juan1997", "--dart-define=isdev=true", "--dart-define=projectServerUrl=https://devapi.myones.net/project/F8032", "--dart-define=wikiServerUrl=https://dev.myones.net/wiki/F8032", "--build-number=#{build_number}")
+    end
     #需要提供MATCH_GIT_BASIC_AUTHORIZATION(格式为Base64.encode64("<Github username>:<Github Personal Access Token>"))供match命令下载证书使用(https://github.com/settings/tokens/new)
     #需要提供MATCH_PASSWORD供match命令解密证书使用
     match(type: $match_type_adhoc,app_identifier:$adhoc_app_identifier)
@@ -80,23 +91,22 @@ platform :ios do
       output_directory: $path_dir_fastlane_ipas,
       output_name: $filename_ipa_default,
     )
+    sh('cp',$path_file_ipa_default,$path_file_beta_ipa_copy)
     log = changelog_from_git_commits(
       pretty: '- %s (%cn)',
       include_merges: false
     )
-    appcenter_upload(
-      release_notes:log,
-      file:$path_file_ipa_default,
-      notify_testers:true,
-      api_token:ENV['APPCENTER_API_TOKEN_IOS'],
-      app_name:ENV['APPCENTER_APP_NAME_IOS'],
-      owner_name:ENV['APPCENTER_OWNER_NAME']
-     )
     #pgyer(api_key: ENV['PGY_API_KEY'] , user_key:ENV['PGY_USER_KEY'],update_description:log)
   end
 
   desc "Build & Deliver to App Store Connect"
   lane :release do
+    build_number = number_of_commits()
+    print_log "Build Commits #{build_number}"
+    Dir.chdir "../.." do
+        # "--verbose",
+        sh("flutter", "build", "ios", "--no-tree-shake-icons", "--no-codesign", "--release", "--flavor", "Beta", "-t", "lib/main.dart", "--build-number=#{build_number}")
+    end
     #需要提供MATCH_GIT_BASIC_AUTHORIZATION(格式为Base64.encode64("<Github username>:<Github Personal Access Token>"))供match命令下载证书使用(https://github.com/settings/tokens/new)
     #需要提供MATCH_PASSWORD供match命令解密证书使用
     match(type: $match_type_appstore,app_identifier:$appstore_app_identifier)
@@ -119,6 +129,7 @@ platform :ios do
       output_directory: $path_dir_fastlane_ipas,
       output_name: $filename_ipa_default,
     )
+    sh('cp',$path_file_ipa_default,$path_file_release_ipa_copy)
     log = changelog_from_git_commits(
       pretty: '- %s (%cn)',
       include_merges: false
