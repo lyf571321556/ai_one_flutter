@@ -16,6 +16,8 @@ $path_dir_build = ENV[$env_key_mobile_root]
 platform :android do
   before_all do
     print_header '🏁 Before All'
+    print_log '$CURRENT_BRANCH'
+    print_log '$CURRENT_BRANCH'
     sh('pwd')
   end
 
@@ -49,12 +51,5 @@ platform :android do
     log = changelog_from_git_commits(
       pretty: '- %s (%cn)',
       include_merges: false
-    )
-    appcenter_upload(
-      release_notes:log,
-      file:$path_file_ipa_default,
-      notify_testers:true,
-      api_token:ENV['APPCENTER_API_TOKEN_IOS'],
-      app_name:ENV['APPCENTER_APP_NAME_IOS']
     )
   end
