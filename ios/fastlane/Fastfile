@@ -89,7 +89,8 @@ platform :ios do
       file:$path_file_ipa_default,
       notify_testers:true,
       api_token:ENV['APPCENTER_API_TOKEN_IOS'],
-      app_name:ENV['APPCENTER_APP_NAME_IOS']
+      app_name:ENV['APPCENTER_APP_NAME_IOS'],
+      owner_name:ENV['APPCENTER_OWNER_NAME']
      )
     #pgyer(api_key: ENV['PGY_API_KEY'] , user_key:ENV['PGY_USER_KEY'],update_description:log)
   end

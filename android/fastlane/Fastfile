@@ -77,7 +77,8 @@ platform :android do
       file:$path_file_preview_apk_copy,
       notify_testers:true,
       api_token:ENV['APPCENTER_API_TOKEN_ANDROID'],
-      app_name:ENV['APPCENTER_APP_NAME_ANDROID']
+      app_name:ENV['APPCENTER_APP_NAME_ANDROID'],
+      owner_name:ENV['APPCENTER_OWNER_NAME']
     )
   end
 
