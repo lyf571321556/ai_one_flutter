@@ -34,7 +34,7 @@ platform :android do
   desc 'Build & upload to Appcenter Beta'
   lane :beta do
     build_number = number_of_commits()
-    print_log 'Build Commits '+ build_number
+    print_log 'Build Commits #{build_number}'
     # Dir.chdir "../.." do
     sh('flutter', 'pub', 'get')
     sh('flutter', 'clean')
@@ -57,7 +57,7 @@ platform :android do
   desc "Build & upload to  Release"
   lane :release do
     build_number = number_of_commits()
-    print_log 'Build Commits '+ build_number
+    print_log 'Build Commits #{build_number}'
     log = changelog_from_git_commits(
       pretty: '- %s (%cn)',
       include_merges: false
