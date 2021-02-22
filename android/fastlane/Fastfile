@@ -72,6 +72,14 @@ platform :android do
       pretty: '- %s (%cn)',
       include_merges: false
     )
+    appcenter_upload(
+      release_notes:log,
+      file:$path_file_preview_apk_copy,
+      notify_testers:true,
+      api_token:ENV['APPCENTER_API_TOKEN_ANDROID'],
+      app_name:ENV['APPCENTER_APP_NAME_ANDROID'],
+      owner_name:ENV['APPCENTER_OWNER_NAME']
+    )
   end
 
   desc "Build & upload to Release"

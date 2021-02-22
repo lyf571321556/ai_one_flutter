@@ -12,46 +12,46 @@ env:
   FLUTTER_VERSION: '1.21.0-9.1.pre'
   FLUTTER_CHANNEL: 'beta'
 jobs:
-#  web-build-job:
-#    name: Build for web
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v2
-#        with:
-#          submodules: false
-#          fetch-depth: 0
-#      - name: Extract branch or tag name
-#        shell: bash
-#        run: |
-#          echo ::set-output name=SOURCE_BRANCH::${GITHUB_REF#refs/heads/}
-#          echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
-#          echo ::set-output name=BUILD_REVISION::`git rev-list HEAD --count`
-#        id: CURRENT_TAG_OR_TAG
-#      - name: Setup Flutter
-#        uses: subosito/flutter-action@v1
-#        with:
-#          flutter-version: ${{ env.FLUTTER_VERSION }}
-#          channel: ${{ env.FLUTTER_CHANNEL }}
-#      - name: Build web with shell
-#        env:
-#          CURRENT_TAG: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG }}
-#          CURRENT_BRANCH: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH }}
-#          BUILD_REVISION: ${{ steps.CURRENT_TAG_OR_TAG.outputs.BUILD_REVISION }}
-#        run: bash ./web/build.sh
-#      - name: Upload artifact to Actions
-#        if: ${{ startsWith(steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH, 'F') }}
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: ones-mobile-web-${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH }}.tar.gz
-#          path: "ones-ai-mobile-web*.tar.gz"
-#      - name: Upload artifact to Github Release
-#        if: ${{ startsWith(steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG, 'v') }}
-#        uses: ncipollo/release-action@v1
-#        with:
-#          artifacts: "ones-ai-mobile-web*.tar.gz"
-#          token: ${{ secrets.RELEASE_GITHUB_TOKEN }}
-#          allowUpdates: true
+  web-build-job:
+    name: Build for web
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          submodules: false
+          fetch-depth: 0
+      - name: Extract branch or tag name
+        shell: bash
+        run: |
+          echo ::set-output name=SOURCE_BRANCH::${GITHUB_REF#refs/heads/}
+          echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
+          echo ::set-output name=BUILD_REVISION::`git rev-list HEAD --count`
+        id: CURRENT_TAG_OR_TAG
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
+      - name: Build web with shell
+        env:
+          CURRENT_TAG: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG }}
+          CURRENT_BRANCH: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH }}
+          BUILD_REVISION: ${{ steps.CURRENT_TAG_OR_TAG.outputs.BUILD_REVISION }}
+        run: bash ./web/build.sh
+      - name: Upload artifact to Actions
+        if: ${{ startsWith(steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH, 'F') }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: ones-mobile-web-${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH }}.tar.gz
+          path: "ones-ai-mobile-web*.tar.gz"
+      - name: Upload artifact to Github Release
+        if: ${{ startsWith(steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG, 'v') }}
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "ones-ai-mobile-web*.tar.gz"
+          token: ${{ secrets.RELEASE_GITHUB_TOKEN }}
+          allowUpdates: true
 
   android-build-job:
     name: Build for android
@@ -82,7 +82,7 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: ${{ env.FLUTTER_CHANNEL }}
-      - name: Build apk with shell
+      - name: build android with fastlane
         env:
           CURRENT_TAG: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_TAG }}
           CURRENT_BRANCH: ${{ steps.CURRENT_TAG_OR_TAG.outputs.SOURCE_BRANCH }}
