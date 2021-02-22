@@ -53,3 +53,4 @@ platform :android do
       include_merges: false
     )
   end
+end
