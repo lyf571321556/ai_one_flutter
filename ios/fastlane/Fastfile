@@ -78,6 +78,7 @@ platform :ios do
     print_log "Build Commits #{build_number}"
     Dir.chdir "../.." do
         # "--verbose",
+        # 构建flutter代码和资源，必须自定义一个new_scheme,以及对应的build configuration（Release-new_scheme_name）,不然会报错(The Xcode project does not define custom schemes. You cannot use the --flavor option.)
         sh("flutter", "build", "ios", "--no-tree-shake-icons", "--no-codesign", "--release", "--flavor", "Beta", "-t", "lib/main.dart", "--dart-define=username=wuxingjuan@ones.ai", "--dart-define=password=juan1997", "--dart-define=isdev=true", "--dart-define=projectServerUrl=https://devapi.myones.net/project/F8032", "--dart-define=wikiServerUrl=https://dev.myones.net/wiki/F8032", "--build-number=#{build_number}")
     end
     #需要提供MATCH_GIT_BASIC_AUTHORIZATION(格式为Base64.encode64("<Github username>:<Github Personal Access Token>"))供match命令下载证书使用(https://github.com/settings/tokens/new)
@@ -113,6 +114,7 @@ platform :ios do
     print_log "Build Commits #{build_number}"
     Dir.chdir "../.." do
         # "--verbose",
+        # 构建flutter代码和资源，必须自定义一个new_scheme,以及对应的build configuration（Release-new_scheme_name）,不然会报错(The Xcode project does not define custom schemes. You cannot use the --flavor option.)
         sh("flutter", "build", "ios", "--no-tree-shake-icons", "--no-codesign", "--release", "--flavor", "Beta", "-t", "lib/main.dart", "--build-number=#{build_number}")
     end
     #需要提供MATCH_GIT_BASIC_AUTHORIZATION(格式为Base64.encode64("<Github username>:<Github Personal Access Token>"))供match命令下载证书使用(https://github.com/settings/tokens/new)
