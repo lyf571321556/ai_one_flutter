@@ -12,6 +12,16 @@ $filename_release_apk_default = 'app-production-release.apk'
 $path_dir_build = ENV[$env_key_mobile_root]
 #./build/app/outputs/apk/preview/release/app-preview-release.apk
 
+def print_header header
+    UI.message "~~~~~~~~~~~~~~~~~~~~~~"
+    UI.message '📍 ' + header.to_s
+    UI.message "~~~~~~~~~~~~~~~~~~~~~~"
+end
+
+def print_log(content)
+    UI.message '📠 ' + content.to_s
+end
+
 # --- Lanes ---
 platform :android do
   before_all do
