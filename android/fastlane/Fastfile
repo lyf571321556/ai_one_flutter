@@ -40,6 +40,7 @@ platform :android do
     build_number = number_of_commits()
     print_log build_number
     print_log "Build Commits #{build_number}"
+    print_log "Path build dir: ${path_dir_build}"
     Dir.chdir "../.." do
       sh('flutter', 'pub', 'get')
       sh('flutter', 'clean')
