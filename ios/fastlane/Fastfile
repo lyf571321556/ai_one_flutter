@@ -120,12 +120,12 @@ platform :ios do
     #需要提供MATCH_GIT_BASIC_AUTHORIZATION(格式为Base64.encode64("<Github username>:<Github Personal Access Token>"))供match命令下载证书使用(https://github.com/settings/tokens/new)
     #需要提供MATCH_PASSWORD供match命令解密证书使用
     match(type: $match_type_appstore,app_identifier:$appstore_app_identifier)
-    short_version = ENV[$env_key_current_branch]
+    short_version = ENV[$env_current_tag]
     if match = short_version.match(/^v(\d+\.\d+\.\d+)$/)
-        should_deliver = true
+        should_pilot = true
         short_version = match.captures[0]
     else
-        should_deliver = false
+        should_pilot = false
         if match = short_version.match(/^v(\d+\.\d+\.\d+)/)
             short_version = match.captures[0]
         end
@@ -140,12 +140,11 @@ platform :ios do
       output_name: $filename_ipa_default,
     )
     sh('cp',$path_file_ipa_default,$path_file_release_ipa_copy)
-    log = changelog_from_git_commits(
-      pretty: '- %s (%cn)',
-      include_merges: false
-    )
-    if should_deliver
-      # deliver(ipa: $path_file_ipa_default)
+    # log = changelog_from_git_commits(
+    #  pretty: '- %s (%cn)',
+    #  include_merges: false
+    # )
+    if should_pilot
         pilot(
             skip_submission: true,
             skip_waiting_for_build_processing: true
