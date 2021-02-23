@@ -38,7 +38,7 @@ if [[ "${CURRENT_TAG}" =~ v[0-9]+.[0-9]+.[0-9]+ ]]; then
     build_mobile_web
     pkg_to_tarfile
     echo "finish build and upload for tag $CURRENT_TAG"
-elif [[ "${CURRENT_BRANCH}" =~ F[0-9]+ ]]; then
+elif [[ "${CURRENT_BRANCH}" =~ F[0-9]+ ]] || [ "${CURRENT_BRANCH}" == "flutter_beta_migration" ]; then
     WEB_OUTPUT_FILE="$GITHUB_WORKSPACE/ones-ai-mobile-web-$CURRENT_BRANCH.tar.gz"
     build_mobile_web
     pkg_to_tarfile
