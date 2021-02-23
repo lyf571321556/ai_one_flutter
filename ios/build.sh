@@ -5,6 +5,8 @@ echo "Build Params Info:Build Dir:$GITHUB_WORKSPACE,Build Tag:$CURRENT_TAG,Build
 bundle install --gemfile ios/Gemfile
 flutter pub get
 cd $GITHUB_WORKSPACE/ios
+# 解决Flutter.xcframework must exist. If you're running pod install manually, make sure flutter build ios is executed first
+flutter precache --ios
 bundle exec pod install --repo-update
 
 rm -rf ~/Library/MobileDevice/Provisioning\ Profiles*
