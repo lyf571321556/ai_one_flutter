@@ -49,6 +49,8 @@ $env_key_leancloud_appkey = 'LEANCLOUD_APP_KEY'
 $env_key_fabric_api_token = 'FABRIC_API_TOKEN'
 $env_key_fabric_build_secret = 'FABRIC_BUILD_SECRET'
 $env_key_fastlane_match_basic_auth = 'MATCH_GIT_BASIC_AUTHORIZATION'
+# fastlane打包上传ipa到app-store-connect需要使用最新授权方式(https://docs.fastlane.tools/app-store-connect-api/)
+$env_key_fastlane_apple_auth_key = 'APPLE_AUTH_KEY'
 
 $path_dir_build = ENV[$env_key_mobile_root]
 $current_branch = ENV[$env_current_branch]
@@ -57,6 +59,7 @@ $current_tag = ENV[$env_current_tag]
 $filename_ipa_default = 'ones_mobile.ipa'
 $filename_beta_ipa_copy = 'ones-ai-mobile-'+$current_branch+'.ipa'
 $filename_release_ipa_copy = 'ones-ai-mobile-'+$current_tag+'.ipa'
+$filename_apple_auth = 'apple_auth.json'
 
 $path_dir_ios = File.join($path_dir_build, 'ios') # {build Dir}/ios
 $path_dir_fastlane = File.join($path_dir_ios, 'fastlane') # {build Dir}/ios/fastlane
@@ -65,6 +68,7 @@ $path_dir_fastlane_profiles = File.join($path_dir_fastlane, 'profiles') # {build
 $path_file_ipa_default = File.join($path_dir_fastlane_ipas, $filename_ipa_default) # {build Dir}/ios/fastlane/ipas/{filename_ipa_default}
 $path_file_beta_ipa_copy = File.join($path_dir_build, $filename_beta_ipa_copy) # {build Dir}/ios/fastlane/ipas/{filename_ipa_default}
 $path_file_release_ipa_copy = File.join($path_dir_build, $filename_release_ipa_copy) # {build Dir}/ios/fastlane/ipas/{filename_ipa_default}
+$path_file_apple_auth = File.join($path_dir_ios, $filename_apple_auth) # {build Dir}/ios/$filename_apple_auth
 # --- Lanes ---
 platform :ios do
   before_all do
@@ -145,9 +149,13 @@ platform :ios do
     #  include_merges: false
     # )
     if should_pilot
+        File.open($path_file_apple_auth, "w") do |file|
+            file.write(JSON.pretty_generate(ENV[$env_key_fastlane_apple_auth_key]))
+        end
         pilot(
             skip_submission: true,
-            skip_waiting_for_build_processing: true
+            skip_waiting_for_build_processing: true,
+            api_key_path: $path_file_apple_auth
         )
     end
     # set_github_release(
