@@ -154,6 +154,7 @@ platform :ios do
         end
         Dir.chdir($path_dir_ios) do
             sh('ls -lh')
+            sh('cat',$path_file_apple_auth)
         end
         pilot(
             skip_submission: true,
