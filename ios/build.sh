@@ -9,7 +9,8 @@ cd $GITHUB_WORKSPACE/ios
 # 解决Flutter.xcframework must exist. If you're running pod install manually, make sure flutter build ios is executed first
 flutter precache --ios
 bundle exec pod install --repo-update
-
+echo "===Fastlane env output==="
+bundle exec fastlane env
 rm -rf ~/Library/MobileDevice/Provisioning\ Profiles*
 
 if [[ "${CURRENT_TAG}" =~ v[0-9]+.[0-9]+.[0-9]+ ]]; then
