@@ -152,7 +152,9 @@ platform :ios do
         File.open($path_file_apple_auth, "w") do |file|
             file.write(JSON.pretty_generate(ENV[$env_key_fastlane_apple_auth_key]))
         end
-        sh('ls -l',$path_dir_ios)
+        Dir.chdir($path_dir_ios) do
+            sh('ls -lh')
+        end
         pilot(
             skip_submission: true,
             skip_waiting_for_build_processing: true,
