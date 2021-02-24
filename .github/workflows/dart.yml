@@ -138,6 +138,7 @@ jobs:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           PGY_API_KEY: ${{ secrets.PGY_API_KEY }}
           PGY_USER_KEY: ${{ secrets.PGY_USER_KEY }}
+          APPLE_AUTH_KEY: ${{ secrets.APPLE_AUTH_KEY }}
           MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
           BUILD_REVISION: ${{ steps.CURRENT_TAG_OR_TAG.outputs.BUILD_REVISION }}
         run: sh ./ios/build.sh
