@@ -30,7 +30,7 @@ class BlocListProviderWidget<T extends BlocListBase> extends StatefulWidget {
   static T of<T extends BlocListBase>(BuildContext context) {
     final type = _typeOf<BlocListProviderWidget<T>>();
     BlocListProviderWidget<T> provider =
-        context.ancestorWidgetOfExactType(type);
+        context.findAncestorWidgetOfExactType();
     return provider.bloc;
   }
 

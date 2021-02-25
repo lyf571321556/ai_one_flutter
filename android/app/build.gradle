@@ -88,21 +88,15 @@ android {
         dev {
             dimension "channel"
             applicationIdSuffix ".dev"
-            versionCode 1
-            versionName "1.0"
         }
 
         preview {
             dimension "channel"
             applicationIdSuffix ".preview"
-            versionCode 1
-            versionName "1.0"
         }
 
         production {
             dimension "channel"
-            versionCode 1
-            versionName "1.0"
         }
     }
 }

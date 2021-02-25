@@ -97,7 +97,7 @@ class _HomePageContentState extends State<HomePage>
         tag: Config.LOGIN_HERO_TAG,
         child: Scaffold(
           appBar: PreferredSize(
-            child: MyAppBar(
+            child: AppBar(
               elevation: 1,
               leading: Config.runInWeb
                   ? Image.network(
