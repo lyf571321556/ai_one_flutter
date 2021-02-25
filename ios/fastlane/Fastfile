@@ -153,14 +153,14 @@ platform :ios do
     # )
     if should_pilot
         File.open($path_file_apple_auth_json, "w") do |file|
-            file.write(JSON.pretty_generate(ENV[$env_key_fastlane_apple_auth_key]))
+            file.write(JSON.pretty_generate("#{ENV[$env_key_fastlane_apple_auth_key]}").gsub('\n', '\\n'))
         end
         Dir.chdir($path_dir_ios) do
             sh('ls -lh')
             sh('cat',$path_file_apple_auth_json)
         end
         File.open($path_file_apple_auth_p8, "w") do |file|
-            file.write(JSON.pretty_generate(ENV[$env_key_fastlane_apple_auth_p8_key]))
+            file.write(JSON.pretty_generate("#{ENV[$env_key_fastlane_apple_auth_p8_key]}".gsub('\n', '\\n')))
         end
         Dir.chdir($path_dir_ios) do
             sh('ls -lh')
