@@ -167,12 +167,10 @@ platform :ios do
             sh('ls -lh')
             sh('cat',$path_file_apple_auth_p8)
         end
-        # key_filepath: $path_file_apple_auth_p8,
         api_key = app_store_connect_api_key(
             key_id: "YU2873TJJ5",
             issuer_id: "69a6de89-d0ae-47e3-e053-5b8c7c11a4d1",
-            key_content: "#{ENV[$env_key_fastlane_apple_auth_p8_key]}",
-            is_key_content_base64: false,
+            key_filepath: $path_file_apple_auth_p8,
             duration: 1200,
             in_house: false
         )
