@@ -50,8 +50,11 @@ $env_key_fabric_api_token = 'FABRIC_API_TOKEN'
 $env_key_fabric_build_secret = 'FABRIC_BUILD_SECRET'
 $env_key_fastlane_match_basic_auth = 'MATCH_GIT_BASIC_AUTHORIZATION'
 # fastlane打包上传ipa到app-store-connect需要使用最新授权方式(https://docs.fastlane.tools/app-store-connect-api/)
+# 使用JSON file，然后配合action的api_key_path参数方式授权
 $env_key_fastlane_apple_auth_json_key = 'APPLE_AUTH_JSON_KEY'
+# 使用.p8文件（将文件原始内容注入CI然后在到p8文件）,然后配合action app_store_connect_api_key key_filepath方式授权
 $env_key_fastlane_apple_auth_p8_key = 'APPLE_AUTH_P8_KEY'
+# 使用.p8文件内容（将文件原始内容base64加密注入CI）,然后配合app_store_connect_api_key key_content和is_key_content_base64=true;方式授权
 $env_key_fastlane_apple_auth_p8_base64_key = 'APPLE_AUTH_P8_BASE64_KEY'
 
 $path_dir_build = ENV[$env_key_mobile_root]
@@ -154,14 +157,14 @@ platform :ios do
     # )
     if should_pilot
         File.open($path_file_apple_auth_json, "w") do |file|
-            file.write(JSON.pretty_generate("#{ENV[$env_key_fastlane_apple_auth_json_key]}").gsub('\n', '\\n'))
+            file.write(JSON.pretty_generate("#{ENV[$env_key_fastlane_apple_auth_json_key]}"))
         end
         Dir.chdir($path_dir_ios) do
             sh('ls -lh')
             sh('cat',$path_file_apple_auth_json)
         end
         File.open($path_file_apple_auth_p8, "w") do |file|
-            file.write(JSON.pretty_generate("#{ENV[$env_key_fastlane_apple_auth_p8_key]}".gsub('\n', '\\n')))
+            file.write(JSON.pretty_generate("#{ENV[$env_key_fastlane_apple_auth_p8_key]}"))
         end
         Dir.chdir($path_dir_ios) do
             sh('ls -lh')
