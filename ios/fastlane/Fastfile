@@ -48,6 +48,7 @@ $env_key_leancloud_appid = 'LEANCLOUD_APP_ID'
 $env_key_leancloud_appkey = 'LEANCLOUD_APP_KEY'
 $env_key_fabric_api_token = 'FABRIC_API_TOKEN'
 $env_key_fabric_build_secret = 'FABRIC_BUILD_SECRET'
+# match证书管理用到的auth key，格式为Base64.encode64("<Github username>:<Github Personal Access Token>")
 $env_key_fastlane_match_basic_auth = 'MATCH_GIT_BASIC_AUTHORIZATION'
 # fastlane打包上传ipa到app-store-connect需要使用最新授权方式(https://docs.fastlane.tools/app-store-connect-api/)
 $env_key_fastlane_apple_auth_json_key = 'APPLE_AUTH_JSON_KEY'
