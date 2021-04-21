@@ -49,7 +49,7 @@ dependencies:
       url: git://github.com/flutterchina/auto_size.git
   connectivity: ^0.4.9 #ios android web
   dio: ^3.0.9 #all
-  dio_http_cache: ^0.2.8 # ios android
+#  dio_http_cache: ^0.2.8 # ios android
   json_serializable: ^3.3.0
   pretty_dio_logger: ^1.1.1
   #https://pub.dev/packages/pull_to_refresh#-readme-tab-
@@ -67,14 +67,14 @@ dependencies:
   bloc: ^4.0.0
   flutter_bloc: ^4.0.0
   # Database for mobile and Desktop
-  moor: ^3.3.0
-  moor_ffi: ^0.8.0
+  moor: ^4.2.1
+#  moor_ffi: ^0.8.0
   # Helper to find the database path on mobile
   path_provider: ^1.6.10
   path: ^1.7.0
 dev_dependencies:
   # databse moor
-  moor_generator: ^3.1.0
+#  moor_generator: ^3.1.0
   #  json_model: #latest version
   build_runner: ^1.6.7 # use the latest version
   #  json_serializable: ^3.3.0
